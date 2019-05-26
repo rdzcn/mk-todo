@@ -1,4 +1,5 @@
 import React from 'react'
+import AddEditForm from './AddEditForm';
 
 class App extends React.Component {
   state = {
@@ -12,13 +13,7 @@ class App extends React.Component {
     })
   }
 
-  handleSubmit = event => {
-    event.preventDefault()
-    const newTodo = {
-      title: this.state.title,
-      id: Date.now(),
-      completed: false
-    }
+  handleSubmit = newTodo => {
     this.setState({
       todos: this.state.todos.concat(newTodo),
       title: ''
@@ -28,10 +23,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <form onSubmit={this.handleSubmit} >
-          <input type="text" name="title" value={this.state.title} onChange={this.handleChange} />
-          <button type="submit">Add a todo</button>
-        </form>
+        <AddEditForm handleChange={this.handleChange} title={this.state.title} titleChange={this.handleChange} addTodo={this.handleSubmit} />
       </div>
     );
   }
