@@ -43,11 +43,23 @@ class App extends React.Component {
 
   handleEdit = event => {
     const { todos } = this.state;
-    todos[event.target.name].editable = true;
+    if (!this.state.isEditing) {
+      todos[event.target.name].editable = !todos[event.target.name].editable;
+      this.setState({
+        isEditing: true,
+        indexEditing: event.target.name,
+        todos
+      });
+    }
+  };
+
+  handleSave = event => {
+    const { todos } = this.state;
+    todos[event.target.name].title = this.state.title;
+    todos[event.target.name].editable = !todos[event.target.name].editable;
     this.setState({
-      isEditing: !this.state.isEditing,
-      indexEditing: event.target.name,
-      todos
+      todos,
+      isEditing: false
     });
   };
 
@@ -66,10 +78,10 @@ class App extends React.Component {
         <h2>Things to do</h2>
         <ul>
           {this.state.todos.map((item, index) => {
-            return item.editable ? (
+            return item.editable && this.state.isEditing ? (
               <li>
                 <input type="text" name={index} value={item.title} />
-                <button type="button" name={index}>
+                <button type="button" name={index} onClick={this.handleSave}>
                   Save
                 </button>
               </li>
@@ -82,10 +94,10 @@ class App extends React.Component {
                   checked={item.completed}
                   onClick={this.handleCheckbox}
                 />
-                <button name={index} type="button" onClick={this.handleDelete}>
+                <button type="button" name={index} onClick={this.handleDelete}>
                   Delete
                 </button>
-                <button name={index} type="button" onClick={this.handleEdit}>
+                <button type="button" name={index} onClick={this.handleEdit}>
                   Edit
                 </button>
               </li>
