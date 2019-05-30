@@ -5,7 +5,8 @@ class App extends React.Component {
     title: "",
     todos: [],
     isEditing: false,
-    indexEditing: ""
+    indexEditing: "",
+    editTitle: ""
   };
 
   handleChange = event => {
@@ -48,6 +49,7 @@ class App extends React.Component {
       this.setState({
         isEditing: true,
         indexEditing: event.target.name,
+        editTitle: todos[event.target.name].title,
         todos
       });
     }
@@ -55,11 +57,17 @@ class App extends React.Component {
 
   handleSave = event => {
     const { todos } = this.state;
-    todos[event.target.name].title = this.state.title;
+    todos[event.target.name].title = this.state.editTitle;
     todos[event.target.name].editable = !todos[event.target.name].editable;
     this.setState({
       todos,
       isEditing: false
+    });
+  };
+
+  handleEditChange = event => {
+    this.setState({
+      editTitle: event.target.value
     });
   };
 
@@ -80,7 +88,12 @@ class App extends React.Component {
           {this.state.todos.map((item, index) => {
             return item.editable && this.state.isEditing ? (
               <li>
-                <input type="text" name={index} value={item.title} />
+                <input
+                  type="text"
+                  name={index}
+                  value={this.state.editTitle}
+                  onChange={this.handleEditChange}
+                />
                 <button type="button" name={index} onClick={this.handleSave}>
                   Save
                 </button>
