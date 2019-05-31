@@ -5,7 +5,6 @@ class App extends React.Component {
     title: "",
     todos: [],
     isEditing: false,
-    indexEditing: "",
     editTitle: "",
     id: ''
   };
@@ -78,7 +77,6 @@ class App extends React.Component {
       todos[event.target.name].editable = !todos[event.target.name].editable;
       this.setState({
         isEditing: true,
-        indexEditing: event.target.name,
         editTitle: todos[event.target.name].title,
         todos
       });
