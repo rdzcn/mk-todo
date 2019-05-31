@@ -86,6 +86,7 @@ class App extends React.Component {
   };
 
   handleSave = event => {
+    event.preventDefault();
     const { todos } = this.state;
     todos[event.target.name].title = this.state.editTitle;
     todos[event.target.name].editable = !todos[event.target.name].editable;
@@ -118,15 +119,17 @@ class App extends React.Component {
           {this.state.todos.map((item, index) => {
             return item.editable && this.state.isEditing ? (
               <li>
-                <input
-                  type="text"
-                  name={index}
-                  value={this.state.editTitle}
-                  onChange={this.handleEditChange}
-                />
-                <button type="button" name={index} onClick={this.handleSave}>
-                  Save
-                </button>
+                <form name={index} onSubmit={this.handleSave}>
+                  <input
+                    type="text"
+                    name={index}
+                    value={this.state.editTitle}
+                    onChange={this.handleEditChange}
+                  />
+                  <button type="submit">
+                    Save
+                  </button>
+                </form>
               </li>
             ) : (
               <li key={item.id}>
