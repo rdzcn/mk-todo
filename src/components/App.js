@@ -6,13 +6,18 @@ class App extends React.Component {
     todos: [],
     isEditing: false,
     indexEditing: "",
-    editTitle: ""
+    editTitle: "",
+    id: ''
   };
 
   componentDidMount() {
     const todos = JSON.parse(localStorage.getItem("todos"));
+    const id = JSON.parse(localStorage.getItem('id'));
     if (todos) {
-      this.setState({ todos });
+      this.setState({ 
+        todos,
+        id: id || 0 
+      });
     }
     window.addEventListener("beforeunload", this.saveToLocal.bind(this));
   }
@@ -23,8 +28,9 @@ class App extends React.Component {
   }
 
   saveToLocal() {
-    const { todos } = this.state;
+    const { todos, id } = this.state;
     localStorage.setItem("todos", JSON.stringify(todos));
+    localStorage.setItem("id", JSON.stringify(id));
   };
 
   handleChange = event => {
@@ -35,20 +41,23 @@ class App extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const id = this.state.todos.length + 1;
+    const { title, id, todos } = this.state
+    if (title) {
     const todo = {
-      title: this.state.title,
+      title,
+      id: id + 1,
       completed: false,
-      id: id,
       editable: false
     };
     this.setState(
       {
-        todos: this.state.todos.concat(todo),
-        title: ""
+        todos: todos.concat(todo),
+        title: "",
+        id: id + 1
       },
       this.saveToLocal
     );
+    }
   };
 
   handleCheckbox = event => {
@@ -121,12 +130,12 @@ class App extends React.Component {
               </li>
             ) : (
               <li key={item.id}>
-                {item.title}
+                {item.completed ? <del>{item.title}</del> : <span>{item.title}</span>}
                 <input
                   type="checkbox"
                   name={index}
                   checked={item.completed}
-                  onClick={this.handleCheckbox}
+                  onChange={this.handleCheckbox}
                 />
                 <button type="button" name={index} onClick={this.handleDelete}>
                   Delete
