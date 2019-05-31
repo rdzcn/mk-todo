@@ -9,6 +9,24 @@ class App extends React.Component {
     editTitle: ""
   };
 
+  componentDidMount() {
+    const todos = JSON.parse(localStorage.getItem("todos"));
+    if (todos) {
+      this.setState({ todos });
+    }
+    window.addEventListener("beforeunload", this.saveToLocal.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.saveToLocal.bind(this));
+    this.saveToLocal();
+  }
+
+  saveToLocal() {
+    const { todos } = this.state;
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
   handleChange = event => {
     this.setState({
       title: event.target.value
@@ -24,10 +42,13 @@ class App extends React.Component {
       id: id,
       editable: false
     };
-    this.setState({
-      todos: this.state.todos.concat(todo),
-      title: ""
-    });
+    this.setState(
+      {
+        todos: this.state.todos.concat(todo),
+        title: ""
+      },
+      this.saveToLocal
+    );
   };
 
   handleCheckbox = event => {
