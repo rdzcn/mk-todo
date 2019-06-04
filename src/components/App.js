@@ -1,4 +1,5 @@
 import React from "react";
+import NewTodo from "./NewTodo";
 
 class App extends React.Component {
   state = {
@@ -103,15 +104,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Add a todo</button>
-        </form>
+        <NewTodo handleChange={this.handleChange} handleSubmit={this.handleSubmit} title={this.state.title} />
         <h2>Things to do</h2>
         <ul>
           {this.state.todos.map((item, index) => {
