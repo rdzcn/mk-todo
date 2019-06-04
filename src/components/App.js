@@ -13,9 +13,9 @@ class App extends React.Component {
     const todos = JSON.parse(localStorage.getItem("todos"));
     const id = JSON.parse(localStorage.getItem('id'));
     if (todos) {
-      this.setState({ 
+      this.setState({
         todos,
-        id: id || 0 
+        id: id || 0
       });
     }
     window.addEventListener("beforeunload", this.saveToLocal.bind(this));
