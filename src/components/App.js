@@ -131,18 +131,18 @@ class App extends React.Component {
               </li>
             ) : (
               <li key={item.id}>
-                {item.completed ? <del>{item.title}</del> : <span>{item.title}</span>}
                 <input
                   type="checkbox"
                   name={index}
                   checked={item.completed}
                   onChange={this.handleCheckbox}
                 />
-                <button type="button" name={index} onClick={this.handleDelete}>
-                  Delete
-                </button>
+                {item.completed ? <del>{item.title}</del> : <span>{item.title}</span>}
                 <button type="button" name={index} onClick={this.handleEdit}>
                   Edit
+                </button>
+                <button type="button" name={index} onClick={this.handleDelete}>
+                  Delete
                 </button>
               </li>
             );
