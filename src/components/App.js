@@ -1,146 +1,41 @@
 import React from "react";
 import NewTodo from "./NewTodo";
+import TodoList from "./TodoList";
 
 class App extends React.Component {
   state = {
     title: "",
-    todos: [],
     isEditing: false,
-    editTitle: "",
-    id: ''
+    todos: []
   };
 
-  componentDidMount() {
-    const todos = JSON.parse(localStorage.getItem("todos"));
-    const id = JSON.parse(localStorage.getItem('id'));
-    if (todos) {
-      this.setState({
-        todos,
-        id: id || 0
-      });
-    }
-    window.addEventListener("beforeunload", this.saveToLocal.bind(this));
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.saveToLocal.bind(this));
-    this.saveToLocal();
-  }
-
-  saveToLocal() {
-    const { todos, id } = this.state;
-    localStorage.setItem("todos", JSON.stringify(todos));
-    localStorage.setItem("id", JSON.stringify(id));
-  };
-
-  handleChange = event => {
-    this.setState({
-      title: event.target.value
-    });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    const { title, id, todos } = this.state
-    if (title) {
+  addTodo = title => {
     const todo = {
-      title,
-      id: id + 1,
+      title: title,
       completed: false,
-      editable: false
+      id: Date.now()
     };
-    this.setState(
-      {
-        todos: todos.concat(todo),
-        title: "",
-        id: id + 1
-      },
-      this.saveToLocal
-    );
-    }
-  };
-
-  handleCheckbox = event => {
-    const { todos } = this.state;
-    todos[event.target.name].completed = !todos[event.target.name].completed;
-    this.setState({ todos });
-  };
-
-  handleDelete = event => {
-    const { todos } = this.state;
-    todos.splice(event.target.name, 1);
-    this.setState({ todos });
-  };
-
-  handleEdit = event => {
-    const { todos } = this.state;
-    if (!this.state.isEditing) {
-      todos[event.target.name].editable = !todos[event.target.name].editable;
-      this.setState({
-        isEditing: true,
-        editTitle: todos[event.target.name].title,
-        todos
-      });
-    }
-  };
-
-  handleSave = event => {
-    event.preventDefault();
-    const { todos } = this.state;
-    todos[event.target.name].title = this.state.editTitle;
-    todos[event.target.name].editable = !todos[event.target.name].editable;
     this.setState({
-      todos,
-      isEditing: false
-    });
+      todos: [...this.state.todos, todo]
+    })
   };
 
-  handleEditChange = event => {
-    this.setState({
-      editTitle: event.target.value
-    });
-  };
+  completeTodo = id => {
+    const { todos } = this.state
+    todos.map(todo => 
+      todo.id === id ? 
+        todo.completed = !todo.completed :
+        todo
+    )
+    this.setState({ todos })
+  }
 
   render() {
     return (
       <div>
-        <NewTodo handleChange={this.handleChange} handleSubmit={this.handleSubmit} title={this.state.title} />
+        <NewTodo title={this.state.title} addTodo={this.addTodo} />
         <h2>Things to do</h2>
-        <ul>
-          {this.state.todos.map((item, index) => {
-            return item.editable && this.state.isEditing ? (
-              <li>
-                <form name={index} onSubmit={this.handleSave}>
-                  <input
-                    type="text"
-                    name={index}
-                    value={this.state.editTitle}
-                    onChange={this.handleEditChange}
-                  />
-                  <button type="submit">
-                    Save
-                  </button>
-                </form>
-              </li>
-            ) : (
-              <li key={item.id}>
-                <input
-                  type="checkbox"
-                  name={index}
-                  checked={item.completed}
-                  onChange={this.handleCheckbox}
-                />
-                {item.completed ? <del>{item.title}</del> : <span>{item.title}</span>}
-                <button type="button" name={index} onClick={this.handleEdit}>
-                  Edit
-                </button>
-                <button type="button" name={index} onClick={this.handleDelete}>
-                  Delete
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <TodoList todos={this.state.todos} completeTodo={this.completeTodo} />
       </div>
     );
   }

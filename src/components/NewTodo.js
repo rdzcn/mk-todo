@@ -1,17 +1,35 @@
-import React from 'react';
+import React from "react";
 
-const NewTodo = ({ title, handleChange, handleSubmit }) => {
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="title"
-        value={title}
-        onChange={handleChange}
-      />
-      <button type="submit">Add a todo</button>
-    </form>
-  )
+class NewTodo extends React.Component {
+  
+  state = {
+    title: this.props.title || ""
+  };
+
+  handleChange = event => {
+    this.setState({ title: event.target.value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const title = this.state.title.trim();
+    this.props.addTodo(title);
+    this.setState({ title: "" });
+  };
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          name="title"
+          value={this.state.title}
+          onChange={this.handleChange}
+        />
+        <button type="submit">Add a todo</button>
+      </form>
+    );
+  }
 }
 
 export default NewTodo;
