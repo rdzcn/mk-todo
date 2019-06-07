@@ -1,6 +1,7 @@
-import React from "react";
-import NewTodo from "./NewTodo";
-import TodoList from "./TodoList";
+import React from "react"
+import NewTodo from "./NewTodo"
+import TodoList from "./TodoList"
+import CompletedTodoList from "./CompletedTodoList"
 
 class App extends React.Component {
   state = {
@@ -56,21 +57,28 @@ class App extends React.Component {
   }
 
   render() {
+    const todos = this.state.todos.filter(todo => !todo.completed)
+    const completedTodos = this.state.todos.filter(todo => todo.completed)
     return (
       <div>
         <NewTodo 
           title={this.state.title} 
           addTodo={this.addTodo}
         />
-        <h2>Things to do</h2>
+        <h1>My Todos ({todos.length})</h1>
         <TodoList 
-          todos={this.state.todos} 
+          todos={todos} 
           completeTodo={this.completeTodo}
           editTodo={this.editTodo} 
           saveTodo={this.saveTodo}
           deleteTodo={this.deleteTodo} 
           isEditing={this.state.isEditing} 
           title={this.state.title} 
+        />
+        <h2>Completed ({completedTodos.length})</h2>
+        <CompletedTodoList 
+          todos={completedTodos} 
+          deleteTodo={this.deleteTodo} 
         />
       </div>
     );
