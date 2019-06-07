@@ -2,10 +2,9 @@ import React from "react"
 import { getStartTime, getEndTime, getTitle } from '../helpers'
 
 class NewTodo extends React.Component {
-  
+
   state = {
-    title: this.props.title || "",
-    start: ""
+    title: "",
   }
 
   handleChange = event => {
