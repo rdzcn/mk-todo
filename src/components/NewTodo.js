@@ -1,4 +1,5 @@
 import React from "react"
+import { getStartTime, getEndTime, getTitle } from '../helpers'
 
 class NewTodo extends React.Component {
   
@@ -8,13 +9,16 @@ class NewTodo extends React.Component {
   }
 
   handleChange = event => {
+    getStartTime()
     this.setState({ title: event.target.value });
   }
 
   handleSubmit = event => {
     event.preventDefault();
+    getEndTime()
     const title = this.state.title.trim();
     if (title.length !== 0) {
+      getTitle(title)
       this.props.addTodo(title)
     }
     this.setState({ title: "" });

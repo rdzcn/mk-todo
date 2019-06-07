@@ -2,6 +2,7 @@ import React from "react"
 import NewTodo from "./NewTodo"
 import TodoList from "./TodoList"
 import CompletedTodoList from "./CompletedTodoList"
+import { createUID } from '../helpers'
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class App extends React.Component {
     const todo = {
       title: title,
       completed: false,
-      id: Date.now()
+      id: createUID()
     };
     this.setState({
       todos: [...this.state.todos, todo]
