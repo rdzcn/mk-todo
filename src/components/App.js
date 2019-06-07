@@ -24,8 +24,10 @@ class App extends React.Component {
     const todo = {
       title: title,
       completed: false,
-      id: createUID()
-    };
+      id: createUID(),
+      createdAt: Date.now(),
+      modifiedAt: Date.now()
+    }
     this.setState({
       todos: [...this.state.todos, todo]
     }, this.saveToLocal)
@@ -36,6 +38,11 @@ class App extends React.Component {
     todos.map(todo => 
       todo.id === id ? 
         todo.completed = !todo.completed :
+        todo
+    )
+    todos.map(todo => 
+      todo.id === id ? 
+        todo.modifiedAt = Date.now() :
         todo
     )
     this.setState({ 
