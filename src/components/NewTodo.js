@@ -23,10 +23,6 @@ class NewTodo extends React.Component {
     this.setState({ title: "" });
   }
 
-  handleStart = () => {
-    this.setState({ start: Date.now()})
-  }
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -35,7 +31,6 @@ class NewTodo extends React.Component {
           name="title"
           value={this.state.title}
           onChange={this.handleChange}
-          onKeyDown={this.handleStart}
         />
         <button type="submit">Add a todo</button>
       </form>
