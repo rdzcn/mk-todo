@@ -9,7 +9,6 @@ class App extends React.Component {
     super(props)
     const todos = JSON.parse(localStorage.getItem('todos'))
     this.state = {
-      title: "",
       isEditing: false,
       showCompleted: false,
       todos: todos || []
@@ -35,17 +34,17 @@ class App extends React.Component {
 
   completeTodo = id => {
     const { todos } = this.state
-    todos.map(todo => 
-      todo.id === id ? 
+    todos.map(todo =>
+      todo.id === id ?
         todo.completed = !todo.completed :
         todo
     )
-    todos.map(todo => 
-      todo.id === id ? 
+    todos.map(todo =>
+      todo.id === id ?
         todo.modifiedAt = Date.now() :
         todo
     )
-    this.setState({ 
+    this.setState({
       todos
     }, this.saveToLocal)
   }
@@ -56,30 +55,30 @@ class App extends React.Component {
 
   saveTodo = (id, text) => {
     const { todos } = this.state
-    todos.map(todo => 
+    todos.map(todo =>
       todo.id === id ?
         todo.title = text :
         todo
     )
-    this.setState({ 
+    this.setState({
       todos,
-      isEditing: false 
+      isEditing: false
     }, this.saveToLocal)
   }
 
   deleteTodo = (id) => {
     let { todos } = this.state
     todos = todos.filter(todo =>
-      todo.id !== id  
+      todo.id !== id
     )
-    this.setState({ 
+    this.setState({
       todos
     }, this.saveToLocal)
   }
 
-  toggleCompleted = () => { 
-    this.setState({ 
-      showCompleted: !this.state.showCompleted 
+  toggleCompleted = () => {
+    this.setState({
+      showCompleted: !this.state.showCompleted
     })
   }
 
@@ -88,19 +87,19 @@ class App extends React.Component {
     const completedTodos = this.state.todos.filter(todo => todo.completed)
     return (
       <div>
-        <NewTodo 
-          title={this.state.title} 
+        <NewTodo
+          title={this.state.title}
           addTodo={this.addTodo}
         />
         <h1>My Todos ({todos.length})</h1>
-        <TodoList 
-          todos={todos} 
+        <TodoList
+          todos={todos}
           completeTodo={this.completeTodo}
-          editTodo={this.editTodo} 
+          editTodo={this.editTodo}
           saveTodo={this.saveTodo}
-          deleteTodo={this.deleteTodo} 
-          isEditing={this.state.isEditing} 
-          title={this.state.title} 
+          deleteTodo={this.deleteTodo}
+          isEditing={this.state.isEditing}
+          title={this.state.title}
         />
         <h2>Completed ({completedTodos.length})</h2>
         {
@@ -108,9 +107,9 @@ class App extends React.Component {
             (
               <div>
                 <button type="button" onClick={this.toggleCompleted}>Hide</button>
-                <CompletedTodoList 
-                todos={completedTodos} 
-                deleteTodo={this.deleteTodo} 
+                <CompletedTodoList
+                todos={completedTodos}
+                deleteTodo={this.deleteTodo}
                 />
               </div>
             ) : (
