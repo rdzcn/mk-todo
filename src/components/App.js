@@ -4,11 +4,20 @@ import TodoList from "./TodoList"
 import CompletedTodoList from "./CompletedTodoList"
 
 class App extends React.Component {
-  state = {
-    title: "",
-    isEditing: false,
-    todos: []
-  };
+  constructor(props) {
+    super(props)
+    const todos = JSON.parse(localStorage.getItem('todos'))
+    this.state = {
+      title: "",
+      isEditing: false,
+      showCompleted: false,
+      todos: todos || []
+    }
+  }
+
+  saveToLocal = () => {
+    localStorage.setItem("todos", JSON.stringify(this.state.todos));
+  }
 
   addTodo = title => {
     const todo = {
@@ -18,8 +27,8 @@ class App extends React.Component {
     };
     this.setState({
       todos: [...this.state.todos, todo]
-    })
-  };
+    }, this.saveToLocal)
+  }
 
   completeTodo = id => {
     const { todos } = this.state
@@ -28,7 +37,9 @@ class App extends React.Component {
         todo.completed = !todo.completed :
         todo
     )
-    this.setState({ todos })
+    this.setState({ 
+      todos
+    }, this.saveToLocal)
   }
 
   editTodo = () => {
@@ -45,7 +56,7 @@ class App extends React.Component {
     this.setState({ 
       todos,
       isEditing: false 
-    })
+    }, this.saveToLocal)
   }
 
   deleteTodo = (id) => {
@@ -53,7 +64,15 @@ class App extends React.Component {
     todos = todos.filter(todo =>
       todo.id !== id  
     )
-    this.setState({ todos })
+    this.setState({ 
+      todos
+    }, this.saveToLocal)
+  }
+
+  toggleCompleted = () => { 
+    this.setState({ 
+      showCompleted: !this.state.showCompleted 
+    })
   }
 
   render() {
@@ -76,13 +95,25 @@ class App extends React.Component {
           title={this.state.title} 
         />
         <h2>Completed ({completedTodos.length})</h2>
-        <CompletedTodoList 
-          todos={completedTodos} 
-          deleteTodo={this.deleteTodo} 
-        />
+        {
+          this.state.showCompleted ?
+            (
+              <div>
+                <button type="button" onClick={this.toggleCompleted}>Hide</button>
+                <CompletedTodoList 
+                todos={completedTodos} 
+                deleteTodo={this.deleteTodo} 
+                />
+              </div>
+            ) : (
+              <div>
+                <button type="button" onClick={this.toggleCompleted}>Show</button>
+              </div>
+            )
+        }
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
