@@ -30,12 +30,48 @@ class App extends React.Component {
     this.setState({ todos })
   }
 
+  editTodo = () => {
+    this.setState({ isEditing: true })
+  }
+
+  saveTodo = (id, text) => {
+    const { todos } = this.state
+    todos.map(todo => 
+      todo.id === id ?
+        todo.title = text :
+        todo
+    )
+    this.setState({ 
+      todos,
+      isEditing: false 
+    })
+  }
+
+  deleteTodo = (id) => {
+    let { todos } = this.state
+    todos = todos.filter(todo =>
+      todo.id !== id  
+    )
+    this.setState({ todos })
+  }
+
   render() {
     return (
       <div>
-        <NewTodo title={this.state.title} addTodo={this.addTodo} />
+        <NewTodo 
+          title={this.state.title} 
+          addTodo={this.addTodo}
+        />
         <h2>Things to do</h2>
-        <TodoList todos={this.state.todos} completeTodo={this.completeTodo} />
+        <TodoList 
+          todos={this.state.todos} 
+          completeTodo={this.completeTodo}
+          editTodo={this.editTodo} 
+          saveTodo={this.saveTodo}
+          deleteTodo={this.deleteTodo} 
+          isEditing={this.state.isEditing} 
+          title={this.state.title} 
+        />
       </div>
     );
   }
