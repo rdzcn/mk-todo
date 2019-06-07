@@ -3,7 +3,7 @@ import React from 'react';
 const CompletedTodo = ({ todo, deleteTodo }) => {
   return (
     <li>
-      <span>{todo.title}</span>
+      <del>{todo.title}</del>
       <button type='button' onClick={() => deleteTodo(todo.id)}>Delete</button>
     </li>
   )
