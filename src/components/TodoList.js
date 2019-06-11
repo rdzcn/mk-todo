@@ -13,7 +13,6 @@ const TodoList = ({ todos, completeTodo, editTodo, saveTodo, deleteTodo, isEditi
           saveTodo={saveTodo}
           deleteTodo={deleteTodo} 
           isEditing={isEditing} 
-          title={title}
         />
       )}
     </ul>
