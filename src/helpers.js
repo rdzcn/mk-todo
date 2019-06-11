@@ -7,7 +7,7 @@ export const getStartTime = () => {
 }
 
 export const getEndTime = () => {
-  endTime.push(Date.now())
+  endTime.splice(0, 1, Date.now())
 }
 
 export const getTitle = (title) => {
@@ -15,6 +15,6 @@ export const getTitle = (title) => {
 }
 
 export const createUID = () => {
-  const uid = `${startTime[1] - startTime[0]}-${text}-${endTime}`
+  const uid = `${startTime[1] - startTime[0]}-${text}-${endTime[0]}`
   return uid
 }

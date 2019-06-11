@@ -1,7 +1,7 @@
 import React from 'react';
 import Todo from './Todo';
 
-const TodoList = ({ todos, completeTodo, editTodo, saveTodo, deleteTodo, isEditing, title }) => {
+const TodoList = ({ todos, completeTodo, editTodo, saveTodo, deleteTodo, isEditing }) => {
   return (
     <ul>
       {todos.map(todo => 

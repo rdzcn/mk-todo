@@ -7,11 +7,11 @@ const CompletedTodoList = ({ todos, deleteTodo }) => {
   }
   return (
     <ul>
-      {todos.sort(sortModifiedAt).map(todo => 
-        <CompletedTodo 
-          key={todo.id} 
-          todo={todo} 
-          deleteTodo={deleteTodo} 
+      {todos.sort(sortModifiedAt).map(todo =>
+        <CompletedTodo
+          key={todo.id}
+          todo={todo}
+          deleteTodo={deleteTodo}
         />
       )}
     </ul>
