@@ -9,7 +9,7 @@ class App extends React.Component {
 		super(props)
 		const todos = JSON.parse(localStorage.getItem("todos"))
 		this.state = {
-			isEditing: false,
+			editingID: "",
 			showCompleted: false,
 			todos: todos || []
 		}
@@ -48,8 +48,8 @@ class App extends React.Component {
   	}, this.saveToLocal)
   }
 
-  editTodo = () => {
-  	this.setState({ isEditing: true })
+  editTodo = (id) => {
+  	this.setState({ editingID: id })
   }
 
   saveTodo = (id, text) => {
@@ -61,7 +61,7 @@ class App extends React.Component {
   	)
   	this.setState({
   		todos,
-  		isEditing: false
+  		editingID: ""
   	}, this.saveToLocal)
   }
 
@@ -97,7 +97,7 @@ class App extends React.Component {
   				editTodo={this.editTodo}
   				saveTodo={this.saveTodo}
   				deleteTodo={this.deleteTodo}
-  				isEditing={this.state.isEditing}
+  				editingID={this.state.editingID}
   			/>
   			<h2>Completed ({completedTodos.length})</h2>
   			{

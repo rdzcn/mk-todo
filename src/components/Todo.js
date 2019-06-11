@@ -1,19 +1,18 @@
 import React from "react"
 
 class Todo extends React.Component {
-  state = {
-	  isEditing: false,
-    title: ''
-  }
 
-  handleEdit = () => {
-    if (this.props.isEditing === true) {
+	state = {
+		title: ""
+	}
+
+	handleEdit = (title, id) => {
+    if (this.props.editingID !== "") {
       return;
-    } 
-    this.setState({
-      isEditing: true,
-      title: this.props.todo.title
-    }, this.props.editTodo)
+		} 
+		this.setState({
+			title: title
+		}, this.props.editTodo(id)) 
   }
 
   handleChange = event => {
@@ -30,7 +29,7 @@ class Todo extends React.Component {
     const { todo, completeTodo, deleteTodo } = this.props
 
     let listItem
-    if (this.props.isEditing && this.state.isEditing) {
+    if (this.props.editingID === todo.id) {
       listItem = (
         <form onSubmit={() => this.handleSave(todo.id)}>
           <input
@@ -53,7 +52,7 @@ class Todo extends React.Component {
             onChange={() => completeTodo(todo.id)}
           />
           <span>{todo.title}</span>
-          <button type="button" onClick={this.handleEdit}>Edit</button>
+          <button type="button" onClick={() => this.handleEdit(todo.title, todo.id)}>Edit</button>
           <button type="button" onClick={() => deleteTodo(todo.id)}>Delete</button>
         </div>
       )
