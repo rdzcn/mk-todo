@@ -31,19 +31,18 @@ class App extends React.Component {
       todos: [...this.state.todos, todo]
     }, this.saveToLocal)
   }
-
+  
   completeTodo = id => {
     const { todos } = this.state
-    todos.map(todo =>
-      todo.id === id ?
-        todo.completed = !todo.completed :
-        todo
-    )
-    todos.map(todo =>
-      todo.id === id ?
-        todo.modifiedAt = Date.now() :
-        todo
-    )
+    todos.map(todo => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed
+        todo.modifiedAt = Date.now()
+        return todo
+      } else {
+        return todo
+      }
+    })
     this.setState({
       todos
     }, this.saveToLocal)
@@ -99,7 +98,6 @@ class App extends React.Component {
           saveTodo={this.saveTodo}
           deleteTodo={this.deleteTodo}
           isEditing={this.state.isEditing}
-          title={this.state.title}
         />
         <h2>Completed ({completedTodos.length})</h2>
         {
