@@ -1,9 +1,8 @@
-import React from 'react';
+import React from "react"
 
 class Todo extends React.Component {
-  
-  state= {
-    isEditing: false,
+  state = {
+	  isEditing: false,
     title: ''
   }
 
@@ -68,4 +67,4 @@ class Todo extends React.Component {
   }
 }
 
-export default Todo;
+export default Todo

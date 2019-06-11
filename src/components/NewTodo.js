@@ -1,10 +1,9 @@
 import React from "react"
-import { getStartTime, getEndTime, getTitle } from '../helpers'
+import { getStartTime, getEndTime, getTitle } from "../helpers"
 
 class NewTodo extends React.Component {
-
   state = {
-    title: "",
+    title: ""
   }
 
   handleChange = event => {
