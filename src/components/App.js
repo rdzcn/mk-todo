@@ -1,156 +1,126 @@
-import React from "react";
+import React from "react"
+import NewTodo from "./NewTodo"
+import TodoList from "./TodoList"
+import CompletedTodoList from "./CompletedTodoList"
+import { createUID } from '../helpers'
 
 class App extends React.Component {
-  state = {
-    title: "",
-    todos: [],
-    isEditing: false,
-    editTitle: "",
-    id: ''
-  };
-
-  componentDidMount() {
-    const todos = JSON.parse(localStorage.getItem("todos"));
-    const id = JSON.parse(localStorage.getItem('id'));
-    if (todos) {
-      this.setState({
-        todos,
-        id: id || 0
-      });
+  constructor(props) {
+    super(props)
+    const todos = JSON.parse(localStorage.getItem('todos'))
+    this.state = {
+      isEditing: false,
+      showCompleted: false,
+      todos: todos || []
     }
-    window.addEventListener("beforeunload", this.saveToLocal.bind(this));
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.saveToLocal.bind(this));
-    this.saveToLocal();
+  saveToLocal = () => {
+    localStorage.setItem("todos", JSON.stringify(this.state.todos));
   }
 
-  saveToLocal() {
-    const { todos, id } = this.state;
-    localStorage.setItem("todos", JSON.stringify(todos));
-    localStorage.setItem("id", JSON.stringify(id));
-  };
-
-  handleChange = event => {
-    this.setState({
-      title: event.target.value
-    });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    const { title, id, todos } = this.state
-    if (title) {
+  addTodo = title => {
     const todo = {
-      title,
-      id: id + 1,
+      title: title,
       completed: false,
-      editable: false
-    };
-    this.setState(
-      {
-        todos: todos.concat(todo),
-        title: "",
-        id: id + 1
-      },
-      this.saveToLocal
-    );
+      id: createUID(),
+      createdAt: Date.now(),
+      modifiedAt: Date.now()
     }
-  };
+    this.setState({
+      todos: [...this.state.todos, todo]
+    }, this.saveToLocal)
+  }
 
-  handleCheckbox = event => {
-    const { todos } = this.state;
-    todos[event.target.name].completed = !todos[event.target.name].completed;
-    this.setState({ todos });
-  };
+  completeTodo = id => {
+    const { todos } = this.state
+    todos.map(todo =>
+      todo.id === id ?
+        todo.completed = !todo.completed :
+        todo
+    )
+    todos.map(todo =>
+      todo.id === id ?
+        todo.modifiedAt = Date.now() :
+        todo
+    )
+    this.setState({
+      todos
+    }, this.saveToLocal)
+  }
 
-  handleDelete = event => {
-    const { todos } = this.state;
-    todos.splice(event.target.name, 1);
-    this.setState({ todos });
-  };
+  editTodo = () => {
+    this.setState({ isEditing: true })
+  }
 
-  handleEdit = event => {
-    const { todos } = this.state;
-    if (!this.state.isEditing) {
-      todos[event.target.name].editable = !todos[event.target.name].editable;
-      this.setState({
-        isEditing: true,
-        editTitle: todos[event.target.name].title,
-        todos
-      });
-    }
-  };
-
-  handleSave = event => {
-    event.preventDefault();
-    const { todos } = this.state;
-    todos[event.target.name].title = this.state.editTitle;
-    todos[event.target.name].editable = !todos[event.target.name].editable;
+  saveTodo = (id, text) => {
+    const { todos } = this.state
+    todos.map(todo =>
+      todo.id === id ?
+        todo.title = text :
+        todo
+    )
     this.setState({
       todos,
       isEditing: false
-    });
-  };
+    }, this.saveToLocal)
+  }
 
-  handleEditChange = event => {
+  deleteTodo = (id) => {
+    let { todos } = this.state
+    todos = todos.filter(todo =>
+      todo.id !== id
+    )
     this.setState({
-      editTitle: event.target.value
-    });
-  };
+      todos
+    }, this.saveToLocal)
+  }
+
+  toggleCompleted = () => {
+    this.setState({
+      showCompleted: !this.state.showCompleted
+    })
+  }
 
   render() {
+    const todos = this.state.todos.filter(todo => !todo.completed)
+    const completedTodos = this.state.todos.filter(todo => todo.completed)
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Add a todo</button>
-        </form>
-        <h2>Things to do</h2>
-        <ul>
-          {this.state.todos.map((item, index) => {
-            return item.editable && this.state.isEditing ? (
-              <li>
-                <form name={index} onSubmit={this.handleSave}>
-                  <input
-                    type="text"
-                    name={index}
-                    value={this.state.editTitle}
-                    onChange={this.handleEditChange}
-                  />
-                  <button type="submit">
-                    Save
-                  </button>
-                </form>
-              </li>
-            ) : (
-              <li key={item.id}>
-                {item.completed ? <del>{item.title}</del> : <span>{item.title}</span>}
-                <input
-                  type="checkbox"
-                  name={index}
-                  checked={item.completed}
-                  onChange={this.handleCheckbox}
+        <NewTodo
+          title={this.state.title}
+          addTodo={this.addTodo}
+        />
+        <h1>My Todos ({todos.length})</h1>
+        <TodoList
+          todos={todos}
+          completeTodo={this.completeTodo}
+          editTodo={this.editTodo}
+          saveTodo={this.saveTodo}
+          deleteTodo={this.deleteTodo}
+          isEditing={this.state.isEditing}
+          title={this.state.title}
+        />
+        <h2>Completed ({completedTodos.length})</h2>
+        {
+          this.state.showCompleted ?
+            (
+              <div>
+                <button type="button" onClick={this.toggleCompleted}>Hide</button>
+                <CompletedTodoList
+                todos={completedTodos}
+                deleteTodo={this.deleteTodo}
                 />
-                <button type="button" name={index} onClick={this.handleDelete}>
-                  Delete
-                </button>
-                <button type="button" name={index} onClick={this.handleEdit}>
-                  Edit
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+              </div>
+            ) : (
+              <div>
+                <button type="button" onClick={this.toggleCompleted}>Show</button>
+              </div>
+            )
+        }
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
