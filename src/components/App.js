@@ -108,6 +108,7 @@ class App extends React.Component {
   							<CompletedTodoList
   								todos={completedTodos}
   								deleteTodo={this.deleteTodo}
+									completeTodo={this.completeTodo}
   							/>
   						</div>
   					) : (

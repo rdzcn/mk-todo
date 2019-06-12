@@ -1,7 +1,7 @@
 import React from "react"
 import CompletedTodo from "./CompletedTodo"
 
-const CompletedTodoList = ({ todos, deleteTodo }) => {
+const CompletedTodoList = ({ todos, deleteTodo, completeTodo }) => {
 	function sortModifiedAt(a, b) {
 		return b.modifiedAt - a.modifiedAt
 	}
@@ -12,6 +12,7 @@ const CompletedTodoList = ({ todos, deleteTodo }) => {
 					key={todo.id}
 					todo={todo}
 					deleteTodo={deleteTodo}
+					completeTodo={completeTodo}
 				/>
 			)}
 		</ul>
