@@ -21,10 +21,12 @@
 
 1. Will go through once again to check if all have been addressed. 
 
-2. Added uuid. However, it didn't work. It couldn't find babel-loader in the node_modules. Added babel-loader as a devDependency and it worked. 
+2. Added uuid. However, it didn't work. It couldn't find babel-loader in the node_modules. Added `babel-loader` as a devDependency and it worked.
+Update: It worked in development and not in production. Ran `yarn build`. It gave an error that `create-react-app` uses version 8.0.5. Installed version was 8.0.6. Changed that. It works in production as well.  
 
 3. Add a button: Cancel. When Save is clicked we pass todo.state.title (i.e., edited title) and todo.id to props.saveTodo function. App.saveTodo then finds the todo with the matching id and saves the title. Now with cancel, instead of passing the todo.state.title, we can pass todo.title (i.e., non-edited, previous title) and todo.id to props.saveTodo. See the difference: 
 
+```
 handleSave = (id) => {
   const { title } = this.state
   this.props.saveTodo(id, title)
@@ -33,5 +35,5 @@ handleSave = (id) => {
 handleCancel = (id, title) => {
   this.props.saveTodo(id, title)
 }
-
+```
 4. 
