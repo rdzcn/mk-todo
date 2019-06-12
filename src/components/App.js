@@ -52,11 +52,11 @@ class App extends React.Component {
   	this.setState({ editingID: id })
   }
 
-  saveTodo = (id, text) => {
+  saveTodo = (id, title) => {
   	const { todos } = this.state
   	todos.map(todo =>
   		todo.id === id ?
-  			todo.title = text :
+  			todo.title = title :
   			todo
   	)
   	this.setState({

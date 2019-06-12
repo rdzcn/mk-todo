@@ -6,7 +6,7 @@ class Todo extends React.Component {
 		title: ""
 	}
 
-	handleEdit = (title, id) => {
+	handleEdit = (id, title) => {
     if (this.props.editingID !== "") {
       return;
 		} 
@@ -22,8 +22,11 @@ class Todo extends React.Component {
   handleSave = (id) => {
     const { title } = this.state
     this.props.saveTodo(id, title)
-    this.setState({ isEditing: false })
-  }
+	}
+	
+	handleCancel = (id, title) => {
+		this.props.saveTodo(id, title)
+	}
 
   render() {
     const { todo, completeTodo, deleteTodo } = this.props
@@ -41,6 +44,9 @@ class Todo extends React.Component {
           <button type="submit">
             Save
           </button>
+					<button type="button" onClick={() => this.handleCancel(todo.id, todo.title)} >
+						Cancel
+					</button>
         </form>
       )
     } else {
@@ -52,8 +58,12 @@ class Todo extends React.Component {
             onChange={() => completeTodo(todo.id)}
           />
           <span>{todo.title}</span>
-          <button type="button" onClick={() => this.handleEdit(todo.title, todo.id)}>Edit</button>
-          <button type="button" onClick={() => deleteTodo(todo.id)}>Delete</button>
+          <button type="button" onClick={() => this.handleEdit(todo.id, todo.title)}>
+						Edit
+					</button>
+          <button type="button" onClick={() => deleteTodo(todo.id)}>
+						Delete
+					</button>
         </div>
       )
     }

@@ -23,4 +23,15 @@
 
 2. Added uuid. However, it didn't work. It couldn't find babel-loader in the node_modules. Added babel-loader as a devDependency and it worked. 
 
-3. 
+3. Add a button: Cancel. When Save is clicked we pass todo.state.title (i.e., edited title) and todo.id to props.saveTodo function. App.saveTodo then finds the todo with the matching id and saves the title. Now with cancel, instead of passing the todo.state.title, we can pass todo.title (i.e., non-edited, previous title) and todo.id to props.saveTodo. See the difference: 
+
+handleSave = (id) => {
+  const { title } = this.state
+  this.props.saveTodo(id, title)
+}
+
+handleCancel = (id, title) => {
+  this.props.saveTodo(id, title)
+}
+
+4. 
