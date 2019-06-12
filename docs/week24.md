@@ -16,3 +16,11 @@
 14. Please unify TodoList and CompletedTodoList into a single component. The component should accept a `fetchTodos` parameter which is a function that returns a filtered array of todos from the application state.
 15. Please move the title of a particular TodoList to the component itself. The title should be specifiable from the outside of the component. The counter needs to be appended automatically.
 16. Please unify the Todo and CompletedTodo components. The unified component should decide for itself how to look based on the data. 
+
+# Progress
+
+1. Will go through once again to check if all have been addressed. 
+
+2. Added uuid. However, it didn't work. It couldn't find babel-loader in the node_modules. Added babel-loader as a devDependency and it worked. 
+
+3. 
