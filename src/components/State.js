@@ -4,7 +4,6 @@ import TodoList from "./TodoList"
 import CompletedTodoList from "./CompletedTodoList"
 import Todo from "./Todo"
 import CompletedTodo from "./CompletedTodo"
-import App from "./App"
 import uuid from 'uuid/v4'
 
 class State extends React.Component  {
@@ -93,45 +92,42 @@ class State extends React.Component  {
   	const completedTodos = this.state.todos.filter(todo => todo.completed)
 		return (
 			<div>
-				<App>
-					<NewTodo addTodo={this.addTodo}/>
-
-					<TodoList todos={todos}>
-						{todos.map(todo => 
-							<Todo 
-								key={todo.id} 
-								todo={todo} 
-								completeTodo={this.completeTodo} 
-								editTodo={this.editTodo}
-								saveTodo={this.saveTodo}
-								deleteTodo={this.deleteTodo} 
-								editingID={this.state.editingID} 
-							/>
-						)}
-					</TodoList>
-					{
-						this.state.showCompleted ?
-							(
-								<div>
-									<button type="button" onClick={this.toggleCompleted}>Hide</button>
-									<CompletedTodoList todos={completedTodos}>
-										{completedTodos.sort(this.sortModifiedAt).map(todo =>
-											<CompletedTodo
-												key={todo.id}
-												todo={todo}
-												deleteTodo={this.deleteTodo}
-												completeTodo={this.completeTodo}
-											/>
-										)}
-									</CompletedTodoList>
-								</div>
-							) : (
-								<div>
-									<button type="button" onClick={this.toggleCompleted}>Show</button>
-								</div>
-							)
-					}
-				</App>
+				<NewTodo addTodo={this.addTodo}/>
+				<TodoList todos={todos}>
+					{todos.map(todo => 
+						<Todo 
+							key={todo.id} 
+							todo={todo} 
+							completeTodo={this.completeTodo} 
+							editTodo={this.editTodo}
+							saveTodo={this.saveTodo}
+							deleteTodo={this.deleteTodo} 
+							editingID={this.state.editingID} 
+						/>
+					)}
+				</TodoList>
+				{
+					this.state.showCompleted ?
+						(
+							<div>
+								<button type="button" onClick={this.toggleCompleted}>Hide</button>
+								<CompletedTodoList todos={completedTodos}>
+									{completedTodos.sort(this.sortModifiedAt).map(todo =>
+										<CompletedTodo
+											key={todo.id}
+											todo={todo}
+											deleteTodo={this.deleteTodo}
+											completeTodo={this.completeTodo}
+										/>
+									)}
+								</CompletedTodoList>
+							</div>
+						) : (
+							<div>
+								<button type="button" onClick={this.toggleCompleted}>Show</button>
+							</div>
+						)
+				}
 			</div>
 		)
 	}
