@@ -112,16 +112,16 @@ class State extends React.Component  {
 						(
 							<div>
 								<button type="button" onClick={this.toggleCompleted}>Hide</button>
-								<CompletedTodoList todos={completedTodos}>
+								<TodoList todos={completedTodos}>
 									{completedTodos.sort(this.sortModifiedAt).map(todo =>
-										<CompletedTodo
+										<Todo
 											key={todo.id}
 											todo={todo}
 											deleteTodo={this.deleteTodo}
 											completeTodo={this.completeTodo}
 										/>
 									)}
-								</CompletedTodoList>
+								</TodoList>
 							</div>
 						) : (
 							<div>

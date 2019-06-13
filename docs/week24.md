@@ -39,3 +39,25 @@ handleCancel = (id, title) => {
 4. Moved all the state to State. Running everything in State and using props.children in Child components.
 
 5. As value for the `input type="date value={today}` used `const today = new Date().toISOString().substr(0, 10)`. The date should be in the form `YYYY-MM-DD` so that it can be used as input value. It also has a `min` attribute as `min={today}`, i.e., the user cannot set a due date in the past. 
+
+6. As the todo items are list items, used `<br />` to put the due date under the title. 
+
+7. 
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13. 
+
+14. Partly done. Currently no need for CompletedTodoList component. (still to implement fetchTodos)
+
+15.
+
+16. Partly done. Currently no need for CompletedTodo component. (Need to remove the Edit button from Completed Todo List)

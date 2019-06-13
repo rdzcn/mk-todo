@@ -58,7 +58,7 @@ class Todo extends React.Component {
             checked={completed}
             onChange={() => completeTodo(id)}
           />
-          <span>{title}</span>
+          {completed ? <del>{title}</del> : <span>{title}</span>}
           <button type="button" onClick={() => this.handleEdit(id, title)}>
 						Edit
 					</button>
