@@ -36,4 +36,6 @@ handleCancel = (id, title) => {
   this.props.saveTodo(id, title)
 }
 ```
-4. 
+4. Moved all the state to State. Running everything in State and using props.children in Child components.
+
+5. 

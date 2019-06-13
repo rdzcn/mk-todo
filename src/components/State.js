@@ -21,13 +21,14 @@ class State extends React.Component  {
   	localStorage.setItem("todos", JSON.stringify(this.state.todos))
   }
 
-  addTodo = title => {
+  addTodo = (title, dueDate) => {
 		const todo = {
   		title: title,
   		completed: false,
   		id: uuid(),
   		createdAt: Date.now(),
-  		modifiedAt: Date.now()
+			modifiedAt: Date.now(),
+			dueDate: dueDate
   	}
   	this.setState({
   		todos: [...this.state.todos, todo]

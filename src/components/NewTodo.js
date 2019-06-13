@@ -2,20 +2,28 @@ import React from "react"
 
 class NewTodo extends React.Component {
   state = {
-    title: ""
+    title: "",
+    dueDate: new Date().toISOString().substr(0, 10)
   }
 
-  handleChange = event => {
-    this.setState({ title: event.target.value });
+  handleTitleChange = event => {
+    this.setState({ title: event.target.value })
+  }
+
+  handleDueDateChange = event => {
+    this.setState({ dueDate: event.target.value })
   }
 
   handleSubmit = event => {
     event.preventDefault();
-    const title = this.state.title.trim();
+    const { title, dueDate } = this.state;
     if (title.length !== 0) {
-      this.props.addTodo(title)
+      this.props.addTodo(title.trim(), dueDate)
     }
-    this.setState({ title: "" });
+    this.setState({ 
+      title: "",
+      dueDate: new Date().toISOString().substr(0, 10)
+   })
   }
 
   render() {
@@ -25,7 +33,14 @@ class NewTodo extends React.Component {
           type="text"
           name="title"
           value={this.state.title}
-          onChange={this.handleChange}
+          onChange={this.handleTitleChange}
+        />
+        <label>Due date:</label> 
+        <input 
+          type="date" 
+          name="dueDate"
+          value={this.state.dueDate} 
+          onChange={this.handleDueDateChange} 
         />
         <button type="submit">Add a todo</button>
       </form>
