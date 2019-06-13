@@ -29,12 +29,13 @@ class Todo extends React.Component {
 	}
 
   render() {
-    const { todo, completeTodo, deleteTodo } = this.props
+		const { todo, completeTodo, deleteTodo, editingID } = this.props
+		const { id, title, completed, dueDate } = todo
 
     let listItem
-    if (this.props.editingID === todo.id) {
+    if (editingID === id) {
       listItem = (
-        <form onSubmit={() => this.handleSave(todo.id)}>
+        <form onSubmit={() => this.handleSave(id)}>
           <input
             type="text"
             name="title"
@@ -44,7 +45,7 @@ class Todo extends React.Component {
           <button type="submit">
             Save
           </button>
-					<button type="button" onClick={() => this.handleCancel(todo.id, todo.title)} >
+					<button type="button" onClick={() => this.handleCancel(id, title)} >
 						Cancel
 					</button>
         </form>
@@ -52,19 +53,22 @@ class Todo extends React.Component {
     } else {
       listItem = (
         <div>
-          <input 
+					<input 
             type='checkbox'
-            checked={todo.completed}
-            onChange={() => completeTodo(todo.id)}
+            checked={completed}
+            onChange={() => completeTodo(id)}
           />
-          <span>{todo.title}</span>
-          <button type="button" onClick={() => this.handleEdit(todo.id, todo.title)}>
+          <span>{title}</span>
+          <button type="button" onClick={() => this.handleEdit(id, title)}>
 						Edit
 					</button>
-          <button type="button" onClick={() => deleteTodo(todo.id)}>
+          <button type="button" onClick={() => deleteTodo(id)}>
 						Delete
 					</button>
+					<br />
+					<span>{dueDate}</span>
         </div>
+				
       )
     }
     

@@ -1,9 +1,10 @@
 import React from "react"
+const today = new Date().toISOString().substr(0, 10)
 
 class NewTodo extends React.Component {
   state = {
     title: "",
-    dueDate: new Date().toISOString().substr(0, 10)
+    dueDate: today
   }
 
   handleTitleChange = event => {
@@ -22,7 +23,7 @@ class NewTodo extends React.Component {
     }
     this.setState({ 
       title: "",
-      dueDate: new Date().toISOString().substr(0, 10)
+      dueDate: today
    })
   }
 
@@ -31,14 +32,13 @@ class NewTodo extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <input
           type="text"
-          name="title"
           value={this.state.title}
           onChange={this.handleTitleChange}
         />
         <label>Due date:</label> 
         <input 
           type="date" 
-          name="dueDate"
+          min={today}
           value={this.state.dueDate} 
           onChange={this.handleDueDateChange} 
         />
