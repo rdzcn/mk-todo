@@ -1,7 +1,6 @@
 import React from "react"
 import NewTodo from "./NewTodo"
 import TodoList from "./TodoList"
-import Todo from "./Todo"
 import uuid from 'uuid/v4'
 
 class State extends React.Component  {
@@ -82,44 +81,31 @@ class State extends React.Component  {
   	})
 	}
 	
-	sortModifiedAt = (a, b) => {
-		return b.modifiedAt - a.modifiedAt
-	}
-
 	render() {
 		const todos = this.state.todos.filter(todo => !todo.completed)
   	const completedTodos = this.state.todos.filter(todo => todo.completed)
 		return (
 			<div>
 				<NewTodo addTodo={this.addTodo}/>
-				<TodoList todos={todos}>
-					{todos.map(todo => 
-						<Todo 
-							key={todo.id} 
-							todo={todo} 
-							completeTodo={this.completeTodo} 
-							editTodo={this.editTodo}
-							saveTodo={this.saveTodo}
-							deleteTodo={this.deleteTodo} 
-							editingID={this.state.editingID} 
-						/>
-					)}
-				</TodoList>
-				{
+				<TodoList 
+					todos={todos}
+					completeTodo={this.completeTodo} 
+					editTodo={this.editTodo}
+					saveTodo={this.saveTodo}
+					deleteTodo={this.deleteTodo} 
+					editingID={this.state.editingID}	
+				/>
+				{ 
 					this.state.showCompleted ?
 						(
 							<div>
 								<button type="button" onClick={this.toggleCompleted}>Hide</button>
-								<TodoList todos={completedTodos} completed="true">
-									{completedTodos.sort(this.sortModifiedAt).map(todo =>
-										<Todo
-											key={todo.id}
-											todo={todo}
-											deleteTodo={this.deleteTodo}
-											completeTodo={this.completeTodo}
-										/>
-									)}
-								</TodoList>
+								<TodoList 
+									todos={completedTodos} 
+									completed="true"
+									completeTodo={this.completeTodo} 
+									deleteTodo={this.deleteTodo} 
+								/>
 							</div>
 						) : (
 							<div>
