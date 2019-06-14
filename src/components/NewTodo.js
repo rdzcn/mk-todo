@@ -2,7 +2,6 @@ import React from "react"
 
 const today = new Date().toISOString().substr(0, 10)
 
-
 class NewTodo extends React.Component {
   state = {
     title: "",
@@ -24,8 +23,7 @@ class NewTodo extends React.Component {
       this.props.addTodo(title.trim(), dueDate)
     }
     this.setState({ 
-      title: "",
-      dueDate: today
+      title: ""
    })
   }
 

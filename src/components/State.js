@@ -7,15 +7,17 @@ class State extends React.Component  {
 	constructor(props) {
 		super(props)
 		const todos = JSON.parse(localStorage.getItem("todos"))
+		const showCompleted = JSON.parse(localStorage.getItem("showCompleted"))
 		this.state = {
 			editingID: "",
-			showCompleted: false,
+			showCompleted: showCompleted || false,
 			todos: todos || []
 		}
 	}
 
 	saveToLocal = () => {
-  	localStorage.setItem("todos", JSON.stringify(this.state.todos))
+		localStorage.setItem("todos", JSON.stringify(this.state.todos))
+		localStorage.setItem("showCompleted", JSON.stringify(this.state.showCompleted))
   }
 
   addTodo = (title, dueDate) => {
@@ -78,7 +80,7 @@ class State extends React.Component  {
   toggleCompleted = () => {
   	this.setState({
   		showCompleted: !this.state.showCompleted
-  	})
+  	}, this.saveToLocal)
 	}
 	
 	render() {
