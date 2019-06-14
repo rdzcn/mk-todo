@@ -42,11 +42,22 @@ handleCancel = (id, title) => {
 
 6. As the todo items are list items, used `<br />` to put the due date under the title. 
 
-7. 
+7. Used helper `decideDueDateColor`, running it in Todo. It takes the dueDate in ISO format (YYYY-MM-DD) and converts to a date object with hour set to `23:59:59:999`. Then it takes `now` as date object and compares them.
 
-8.
+```
+	if (dueDate.valueOf() - now.valueOf() < 24 * 60 * 60 * 1000) {
+		return "green"
+	} else if (dueDate.valueOf() > now.valueOf()) {
+		return "blue"
+	} else {
+		return "red"
+	}
+```
+That is, if the difference in hours is less than 24, it returns `green`. If the difference is greater than 24 hours, it returns `blue`. Otherwise, it is in the past; it returns `red`. We assign the return value as a className to `<span className={dueDateColor}>{dueDate}</span>` and assign the colors in `style.css`.   
 
-9.
+8. `yarn test`  
+
+9. 
 
 10.
 
@@ -58,12 +69,12 @@ handleCancel = (id, title) => {
 
 14. Partly done. Currently no need for CompletedTodoList component. (still to implement fetchTodos)
 
-15.
+15. Passing a `{completed}` prop to TodoList to specify the title. Instead of `h1` now using `span` as it is inline element. That is, `{todos.length}` will appear next to the title.  
 
-16. Partly done. Currently no need for CompletedTodo component. (Need to remove the Edit button from Completed Todo List)
+16. Rendering completed Todos in TodoList. 
 
 # Follow up on previous weeks
 
 1. Change the README.md. Include the tasks for each week together with links to branch deploys on Netlify to see the progress.
 
-2. Refactor Show/Hide logic of Completed Todos. Conditional labelling of the buttons. 
+2. Refactor Show/Hide logic of Completed Todos. Implement conditional labelling of the button. 

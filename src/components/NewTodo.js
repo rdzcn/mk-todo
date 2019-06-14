@@ -1,5 +1,7 @@
 import React from "react"
+
 const today = new Date().toISOString().substr(0, 10)
+
 
 class NewTodo extends React.Component {
   state = {

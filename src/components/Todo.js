@@ -1,4 +1,5 @@
 import React from "react"
+import { decideDueDateColor } from "../helpers"
 
 class Todo extends React.Component {
 
@@ -31,6 +32,7 @@ class Todo extends React.Component {
   render() {
 		const { todo, completeTodo, deleteTodo, editingID } = this.props
 		const { id, title, completed, dueDate } = todo
+		const dueDateColor = decideDueDateColor(dueDate)
 
     let listItem
     if (editingID === id) {
@@ -59,14 +61,14 @@ class Todo extends React.Component {
             onChange={() => completeTodo(id)}
           />
           {completed ? <del>{title}</del> : <span>{title}</span>}
-          <button type="button" onClick={() => this.handleEdit(id, title)}>
+          <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
 						Edit
 					</button>
           <button type="button" onClick={() => deleteTodo(id)}>
 						Delete
 					</button>
 					<br />
-					<span>{dueDate}</span>
+					<span className={dueDateColor}>{dueDate}</span>
         </div>
 				
       )
