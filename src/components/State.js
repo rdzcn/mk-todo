@@ -1,9 +1,7 @@
 import React from "react"
 import NewTodo from "./NewTodo"
 import TodoList from "./TodoList"
-import CompletedTodoList from "./CompletedTodoList"
 import Todo from "./Todo"
-import CompletedTodo from "./CompletedTodo"
 import uuid from 'uuid/v4'
 
 class State extends React.Component  {
