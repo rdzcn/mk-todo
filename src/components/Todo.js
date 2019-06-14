@@ -1,5 +1,4 @@
 import React from "react"
-import { decideDueDateColor } from "../helpers"
 
 class Todo extends React.Component {
 
@@ -29,10 +28,23 @@ class Todo extends React.Component {
 		this.props.saveTodo(id, title)
 	}
 
+	decideDueDateColor = date => {
+		const dueDate = new Date(date)
+		dueDate.setHours(23, 59, 59, 999)
+		const now = new Date()
+		if (dueDate.valueOf() - now.valueOf() < 24 * 60 * 60 * 1000 && dueDate.valueOf() > now.valueOf()) {
+			return "green"
+		} else if (dueDate.valueOf() > now.valueOf()) {
+			return "blue"
+		} else { 
+			return "red"
+		}
+	}
+
   render() {
 		const { todo, completeTodo, deleteTodo, editingID } = this.props
 		const { id, title, completed, dueDate } = todo
-		const dueDateColor = decideDueDateColor(dueDate)
+		const dueDateColor = this.decideDueDateColor(dueDate)
 
     let listItem
     if (editingID === id) {

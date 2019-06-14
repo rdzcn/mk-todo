@@ -79,7 +79,7 @@ sortUncompleted = (a, b) => {
 }
 ```
 
-11.
+11. See point 10.  
 
 12.
 
