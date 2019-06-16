@@ -8,18 +8,10 @@ class State {
 		this.editingID = "" 
 	}
 
-	get showCompleted() {
-		return this._showCompleted
-	}
-
-	set showCompleted(value) {
-		this._showCompleted = value
-	}
-
 	saveToLocal(todos) {
 		const data = {}
 		data.todos = todos
-		data.showCompleted = this.showCompleted
+		data.showCompleted = this._showCompleted
 		localStorage.setItem("data", JSON.stringify(data))
 	}
 
@@ -71,6 +63,12 @@ class State {
 		todos = todos.filter(todo =>
 			todo.id !== id
 		)
+		this.saveToLocal(todos)
+	}
+
+	toggleShowCompleted = () => {
+		this._showCompleted = !this._showCompleted
+		const { todos } = this
 		this.saveToLocal(todos)
 	}
 

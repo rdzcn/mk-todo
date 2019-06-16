@@ -19,8 +19,12 @@ class Todo extends React.Component {
     this.setState({ title: event.target.value })
   }
 
-  handleSave = (id) => {
-    const { title } = this.state
+  handleSave = (event) => {
+		event.preventDefault()
+		const id = event.target.name
+		console.log(event.target.name)
+		const { title } = this.state
+		console.log(title)
     this.props.localStorage.saveTodo(id, title)
 	}
 	
@@ -58,7 +62,7 @@ class Todo extends React.Component {
     let listItem
     if (editingID === id) {
       listItem = (
-        <form onSubmit={() => this.handleSave(id)}>
+        <form  name={id} onSubmit={this.handleSave}>
           <input
             type="text"
             name="title"

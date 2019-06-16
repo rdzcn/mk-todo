@@ -14,7 +14,10 @@ class App extends React.Component {
 	}
 
 	toggleShowCompleted = () => {
-		localStorage._showCompleted = !this.state.showCompleted
+		this.setState({
+			showCompleted: !this.state.showCompleted
+		}, localStorage.toggleShowCompleted)
+		
 	}
 
 	render() {
@@ -24,7 +27,7 @@ class App extends React.Component {
 				<NewTodo localStorage={localStorage} />
 				<TodoList localStorage={localStorage} />
 				{ 
-					localStorage._showCompleted ?
+					this.state.showCompleted ?
 						(
 							<div>
 								<button type="button" onClick={this.toggleShowCompleted}>Hide</button>
