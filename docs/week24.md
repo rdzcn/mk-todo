@@ -36,7 +36,7 @@ handleCancel = (id, title) => {
   this.props.saveTodo(id, title)
 }
 ```
-4. Moved all the state to State. Running everything in State and using props.children in Child components.
+4. ~~Moved all the state to State. Running everything in State and using props.children in Child components.~~ Confused it with React Class Component. Created a JS Class object called State which handles the data and acts as a repository. 
 
 5. As value for the `input type="date value={today}` used `const today = new Date().toISOString().substr(0, 10)`. The date should be in the form `YYYY-MM-DD` so that it can be used as input value. It also has a `min` attribute as `min={today}`, i.e., the user cannot set a due date in the past.
 
