@@ -30,11 +30,13 @@ class TodoList extends React.Component {
 	sortCompleted = (a, b) => b.modifiedAt - a.modifiedAt
 	
 	render() {
-		const { todos, completeTodo, editTodo, saveTodo, deleteTodo, editingID } = this.props
-		
+		let todos
+		const uncompletedTodos = this.props.localStorage.todos.filter(todo => !todo.completed)
+		const completedTodos = this.props.localStorage.todos.filter(todo => todo.completed)
+		!!this.props.completed ? todos = completedTodos : todos = uncompletedTodos  
 		return (
 			<div>
-				{this.props.completed ? <span>Completed</span> : <span>My Todos</span> } ({this.props.todos.length})
+				{!!this.props.completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({todos.length})
 				<br />
 				<select onChange={this.handleSelect}>
 					<option value="">Sort todos by</option>
@@ -45,15 +47,7 @@ class TodoList extends React.Component {
 				</select>
 				<ul>
 					{todos.sort(this.sortUncompleted).map(todo => 
-						<Todo 
-							key={todo.id} 
-							todo={todo}
-							completeTodo={completeTodo}
-							editTodo={editTodo}
-							saveTodo={saveTodo}
-							deleteTodo={deleteTodo}
-							editingID={editingID} 
-						/>
+						<Todo key={todo.id} todo={todo} localStorage={this.props.localStorage} />
 					)}
 				</ul>
 			</div>

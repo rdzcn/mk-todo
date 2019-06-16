@@ -7,12 +7,12 @@ class Todo extends React.Component {
 	}
 
 	handleEdit = (id, title) => {
-    if (this.props.editingID !== "") {
+    if (this.props.localStorage.editingID !== "") {
       return;
 		} 
 		this.setState({
 			title: title
-		}, this.props.editTodo(id)) 
+		}, this.props.localStorage.editTodo(id)) 
   }
 
   handleChange = event => {
@@ -21,11 +21,19 @@ class Todo extends React.Component {
 
   handleSave = (id) => {
     const { title } = this.state
-    this.props.saveTodo(id, title)
+    this.props.localStorage.saveTodo(id, title)
 	}
 	
 	handleCancel = (id, title) => {
-		this.props.saveTodo(id, title)
+		this.props.localStorage.saveTodo(id, title)
+	}
+
+	handleDelete = (id) => {
+		this.props.localStorage.deleteTodo(id)
+	}
+
+	handleComplete = (id) => {
+		this.props.localStorage.completeTodo(id)
 	}
 
 	decideDueDateColor = date => {
@@ -42,7 +50,8 @@ class Todo extends React.Component {
 	}
 
   render() {
-		const { todo, completeTodo, deleteTodo, editingID } = this.props
+		const { editingID } = this.props.localStorage
+		const { todo } = this.props
 		const { id, title, completed, dueDate } = todo
 		const dueDateColor = this.decideDueDateColor(dueDate)
 
@@ -70,13 +79,13 @@ class Todo extends React.Component {
 					<input 
             type='checkbox'
             checked={completed}
-            onChange={() => completeTodo(id)}
+            onChange={() => this.handleComplete(id)}
           />
           {completed ? <del>{title}</del> : <span>{title}</span>}
           <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
 						Edit
 					</button>
-          <button type="button" onClick={() => deleteTodo(id)}>
+          <button type="button" onClick={() => this.handleDelete(id)}>
 						Delete
 					</button>
 					<br />

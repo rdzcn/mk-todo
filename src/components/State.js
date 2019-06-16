@@ -1,124 +1,79 @@
-import React from "react"
-import NewTodo from "./NewTodo"
-import TodoList from "./TodoList"
-import uuid from 'uuid/v4'
+import uuid from "uuid/v4"
 
-class State extends React.Component  {
-	constructor(props) {
-		super(props)
-		const todos = JSON.parse(localStorage.getItem("todos"))
-		const showCompleted = JSON.parse(localStorage.getItem("showCompleted"))
-		this.state = {
-			editingID: "",
-			showCompleted: showCompleted || false,
-			todos: todos || []
-		}
+class State {
+	constructor() {
+		const data = JSON.parse(localStorage.getItem("data")) || {}
+		this.todos = data.todos || []
+		this._showCompleted = data.showCompleted || false
+		this.editingID = "" 
 	}
 
-	saveToLocal = () => {
-		localStorage.setItem("todos", JSON.stringify(this.state.todos))
-		localStorage.setItem("showCompleted", JSON.stringify(this.state.showCompleted))
-  }
+	get showCompleted() {
+		return this._showCompleted
+	}
 
-  addTodo = (title, dueDate) => {
+	set showCompleted(value) {
+		this._showCompleted = value
+	}
+
+	saveToLocal(todos) {
+		const data = {}
+		data.todos = todos
+		data.showCompleted = this.showCompleted
+		localStorage.setItem("data", JSON.stringify(data))
+	}
+
+	addTodo(title, dueDate) {
+		let { todos } = this
 		const todo = {
-  		title: title,
-  		completed: false,
-  		id: uuid(),
-  		createdAt: Date.now(),
+			title: title,
+			completed: false,
+			id: uuid(),
+			createdAt: Date.now(),
 			modifiedAt: Date.now(),
 			dueDate: dueDate
-  	}
-  	this.setState({
-  		todos: [...this.state.todos, todo]
-  	}, this.saveToLocal)
-  }
-  
-  completeTodo = id => {
-  	const { todos } = this.state
-  	todos.map(todo => {
-  		if (todo.id === id) {
-  			todo.completed = !todo.completed
-  			todo.modifiedAt = Date.now()
-  			return todo
-  		} else {
-  			return todo
-  		}
-  	})
-  	this.setState({
-  		todos
-  	}, this.saveToLocal)
-  }
-
-  editTodo = (id) => {
-  	this.setState({ editingID: id })
-  }
-
-  saveTodo = (id, title) => {
-  	const { todos } = this.state
-  	todos.map(todo =>
-  		todo.id === id ?
-  			todo.title = title :
-  			todo
-  	)
-  	this.setState({
-  		todos,
-  		editingID: ""
-  	}, this.saveToLocal)
-  }
-
-  deleteTodo = (id) => {
-  	let { todos } = this.state
-  	todos = todos.filter(todo =>
-  		todo.id !== id
-  	)
-  	this.setState({
-  		todos
-  	}, this.saveToLocal)
-  }
-
-  toggleCompleted = () => {
-  	this.setState({
-  		showCompleted: !this.state.showCompleted
-  	}, this.saveToLocal)
+		}
+		todos = [...todos, todo]
+		this.saveToLocal(todos)
 	}
-	
-	render() {
-		const todos = this.state.todos.filter(todo => !todo.completed)
-  	const completedTodos = this.state.todos.filter(todo => todo.completed)
-		return (
-			<div>
-				<NewTodo addTodo={this.addTodo}/>
-				<TodoList 
-					todos={todos}
-					completeTodo={this.completeTodo} 
-					editTodo={this.editTodo}
-					saveTodo={this.saveTodo}
-					deleteTodo={this.deleteTodo} 
-					editingID={this.state.editingID}	
-				/>
-				{ 
-					this.state.showCompleted ?
-						(
-							<div>
-								<button type="button" onClick={this.toggleCompleted}>Hide</button>
-								<TodoList 
-									todos={completedTodos} 
-									completed="true"
-									completeTodo={this.completeTodo} 
-									deleteTodo={this.deleteTodo} 
-								/>
-							</div>
-						) : (
-							<div>
-								<button type="button" onClick={this.toggleCompleted}>Show</button>
-							</div>
-						)
-				}
-			</div>
+
+	completeTodo(id) {
+		let { todos } = this
+		todos.map(todo => {
+			if (todo.id === id) {
+				todo.completed = !todo.completed
+				todo.modifiedAt = Date.now()
+				return todo
+			} else {
+				return todo
+			}
+		})
+		this.saveToLocal(todos)
+	}
+
+	editTodo(id) {
+		this.editingID = id
+	}
+
+	saveTodo(id, title) {
+		let { todos } = this
+		todos.map(todo =>
+			todo.id === id ?
+				todo.title = title :
+				todo
 		)
+		this.saveToLocal(todos)
+		this.editingID = ""
 	}
+
+	deleteTodo(id) {
+		let { todos } = this
+		todos = todos.filter(todo =>
+			todo.id !== id
+		)
+		this.saveToLocal(todos)
+	}
+
 }
 
 export default State
-

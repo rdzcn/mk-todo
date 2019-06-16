@@ -20,7 +20,7 @@ class NewTodo extends React.Component {
     event.preventDefault();
     const { title, dueDate } = this.state;
     if (title.length !== 0) {
-      this.props.addTodo(title.trim(), dueDate)
+      this.props.localStorage.addTodo(title.trim(), dueDate)
     }
     this.setState({ 
       title: ""
