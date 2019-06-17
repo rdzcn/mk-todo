@@ -47,7 +47,7 @@ class TodoList extends React.Component {
 				</select>
 				<ul>
 					{todos.sort(this.sortUncompleted).map(todo => 
-						<Todo key={todo.id} todo={todo} localStorage={this.props.localStorage} />
+						<Todo key={todo.id} todo={todo} repo={this.props.repo} updateApp={this.props.updateApp} />
 					)}
 				</ul>
 			</div>

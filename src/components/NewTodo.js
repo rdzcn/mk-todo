@@ -20,13 +20,12 @@ class NewTodo extends React.Component {
     event.preventDefault();
     const { title, dueDate } = this.state;
     if (title.length !== 0) {
-      this.props.localStorage.addTodo(title.trim(), dueDate)
+      this.props.repo.addTodo(title.trim(), dueDate)
     }
-    const data = JSON.parse(localStorage.getItem("data"))
-    console.log("newTodo", data)
+    //const data = JSON.parse(localStorage.getItem("data"))
     this.setState({ 
       title: ""
-    }, this.props.updateApp(data.todos))
+    }, this.props.updateApp(this.props.repo.todos))
   }
 
   render() {

@@ -13,6 +13,7 @@ class State {
 		data.todos = todos
 		data.showCompleted = this._showCompleted
 		localStorage.setItem("data", JSON.stringify(data))
+		this.todos = todos
 	}
 
 	addTodo(title, dueDate) {

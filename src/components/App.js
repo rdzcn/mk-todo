@@ -3,12 +3,12 @@ import NewTodo from "./NewTodo"
 import TodoList from "./TodoList"
 
 import State from "./State"
-const localStorage = new State()
+let repo = new State()
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		const { todos, _showCompleted } = localStorage
+		const { todos, _showCompleted } = repo
 		this.state = {
 			todos: todos,
 			showCompleted: _showCompleted
@@ -18,26 +18,30 @@ class App extends React.Component {
 	toggleShowCompleted = () => {
 		this.setState({
 			showCompleted: !this.state.showCompleted
-		}, localStorage.toggleShowCompleted)
-		
+		}, repo.toggleShowCompleted)
 	}
 
 	updateApp = (todos) => {
-		this.setState({ todos })
+		this.setState({ todos }, this.updateRepo(todos))
+	}
+
+	updateRepo = (todos) => {
+		repo.todos = todos
 	}
 
 	render() {
+		let repo = new State()
 		return (
 			<div>
 				<h1>Your Todo App</h1>
-				<NewTodo localStorage={localStorage} updateApp={this.updateApp} />
-				<TodoList localStorage={localStorage} updateApp={this.updateApp} todos={this.state.todos} />
+				<NewTodo repo={repo} updateApp={this.updateApp} />
+				<TodoList repo={repo} updateApp={this.updateApp} todos={this.state.todos} />
 				{ 
 					this.state.showCompleted ?
 						(
 							<div>
 								<button type="button" onClick={this.toggleShowCompleted}>Hide</button>
-								<TodoList localStorage={localStorage} completed="true" updateApp={this.updateApp} todos={this.state.todos} />
+								<TodoList repo={repo} completed="true" updateApp={this.updateApp} todos={this.state.todos} />
 							</div>
 						) : (
 							<div>

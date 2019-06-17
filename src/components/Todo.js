@@ -7,12 +7,12 @@ class Todo extends React.Component {
 	}
 
 	handleEdit = (id, title) => {
-    if (this.props.localStorage.editingID !== "") {
+    if (this.props.repo.editingID !== "") {
       return;
 		} 
 		this.setState({
 			title: title
-		}, this.props.localStorage.editTodo(id)) 
+		}, this.props.repo.editTodo(id)) 
   }
 
   handleChange = event => {
@@ -23,19 +23,23 @@ class Todo extends React.Component {
 		event.preventDefault()
 		const id = event.target.name
 		const { title } = this.state
-    this.props.localStorage.saveTodo(id, title)
+		this.props.repo.saveTodo(id, title)
+		this.props.updateApp(this.props.repo.todos)
 	}
 	
 	handleCancel = (id, title) => {
-		this.props.localStorage.saveTodo(id, title)
+		this.props.repo.saveTodo(id, title)
+		this.props.updateApp(this.props.repo.todos)
 	}
 
 	handleDelete = (id) => {
-		this.props.localStorage.deleteTodo(id)
+		this.props.repo.deleteTodo(id)
+		this.props.updateApp(this.props.repo.todos)
 	}
 
 	handleComplete = (id) => {
-		this.props.localStorage.completeTodo(id)
+		this.props.repo.completeTodo(id)
+		this.props.updateApp(this.props.repo.todos)
 	}
 
 	decideDueDateColor = date => {
@@ -52,7 +56,7 @@ class Todo extends React.Component {
 	}
 
   render() {
-		const { editingID } = this.props.localStorage
+		const { editingID } = this.props.repo
 		const { todo } = this.props
 		const { id, title, completed, dueDate } = todo
 		const dueDateColor = this.decideDueDateColor(dueDate)
