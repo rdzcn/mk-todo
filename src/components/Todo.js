@@ -1,4 +1,5 @@
 import React from "react"
+import { colorForDueDate } from "../utils/helpers"
 
 class Todo extends React.Component {
 
@@ -42,24 +43,12 @@ class Todo extends React.Component {
 		this.props.updateApp(this.props.repo.todos)
 	}
 
-	decideDueDateColor = date => {
-		const dueDate = new Date(date)
-		dueDate.setHours(23, 59, 59, 999)
-		const now = new Date()
-		if (dueDate.valueOf() - now.valueOf() < 24 * 60 * 60 * 1000 && dueDate.valueOf() > now.valueOf()) {
-			return "green"
-		} else if (dueDate.valueOf() > now.valueOf()) {
-			return "blue"
-		} else { 
-			return "red"
-		}
-	}
-
   render() {
 		const { editingID } = this.props.repo
 		const { todo } = this.props
-		const { id, title, completed, dueDate } = todo
-		const dueDateColor = this.decideDueDateColor(dueDate)
+		const { id, title, completed } = todo
+		const dueDate = new Date(todo.dueDate).toLocaleDateString("en-GB")
+		const dueDateColor = colorForDueDate(dueDate)
 
     let listItem
     if (editingID === id) {

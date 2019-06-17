@@ -18,7 +18,7 @@ class App extends React.Component {
 	toggleShowCompleted = () => {
 		this.setState({
 			showCompleted: !this.state.showCompleted
-		}, repo.toggleShowCompleted)
+		}, repo.toggleShowCompleted(this.state.todos))
 	}
 
 	updateApp = (todos) => {

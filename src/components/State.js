@@ -14,6 +14,7 @@ class State {
 		data.showCompleted = this._showCompleted
 		localStorage.setItem("data", JSON.stringify(data))
 		this.todos = todos
+		console.log("saveToLocal", this.todos, todos)
 	}
 
 	addTodo(title, dueDate) {
@@ -67,9 +68,8 @@ class State {
 		this.saveToLocal(todos)
 	}
 
-	toggleShowCompleted = () => {
+	toggleShowCompleted = (todos) => {
 		this._showCompleted = !this._showCompleted
-		const { todos } = this
 		this.saveToLocal(todos)
 	}
 
