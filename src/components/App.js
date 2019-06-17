@@ -22,11 +22,7 @@ class App extends React.Component {
 	}
 
 	updateApp = (todos) => {
-		this.setState({ todos }, this.updateRepo(todos))
-	}
-
-	updateRepo = (todos) => {
-		repo.todos = todos
+		this.setState({ todos })
 	}
 
 	render() {
