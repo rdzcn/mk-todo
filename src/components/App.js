@@ -1,15 +1,17 @@
 import React from "react"
-import State from "./State"
 import NewTodo from "./NewTodo"
 import TodoList from "./TodoList"
+
+import State from "./State"
 const localStorage = new State()
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
+		const { todos, _showCompleted } = localStorage
 		this.state = {
-			todos: localStorage.todos,
-			showCompleted: localStorage._showCompleted
+			todos: todos,
+			showCompleted: _showCompleted
 		}
 	}
 
@@ -20,18 +22,22 @@ class App extends React.Component {
 		
 	}
 
+	updateApp = (todos) => {
+		this.setState({ todos })
+	}
+
 	render() {
 		return (
 			<div>
 				<h1>Your Todo App</h1>
-				<NewTodo localStorage={localStorage} />
-				<TodoList localStorage={localStorage} />
+				<NewTodo localStorage={localStorage} updateApp={this.updateApp} />
+				<TodoList localStorage={localStorage} updateApp={this.updateApp} todos={this.state.todos} />
 				{ 
 					this.state.showCompleted ?
 						(
 							<div>
 								<button type="button" onClick={this.toggleShowCompleted}>Hide</button>
-								<TodoList localStorage={localStorage} completed="true" />
+								<TodoList localStorage={localStorage} completed="true" updateApp={this.updateApp} todos={this.state.todos} />
 							</div>
 						) : (
 							<div>

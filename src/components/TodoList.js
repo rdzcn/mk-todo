@@ -31,8 +31,8 @@ class TodoList extends React.Component {
 	
 	render() {
 		let todos
-		const uncompletedTodos = this.props.localStorage.todos.filter(todo => !todo.completed)
-		const completedTodos = this.props.localStorage.todos.filter(todo => todo.completed)
+		const uncompletedTodos = this.props.todos.filter(todo => !todo.completed)
+		const completedTodos = this.props.todos.filter(todo => todo.completed)
 		!!this.props.completed ? todos = completedTodos : todos = uncompletedTodos  
 		return (
 			<div>

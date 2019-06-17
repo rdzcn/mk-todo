@@ -22,9 +22,7 @@ class Todo extends React.Component {
   handleSave = (event) => {
 		event.preventDefault()
 		const id = event.target.name
-		console.log(event.target.name)
 		const { title } = this.state
-		console.log(title)
     this.props.localStorage.saveTodo(id, title)
 	}
 	
