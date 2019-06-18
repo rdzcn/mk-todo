@@ -47,8 +47,11 @@ class Todo extends React.Component {
 		const { editingID } = this.props.repo
 		const { todo } = this.props
 		const { id, title, completed } = todo
-		const dueDate = new Date(todo.dueDate).toLocaleDateString("en-GB")
-		const dueDateColor = colorForDueDate(dueDate)
+		console.log(todo.dueDate)
+		const dueDate = new Date(todo.dueDate).toLocaleDateString("en-CA")
+		const today = new Date()
+		const date = new Date(Date.parse(todo.dueDate))
+		const dueDateColor = colorForDueDate(today, date)
 
     let listItem
     if (editingID === id) {
