@@ -10,12 +10,12 @@ export function colorForDueDate(today, dueDate) {
         (dueDateYear === todayYear && dueDateMonth > todayMonth) ||
           (dueDateYear === todayYear && dueDateMonth === todayMonth && dueDateDay > todayDay)
 	) {
-		return "#0f0"
+		return "#00f"
 	} else if (dueDateYear === todayYear &&
               dueDateMonth === todayMonth &&
                 dueDateDay === todayDay
 	) {
-		return "#00f"
+		return "#0f0"
 	} else {
 		return "#f00"
 	}

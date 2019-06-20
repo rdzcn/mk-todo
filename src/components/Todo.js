@@ -51,7 +51,7 @@ class Todo extends React.Component {
 		const today = new Date()
 		const date = new Date(Date.parse(todo.dueDate))
 		const dueDateColor = colorForDueDate(today, date)
-
+		
     let listItem
     if (editingID === id) {
       listItem = (
@@ -86,7 +86,7 @@ class Todo extends React.Component {
 						Delete
 					</button>
 					<br />
-					<span className={dueDateColor}>{dueDate}</span>
+					<span style={{color: dueDateColor}}>{dueDate}</span>
         </div>
       )
     }
