@@ -6,17 +6,18 @@ export function colorForDueDate(today, dueDate) {
 	const dueDateMonth = dueDate.getMonth()
 	const dueDateYear = dueDate.getFullYear()
   
-	if (dueDateYear > todayYear || 
-        dueDateYear === todayYear && dueDateMonth > todayMonth ||
-          dueDateYear === todayYear && dueDateMonth === todayMonth && dueDateDay > todayDay
+	if ((dueDateYear > todayYear) || 
+        (dueDateYear === todayYear && dueDateMonth > todayMonth) ||
+          (dueDateYear === todayYear && dueDateMonth === todayMonth && dueDateDay > todayDay)
 	) {
-		return "blue"
+		return "#0f0"
 	} else if (dueDateYear === todayYear &&
               dueDateMonth === todayMonth &&
                 dueDateDay === todayDay
 	) {
-		return "green"
+		return "#00f"
 	} else {
-		return "red"
+		return "#f00"
 	}
 }
+

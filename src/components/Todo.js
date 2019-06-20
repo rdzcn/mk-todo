@@ -8,7 +8,7 @@ class Todo extends React.Component {
 	}
 
 	handleEdit = (id, title) => {
-    if (this.props.repo.editingID !== "") {
+    if (this.props.repo.editingID) {
       return;
 		} 
 		this.setState({
@@ -28,8 +28,8 @@ class Todo extends React.Component {
 		this.props.updateApp(this.props.repo.todos)
 	}
 	
-	handleCancel = (id, title) => {
-		this.props.repo.saveTodo(id, title)
+	handleCancel = (id) => {
+		this.props.repo.editTodo(id)
 		this.props.updateApp(this.props.repo.todos)
 	}
 
@@ -39,7 +39,7 @@ class Todo extends React.Component {
 	}
 
 	handleComplete = (id) => {
-		this.props.repo.completeTodo(id)
+		this.props.repo.toggleCompletionForTodo(id)
 		this.props.updateApp(this.props.repo.todos)
 	}
 
@@ -47,7 +47,6 @@ class Todo extends React.Component {
 		const { editingID } = this.props.repo
 		const { todo } = this.props
 		const { id, title, completed } = todo
-		console.log(todo.dueDate)
 		const dueDate = new Date(todo.dueDate).toLocaleDateString("en-CA")
 		const today = new Date()
 		const date = new Date(Date.parse(todo.dueDate))
@@ -66,7 +65,7 @@ class Todo extends React.Component {
           <button type="submit">
             Save
           </button>
-					<button type="button" onClick={() => this.handleCancel(id, title)} >
+					<button type="button" onClick={() => this.handleCancel(id)} >
 						Cancel
 					</button>
         </form>
@@ -89,7 +88,6 @@ class Todo extends React.Component {
 					<br />
 					<span className={dueDateColor}>{dueDate}</span>
         </div>
-				
       )
     }
     

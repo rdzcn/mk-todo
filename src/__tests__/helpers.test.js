@@ -1,44 +1,23 @@
+import { colorForDueDate } from "../utils/helpers"
 
-const today = new Date(Date.parse("2019-06-18T16:00:00.000Z"))
-const dueDateToday = new Date(Date.parse("2019-06-18T10:00:00.000Z"))
-const dueDateTomorrow = new Date(Date.parse("2019-06-19T16:00:00.000Z"))
-const dueDateYesterday = new Date(Date.parse("2019-06-17T16:00:00.000Z"))
+const today = new Date(2019, 5, 18, 16)        
+const dueDateToday = new Date(2019, 5, 18, 10)    
+const dueDateTomorrow = new Date(2019, 5, 19, 12)   
+const dueDateYesterday = new Date(2019, 5, 17, 12)
+
 const nullDate = null
 const stringDate = "2019-06-18"
 
-function colorForDueDate(today, dueDate) {
-	const todayDay = today.getDate()
-	const todayMonth = today.getMonth()
-	const todayYear = today.getFullYear()
-	const dueDateDay = dueDate.getDate()
-	const dueDateMonth = dueDate.getMonth()
-	const dueDateYear = dueDate.getFullYear()
-  
-	if (dueDateYear > todayYear || 
-        dueDateYear === todayYear && dueDateMonth > todayMonth ||
-          dueDateYear === todayYear && dueDateMonth === todayMonth && dueDateDay > todayDay
-	) {
-		return "blue"
-	} else if (dueDateYear === todayYear &&
-              dueDateMonth === todayMonth &&
-                dueDateDay === todayDay
-	) {
-		return "green"
-	} else {
-		return "red"
-	}
-}
-
-test("Due Date in the future returns red", () => {
-	expect(colorForDueDate(today, dueDateTomorrow)).toBe("blue")
+test("Due Date in the future returns #0f0", () => {
+	expect(colorForDueDate(today, dueDateTomorrow)).toBe("#0f0")
 })
 
-test("Due Date on today returns green", () => {
-	expect(colorForDueDate(today, dueDateToday)).toBe("green")
+test("Due Date on today returns #00f", () => {
+	expect(colorForDueDate(today, dueDateToday)).toBe("#00f")
 })
 
-test("Due date in the past returns red", () => {
-	expect(colorForDueDate(today, dueDateYesterday)).toBe("red")
+test("Due date in the past returns #f00", () => {
+	expect(colorForDueDate(today, dueDateYesterday)).toBe("#f00")
 })
 
 test("Due date has to be date.Object and null or string", () => {
