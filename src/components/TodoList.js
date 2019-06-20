@@ -27,8 +27,6 @@ class TodoList extends React.Component {
 		}
 	}
 
-	sortCompleted = (a, b) => b.modifiedAt - a.modifiedAt
-	
 	render() {
 		let todos
 		const uncompletedTodos = this.props.todos.filter(todo => !todo.completed)

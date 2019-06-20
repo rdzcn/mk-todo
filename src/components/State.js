@@ -4,17 +4,17 @@ class State {
 	constructor() {
 		const data = JSON.parse(localStorage.getItem("data")) || {}
 		this.todos = data.todos || []
-		this._showCompleted = data.showCompleted || false
-		this.editingID = "" 
+		this.showCompleted = data.showCompleted || false
+		this.editingID = null 
 	}
 
-	saveToLocal(todos) {
+	persist(todos) {
 		const data = {}
 		data.todos = todos
-		data.showCompleted = this._showCompleted
+		data.showCompleted = this.showCompleted
 		localStorage.setItem("data", JSON.stringify(data))
 		this.todos = todos
-		console.log("saveToLocal", this.todos, todos)
+		console.log("persist", this.todos, todos)
 	}
 
 	addTodo(title, dueDate) {
@@ -28,10 +28,10 @@ class State {
 			dueDate: dueDate
 		}
 		todos = [...todos, todo]
-		this.saveToLocal(todos)
+		this.persist(todos)
 	}
 
-	completeTodo(id) {
+	toggleCompletionForTodo(id) {
 		let { todos } = this
 		todos.map(todo => {
 			if (todo.id === id) {
@@ -42,11 +42,11 @@ class State {
 				return todo
 			}
 		})
-		this.saveToLocal(todos)
+		this.persist(todos)
 	}
 
 	editTodo(id) {
-		this.editingID = id
+		this.editingID ? this.editingID = null : this.editingID = id 
 	}
 
 	saveTodo(id, title) {
@@ -56,7 +56,7 @@ class State {
 				todo.title = title :
 				todo
 		)
-		this.saveToLocal(todos)
+		this.persist(todos)
 		this.editingID = ""
 	}
 
@@ -65,12 +65,12 @@ class State {
 		todos = todos.filter(todo =>
 			todo.id !== id
 		)
-		this.saveToLocal(todos)
+		this.persist(todos)
 	}
 
 	toggleShowCompleted = (todos) => {
-		this._showCompleted = !this._showCompleted
-		this.saveToLocal(todos)
+		this.showCompleted = !this.showCompleted
+		this.persist(todos)
 	}
 
 }

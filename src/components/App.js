@@ -3,15 +3,15 @@ import NewTodo from "./NewTodo"
 import TodoList from "./TodoList"
 
 import State from "./State"
-let repo = new State()
+const repo = new State()
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
-		const { todos, _showCompleted } = repo
+		const { todos, showCompleted } = repo
 		this.state = {
 			todos: todos,
-			showCompleted: _showCompleted
+			showCompleted: showCompleted
 		}
 	}
 
