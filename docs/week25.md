@@ -48,9 +48,9 @@
 
 10.
 
-11.
+11. Fixed in commit [a1cb856](https://github.com/rdzcn/mk-todo/commit/a1cb856c8ce0e5261a27585d50bf3e5b08c57869)  
 
-12.
+12. Fixed in commit [a1cb856](https://github.com/rdzcn/mk-todo/commit/a1cb856c8ce0e5261a27585d50bf3e5b08c57869)  
 
 13.
 
