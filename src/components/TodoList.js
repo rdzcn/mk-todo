@@ -11,7 +11,7 @@ class TodoList extends React.Component {
 		this.setState({ sorter: event.target.value })
 	}
 
-	sortUncompleted = (a, b) => {
+	sortTodos = (a, b) => {
 		const { sorter } = this.state
 		switch (sorter) {
 			case "a-z":
@@ -27,15 +27,24 @@ class TodoList extends React.Component {
 		}
 	}
 
-	render() {
+	fetchTodos = () => {
 		let todos
-		const uncompletedTodos = this.props.todos.filter(todo => !todo.completed)
-		const completedTodos = this.props.todos.filter(todo => todo.completed)
-		!!this.props.completed ? todos = completedTodos : todos = uncompletedTodos  
+		if (this.props.completed) {
+			todos = this.props.repo.todos.filter(todo => todo.completed)
+		} else {
+			todos = this.props.repo.todos.filter(todo => !todo.completed) 
+		}
+		return todos
+	}
+
+	render() {
+		const { repo } = this.props
+		const { completed } = this.props.repo
 		return (
 			<div>
-				{!!this.props.completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({todos.length})
+				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos().length})
 				<br />
+		
 				<select onChange={this.handleSelect}>
 					<option value="">Sort todos by</option>
 					<option value="a-z">Alphabetically</option>
@@ -43,10 +52,13 @@ class TodoList extends React.Component {
 					<option value="modifiedAt">Modification Date</option>
 					<option value="dueDate">Due Date</option>
 				</select>
+		
 				<ul>
-					{todos.sort(this.sortUncompleted).map(todo => 
-						<Todo key={todo.id} todo={todo} repo={this.props.repo} updateApp={this.props.updateApp} />
-					)}
+					{ 
+						this.fetchTodos().sort(this.sortTodos).map(todo => 
+							<Todo key={todo.id} todo={todo} repo={repo} />
+						)	
+					}
 				</ul>
 			</div>
 		)

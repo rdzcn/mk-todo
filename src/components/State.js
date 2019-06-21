@@ -14,7 +14,6 @@ class State {
 		data.showCompleted = this.showCompleted
 		localStorage.setItem("data", JSON.stringify(data))
 		this.todos = todos
-		console.log("persist", this.todos, todos)
 	}
 
 	addTodo(title, dueDate) {
@@ -68,9 +67,8 @@ class State {
 		this.persist(todos)
 	}
 
-	toggleShowCompleted = (todos) => {
+	toggleShowCompleted() {
 		this.showCompleted = !this.showCompleted
-		this.persist(todos)
 	}
 
 }

@@ -6,7 +6,7 @@ class NewTodo extends React.Component {
     const today = new Date().toISOString().substr(0, 10) //YYYY-MM-DD necessary format for input[type=date] value
     this.state = {
       title: '',
-      date: today
+      dueDate: today
     }  
   }
 
@@ -15,36 +15,36 @@ class NewTodo extends React.Component {
   }
 
   handleDueDateChange = event => {
-    this.setState({ date: event.target.value })
+    this.setState({ dueDate: event.target.value })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    const { title, date } = this.state
-    let dueDate = new Date(date) //YYYY-MM-DDTHH:MM:SS:MsMsMsZ
-    dueDate.setHours(23, 59, 59, 999)
+    const { repo } = this.props
+    const { dueDate } = this.state
+    const title = this.state.title.trim()
     if (title.length !== 0) {
-      this.props.repo.addTodo(title.trim(), dueDate)
+      repo.addTodo(title, dueDate)
     }
     this.setState({ 
       title: ""
-    }, this.props.updateApp(this.props.repo.todos))
+    })
   }
 
   render() {
-    const { date } = this.state
+    const { title, dueDate } = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <input
           type="text"
-          value={this.state.title}
+          value={title}
           onChange={this.handleTitleChange}
         />
         <label>Due date:</label> 
         <input 
           type="date" 
-          min={date}
-          value={date} 
+          min={dueDate}
+          value={dueDate} 
           onChange={this.handleDueDateChange} 
         />
         <button type="submit">Add a todo</button>

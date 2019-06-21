@@ -25,32 +25,26 @@ class Todo extends React.Component {
 		const id = event.target.name
 		const { title } = this.state
 		this.props.repo.saveTodo(id, title)
-		this.props.updateApp(this.props.repo.todos)
 	}
 	
 	handleCancel = (id) => {
 		this.props.repo.editTodo(id)
-		this.props.updateApp(this.props.repo.todos)
 	}
 
 	handleDelete = (id) => {
 		this.props.repo.deleteTodo(id)
-		this.props.updateApp(this.props.repo.todos)
 	}
 
 	handleComplete = (id) => {
 		this.props.repo.toggleCompletionForTodo(id)
-		this.props.updateApp(this.props.repo.todos)
 	}
 
   render() {
 		const { editingID } = this.props.repo
 		const { todo } = this.props
-		const { id, title, completed } = todo
-		const dueDate = new Date(todo.dueDate).toLocaleDateString("en-CA")
-		const today = new Date()
-		const date = new Date(Date.parse(todo.dueDate))
-		const dueDateColor = colorForDueDate(today, date)
+		const { id, title, completed, dueDate } = todo
+		const today = new Date().toISOString().substr(0, 10)
+		const dueDateColor = colorForDueDate(today, dueDate)
 		
     let listItem
     if (editingID === id) {

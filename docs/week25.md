@@ -1,3 +1,5 @@
+# Week-25
+
 1. I don’t think we’ve implemented automatic formatting. Please add an eslint configuration and start using it. Please reformat all of the source files. Please merge the formatting fixes as a separate pull request before starting to work on this week’s assignment.
 2. Introduce a notion of a List. List is a parent entity for a Todo.
 3. List can have many Todos, but each Todo belongs only to a single List. Todos can’t be outside of a List.
@@ -23,3 +25,45 @@
 18. Make sorter a function and not a string. const sortedTodos = sorter(todos). Add unit tests for every sorter we have.
 19. Add a filter property to the TodoList component. filter should be a function: const filteredTodos = filter(allTodos). Let the normal TodoList have a filter function that includes only uncompleted todos, and the completed TodoList have a filter that includes only completed todos. Add unit tests for these filters.
 20. Very difficult, I don’t expect you to finish it this week: add a search field that would search all of the todo titles in the State. When user starts entering text “foo" in the search field, the title of the list changes to “Search for ‘foo'” and only the todos with the ‘foo’ in their title show up in the TodoList. Add unit tests for this function.
+
+# Progress
+
+1. Working on branch `eslint-setup`
+
+2.
+
+3)
+
+4.
+
+5)
+
+6.
+
+7.
+
+8.
+
+9.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+20.
