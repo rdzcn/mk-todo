@@ -21,7 +21,6 @@ class State extends EventEmitter {
 
   handleTitleChange = event => {
     this.title += event.target.value
-    //this.emit('stateChanged')
   }
 
   addTodo(title, dueDate) {
@@ -52,16 +51,15 @@ class State extends EventEmitter {
     this.editingID ? (this.editingID = null) : (this.editingID = id)
   }
 
-  saveTodo(id) {
+  saveTodo(id, title) {
     this.data.todos.map(todo => {
       if (todo.id === id) {
-        todo.title = this.title;
+        todo.title = title;
       }
       return todo;
     });
     this.persist();
     this.editingID = null
-    this.title = null
   }
 
   deleteTodo(id) {
