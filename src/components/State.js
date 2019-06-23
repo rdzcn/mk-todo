@@ -6,21 +6,17 @@ class State extends EventEmitter {
     super();
     this.data = JSON.parse(localStorage.getItem("data")) || 
       { 
-        todos: [],
-        showCompleted: false
+        showCompleted: false,
+        lists: [],
+        todos: []
       };
     this.editingID = null;
-    this.title = ""
   }
 
   persist() {
     const { data } = this;
     localStorage.setItem("data", JSON.stringify(data));
     this.emit("stateChanged")
-  }
-
-  handleTitleChange = event => {
-    this.title += event.target.value
   }
 
   addTodo(title, dueDate) {
@@ -32,7 +28,10 @@ class State extends EventEmitter {
       createdAt: Date.now(),
       modifiedAt: Date.now()
     }
-    this.data.todos = [...this.data.todos, todo]
+    this.data.todos = this.data.todos.concat(todo)
+    if (!this.data.lists.includes(dueDate)) {
+      this.data.lists = this.data.lists.concat(dueDate)
+    }
     this.persist()
   }
 

@@ -28,12 +28,12 @@ class NewTodo extends React.Component {
   }
 
   render() {
-    const { dueDate } = this.state
+    const { dueDate, title } = this.state
     return (
       <form onSubmit={this.handleSubmit}>
         <input
           type="text"
-          value={this.state.title}
+          value={title}
           onChange={this.handleTitleChange}
         />
         <span>Due date:</span> 

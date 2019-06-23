@@ -1,6 +1,6 @@
 import React from "react"
 import Todo from "./Todo"
-import State from './State'
+import List from "./List"
 
 class TodoList extends React.Component {
 	
