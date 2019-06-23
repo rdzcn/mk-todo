@@ -54,9 +54,19 @@
 
 13.
 
-14.
+14. When we `persist` changes to localStorage, we emit `stateChanged` action. This is picked up in the `render()` of App component: 
+```
+  render() {
+    const repo = new State()
+    repo.on('stateChanged', this.handleStateUpdate)
+    //other code below
+  }
+```
+`handleStateUpdate` toggles App.state.updater to re-render App component after a change occurs. 
 
-15.
+Here a question comes to mind: Should we create State instances in each component to work with or should we create one instance in App and pass it down as prop? 
+  
+15. 
 
 16.
 

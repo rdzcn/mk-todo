@@ -3,28 +3,17 @@ import { colorForDueDate } from "../utils/helpers"
 
 class Todo extends React.Component {
 
-	state = {
-		title: ""
-	}
-
-	handleEdit = (id, title) => {
+	handleEdit = (id) => {
     if (this.props.repo.editingID) {
-      return;
+      return
 		} 
-		this.setState({
-			title: title
-		}, this.props.repo.editTodo(id)) 
-  }
-
-  handleChange = event => {
-    this.setState({ title: event.target.value })
+	  this.props.repo.editTodo(id) 
   }
 
   handleSave = (event) => {
 		event.preventDefault()
 		const id = event.target.name
-		const { title } = this.state
-		this.props.repo.saveTodo(id, title)
+		this.props.repo.saveTodo(id)
 	}
 	
 	handleCancel = (id) => {
@@ -53,7 +42,7 @@ class Todo extends React.Component {
           <input
             type="text"
             name="title"
-            value={this.state.title}
+            value={this.props.repo.title}
             onChange={this.handleChange}
           />
           <button type="submit">
@@ -73,7 +62,7 @@ class Todo extends React.Component {
             onChange={() => this.handleComplete(id)}
           />
           {completed ? <del>{title}</del> : <span>{title}</span>}
-          <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
+          <button type="button" hidden={completed} onClick={() => this.handleEdit(id)}>
 						Edit
 					</button>
           <button type="button" onClick={() => this.handleDelete(id)}>

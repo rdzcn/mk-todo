@@ -1,5 +1,6 @@
 import React from "react"
 import Todo from "./Todo"
+import State from './State'
 
 class TodoList extends React.Component {
 	
@@ -30,16 +31,16 @@ class TodoList extends React.Component {
 	fetchTodos = () => {
 		let todos
 		if (this.props.completed) {
-			todos = this.props.repo.todos.filter(todo => todo.completed)
+			todos = this.props.repo.data.todos.filter(todo => todo.completed) || []
 		} else {
-			todos = this.props.repo.todos.filter(todo => !todo.completed) 
+			todos = this.props.repo.data.todos.filter(todo => !todo.completed) || []
 		}
 		return todos
 	}
 
 	render() {
 		const { repo } = this.props
-		const { completed } = this.props.repo
+		const { completed } = repo
 		return (
 			<div>
 				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos().length})
