@@ -7,7 +7,6 @@ class State extends EventEmitter {
     this.data = JSON.parse(localStorage.getItem("data")) || 
       { 
         showCompleted: false,
-        lists: [],
         todos: []
       };
     this.editingID = null;
@@ -28,10 +27,7 @@ class State extends EventEmitter {
       createdAt: Date.now(),
       modifiedAt: Date.now()
     }
-    this.data.todos = this.data.todos.concat(todo)
-    if (!this.data.lists.includes(dueDate)) {
-      this.data.lists = this.data.lists.concat(dueDate)
-    }
+    this.data.todos = [...this.data.todos, todo]
     this.persist()
   }
 

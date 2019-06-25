@@ -28,24 +28,25 @@ class TodoList extends React.Component {
 		}
 	}
 
-	fetchTodos = () => {
-		let todos
+	fetchTodos = todos => {
+		let filteredTodos
 		if (this.props.completed) {
-			todos = this.props.repo.data.todos.filter(todo => todo.completed) || []
+			filteredTodos = todos.filter(todo => todo.completed) || []
 		} else {
-			todos = this.props.repo.data.todos.filter(todo => !todo.completed) || []
+			filteredTodos = todos.filter(todo => !todo.completed) || []
 		}
-		return todos
+		return filteredTodos
 	}
 
 	render() {
-		const { repo } = this.props
-		const { completed } = repo
+		const { repo, completed } = this.props
+		console.log(repo)
+		const { todos } = repo.data
 		return (
 			<div>
-				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos().length})
+				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos(todos).length})
 				<br />
-		
+				
 				<select onChange={this.handleSelect}>
 					<option value="">Sort todos by</option>
 					<option value="a-z">Alphabetically</option>
@@ -56,9 +57,9 @@ class TodoList extends React.Component {
 		
 				<ul>
 					{ 
-						this.fetchTodos().sort(this.sortTodos).map(todo => 
+						this.fetchTodos(todos).sort(this.sortTodos).map(todo => 
 							<Todo key={todo.id} todo={todo} repo={repo} />
-						)	
+						)
 					}
 				</ul>
 			</div>
