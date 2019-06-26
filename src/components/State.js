@@ -54,10 +54,11 @@ class State extends EventEmitter {
     this.editingID ? (this.editingID = null) : (this.editingID = id)
   }
 
-  saveTodo(id, title) {
+  saveTodo(id, title, dueDate) {
     this.data.todos[this.selectedDate].map(todo => {
       if (todo.id === id) {
-        todo.title = title;
+        todo.title = title
+        todo.dueDate = dueDate
       }
       return todo;
     });

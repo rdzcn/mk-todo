@@ -4,7 +4,8 @@ import { colorForDueDate } from "../utils/helpers"
 class Todo extends React.Component {
 
   state = {
-    title: ""
+    title: "",
+    dueDate: null
   }
 
 	handleEdit = id => {
@@ -12,19 +13,24 @@ class Todo extends React.Component {
       return
     } 
     this.setState({
-      title: this.props.todo.title
+      title: this.props.todo.title,
+      dueDate: this.props.todo.dueDate
     }, this.props.repo.editTodo(id))
   }
 
-  handleChange = event => {
+  handleTitleChange = event => {
     this.setState({ title: event.target.value })
+  }
+
+  handleDueDateChange = event => {
+    this.setState({ dueDate: event.target.value })
   }
 
   handleSave = (event) => {
 		event.preventDefault()
     const id = event.target.name
-    const { title } = this.state
-		this.props.repo.saveTodo(id, title)
+    const { title, dueDate } = this.state
+		this.props.repo.saveTodo(id, title, dueDate)
 	}
 	
 	handleCancel = (id) => {
@@ -55,7 +61,12 @@ class Todo extends React.Component {
             type="text"
             name="title"
             value={this.state.title}
-            onChange={this.handleChange}
+            onChange={this.handleTitleChange}
+          />
+          <input 
+            type="date" 
+            value={this.state.dueDate} 
+            onChange={this.handleDueDateChange} 
           />
           <button type="submit">
             Save
