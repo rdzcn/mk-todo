@@ -54,7 +54,7 @@
 
 9. Setting a minimum value to `input type="date"` causes such behavior. Removed minimum value. 
 
-10.
+10. Created `DueDate.js`. 
 
 11. Fixed in commit [a1cb856](https://github.com/rdzcn/mk-todo/commit/a1cb856c8ce0e5261a27585d50bf3e5b08c57869)  
 

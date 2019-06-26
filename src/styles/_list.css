@@ -1,0 +1,13 @@
+.left ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.left ul li {
+  width: 20%;
+  height: 3rem;
+  margin-top: 1rem;
+  border: 1px black solid;
+}

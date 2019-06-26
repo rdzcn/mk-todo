@@ -13,6 +13,7 @@ class State extends EventEmitter {
       };
     this.editingID = null
     this.selectedDate = new Date().toISOString().substr(0, 10)
+    this.title = ""
   }
 
   persist() {
@@ -26,17 +27,23 @@ class State extends EventEmitter {
     this.emit("stateChanged")
   }
 
-  addTodo(title, dueDate) {
+  handleTitleChange(event) {
+    this.title = event.target.value 
+    this.emit('stateChanged')
+  }
+
+  addTodo(title, dueDate, id = null, createdAt = null) {
     const todo = {
       title,
       dueDate,
       completed: false,
-      id: uuid(),
-      createdAt: Date.now(),
+      id: id || uuid(),
+      createdAt: createdAt || Date.now(),
       modifiedAt: Date.now()
     }
     this.data.todos[dueDate] = this.data.todos[dueDate].concat(todo)
     this.persist()
+    this.title = ""
   }
 
   toggleCompletionForTodo(id) {
@@ -50,22 +57,24 @@ class State extends EventEmitter {
     this.persist();
   }
 
-  editTodo(id) {
+  editTodo(id, title) {
     this.editingID ? (this.editingID = null) : (this.editingID = id)
+    this.title = title
   }
 
-  saveTodo(id, title, dueDate) {
-    this.data.todos[this.selectedDate].map(todo => {
-      if (todo.id === id) {
-        todo.title = title
-        if (todo.dueDate !== dueDate) {
-          this.deleteTodo(id)
-          this.addTodo(title, dueDate)
+  saveTodo = (title, dueDate, id, createdAt) => {
+    if (this.selectedDate === dueDate) {
+      this.data.todos[dueDate].map(todo => {
+        if (todo.id === id) {
+          todo.title = title
         }
-      }
-      return todo;
-    });
-    this.persist();
+        return todo
+      })
+      this.persist()
+    } else {
+      this.addTodo(title, dueDate, id, createdAt)
+      this.deleteTodo(id) //removes from old list
+    } 
     this.editingID = null
   }
 

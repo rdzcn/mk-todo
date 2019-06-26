@@ -5,22 +5,21 @@ import { colorForDueDate } from "../utils/helpers"
 class Todo extends React.Component {
 
   state = {
-    title: "",
     dueDate: null
   }
 
-	handleEdit = id => {
+	handleEdit = (id, title) => {
     if (this.props.repo.editingID) {
       return
     } 
+
     this.setState({
-      title: this.props.todo.title,
       dueDate: this.props.todo.dueDate
-    }, this.props.repo.editTodo(id))
+    }, this.props.repo.editTodo(id, title))
   }
 
   handleTitleChange = event => {
-    this.setState({ title: event.target.value })
+    this.props.repo.handleTitleChange(event)
   }
 
   handleDueDateChange = event => {
@@ -30,13 +29,14 @@ class Todo extends React.Component {
   handleSave = (event) => {
 		event.preventDefault()
     const id = event.target.name
-    const { title, dueDate } = this.state
-		this.props.repo.saveTodo(id, title, dueDate)
+    const { dueDate } = this.state
+    const { createdAt } = this.props.todo
+    const { title, saveTodo } = this.props.repo
+		saveTodo(title, dueDate, id, createdAt)
 	}
 	
 	handleCancel = (id) => {
     this.props.repo.editTodo(id)
-    this.setState({ title: "" })
 	}
 
 	handleDelete = (id) => {
@@ -57,32 +57,34 @@ class Todo extends React.Component {
     let listItem
     if (editingID === id) {
       listItem = (
-        <form name={id} onSubmit={this.handleSave}>
-          <input
-            type="text"
-            name="title"
-            value={this.state.title}
-            onChange={this.handleTitleChange}
-          />
-          <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
-          <button type="submit">
-            Save
-          </button>
-					<button type="button" onClick={() => this.handleCancel(id)} >
-						Cancel
-					</button>
-        </form>
+        <div className="todo editing">
+          <form name={id} onSubmit={this.handleSave}>
+            <input
+              type="text"
+              name="title"
+              value={this.props.repo.title}
+              onChange={this.handleTitleChange}
+            />
+            <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
+            <button type="submit">
+              Save
+            </button>
+            <button type="button" onClick={() => this.handleCancel(id)} >
+              Cancel
+            </button>
+          </form>
+        </div>
       )
     } else {
       listItem = (
-        <div>
+        <div className="todo unediting">
 					<input 
             type='checkbox'
             checked={completed}
             onChange={() => this.handleComplete(id)}
           />
           {completed ? <del>{title}</del> : <span>{title}</span>}
-          <button type="button" hidden={completed} onClick={() => this.handleEdit(id)}>
+          <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
 						Edit
 					</button>
           <button type="button" onClick={() => this.handleDelete(id)}>

@@ -41,7 +41,7 @@ class TodoList extends React.Component {
 		const { repo, completed, selectedDate } = this.props
 		const todos = repo.data.todos[selectedDate] || []
 		return (
-			<div>
+			<div className="todos">
 				<h2>{selectedDate}</h2>
 				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos(todos).length})
 				<br />

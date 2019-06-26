@@ -1,23 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700&display=swap');
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  font-size: 16px;
-  font-family: 'Roboto', sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Open Sans', sans-serif;
-}
-
-li {
-  list-style: none;
-}
+@import "_configuration.css";
+@import "_list.css"; 
+@import "_todo.css";
+@import "_header.css";  
 
 .app-container {
   display: flex;
@@ -30,28 +15,23 @@ li {
 .main {
   width: 50%;
   height: 80%;
-
 }
 
-.header {
-  width: 100%;
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column wrap;
-}
-
-.left ul {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: row wrap;
-}
-
-.left ul li {
-  width: 20%;
+.right ul li {
+  width: 50%;
   height: 3rem;
   margin-top: 1rem;
   border: 1px black solid;
+}
+
+.todo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todos {
+  display: flex;
+  flex-flow: column wrap;
 }

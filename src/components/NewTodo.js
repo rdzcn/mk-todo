@@ -12,7 +12,7 @@ class NewTodo extends React.Component {
   }
 
   handleTitleChange = event => {
-    this.setState({ title: event.target.value})
+    this.setState({ title: event.target.value })
   }
 
   handleDueDateChange = event => {
@@ -22,10 +22,9 @@ class NewTodo extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     const { repo } = this.props
-    const { title, dueDate } = this.state
+    const { dueDate, title } = this.state
     repo.addTodo(title, dueDate)
     this.setState({ title: "" })
-
   }
 
   render() {
@@ -38,7 +37,7 @@ class NewTodo extends React.Component {
           onChange={this.handleTitleChange}
         />
         <span>Due date:</span> 
-        <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
+        <DueDate value={dueDate} handleDueDateChange={this.handleDueDateChange}/>
         <button type="submit">Add a todo</button>
       </form>
     )
