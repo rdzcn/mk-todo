@@ -58,7 +58,10 @@ class State extends EventEmitter {
     this.data.todos[this.selectedDate].map(todo => {
       if (todo.id === id) {
         todo.title = title
-        todo.dueDate = dueDate
+        if (todo.dueDate !== dueDate) {
+          this.deleteTodo(id)
+          this.addTodo(title, dueDate)
+        }
       }
       return todo;
     });

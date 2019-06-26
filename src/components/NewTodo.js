@@ -1,4 +1,5 @@
 import React from "react"
+import DueDate from "./DueDate"
 
 class NewTodo extends React.Component {
   constructor(props) {
@@ -37,11 +38,7 @@ class NewTodo extends React.Component {
           onChange={this.handleTitleChange}
         />
         <span>Due date:</span> 
-        <input 
-          type="date" 
-          value={dueDate} 
-          onChange={this.handleDueDateChange} 
-        />
+        <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
         <button type="submit">Add a todo</button>
       </form>
     )

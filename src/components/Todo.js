@@ -1,4 +1,5 @@
 import React from "react"
+import DueDate from "./DueDate"
 import { colorForDueDate } from "../utils/helpers"
 
 class Todo extends React.Component {
@@ -63,11 +64,7 @@ class Todo extends React.Component {
             value={this.state.title}
             onChange={this.handleTitleChange}
           />
-          <input 
-            type="date" 
-            value={this.state.dueDate} 
-            onChange={this.handleDueDateChange} 
-          />
+          <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
           <button type="submit">
             Save
           </button>
