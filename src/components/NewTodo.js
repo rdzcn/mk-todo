@@ -39,7 +39,6 @@ class NewTodo extends React.Component {
         <span>Due date:</span> 
         <input 
           type="date" 
-          min={dueDate}
           value={dueDate} 
           onChange={this.handleDueDateChange} 
         />

@@ -30,21 +30,29 @@
 
 1. Working on branch `eslint-setup`
 
-2.
+2. Data is structured this way now: 
+  ```
+  {
+    todos: {2019-06-25: [{title: "buy milk", completed: false, ....}, {title: "do the dishes",....}],
+            2019-06-26: [{...}],
+            ...
+           },
+    showCompleted: true
+   }
+   ```  
+3. This way a Todo belongs to only one List/Date  
 
-3)
+4. Left column shows clickable dates. When clicked, data is filtered to display todos only from the selected date. 
 
-4.
+5. `bold` transition still to be implemented. 
 
-5)
+6. Right column contains App logic.
 
-6.
+7. Persisting on localStorage.
 
-7.
+8. Edit button now allows not only editing of the title but also the dueDate.
 
-8.
-
-9.
+9. Setting a minimum value to `input type="date"` causes such behavior. Removed minimum value. 
 
 10.
 
@@ -54,17 +62,13 @@
 
 13.
 
-14. When we `persist` changes to localStorage, we emit `stateChanged` action. This is picked up in the `render()` of App component: 
-```
-  render() {
-    const repo = new State()
-    repo.on('stateChanged', this.handleStateUpdate)
-    //other code below
-  }
-```
-`handleStateUpdate` toggles App.state.updater to re-render App component after a change occurs. 
-
-Here a question comes to mind: Should we create State instances in each component to work with or should we create one instance in App and pass it down as prop? 
+14. When we `persist` changes to localStorage, we emit `stateChanged` action. This is picked up in `index.js` with a callback function to re-render App component.  
+  ```
+  const repo = new State()
+  repo.on('stateChanged', () => {
+    ReactDOM.render(<App repo={repo}/>, document.getElementById('root'))
+  })
+  ```
   
 15. 
 
@@ -74,6 +78,18 @@ Here a question comes to mind: Should we create State instances in each componen
 
 18.
 
-19.
+19. See `fetchTodos(todos)` in TodoList.
+
+```
+fetchTodos = todos => {
+		let filteredTodos
+		if (this.props.completed) {
+			filteredTodos = todos.filter(todo => todo.completed) || []
+		} else {
+			filteredTodos = todos.filter(todo => !todo.completed) || []
+		}
+		return filteredTodos
+	}
+```
 
 20.
