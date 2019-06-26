@@ -1,6 +1,5 @@
 import React from "react"
 import Todo from "./Todo"
-import List from "./List"
 
 class TodoList extends React.Component {
 	
@@ -39,11 +38,11 @@ class TodoList extends React.Component {
 	}
 
 	render() {
-		const { repo, completed } = this.props
-		console.log(repo)
-		const { todos } = repo.data
+		const { repo, completed, selectedDate } = this.props
+		const todos = repo.data.todos[selectedDate] || []
 		return (
 			<div>
+				<h2>{selectedDate}</h2>
 				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos(todos).length})
 				<br />
 				
@@ -58,7 +57,7 @@ class TodoList extends React.Component {
 				<ul>
 					{ 
 						this.fetchTodos(todos).sort(this.sortTodos).map(todo => 
-							<Todo key={todo.id} todo={todo} repo={repo} />
+							<Todo key={todo.id} todo={todo} repo={this.props.repo} />
 						)
 					}
 				</ul>

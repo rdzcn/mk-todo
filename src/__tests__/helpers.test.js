@@ -20,9 +20,18 @@ test("Due date in the past returns #f00", () => {
 	expect(colorForDueDate(today, dueDateYesterday)).toBe("#f00")
 })
 
-test("Due date has to be date.Object and null or string", () => {
+test("Due date has to be date.Object and not null or string", () => {
 	expect(() => {colorForDueDate(today, nullDate)}).toThrow()
 	expect(() => {colorForDueDate(today, stringDate)}).toThrow()
 	expect(() => {colorForDueDate(nullDate, dueDateToday)}).toThrow()
 	expect(() => {colorForDueDate(stringDate, dueDateToday)}).toThrow()
+})
+
+
+function generateWeeklyCalender() {
+	return []
+}
+
+test("Should return an array of length 7", () => {
+	expect(generateWeeklyCalender().length).toBe(7)
 })

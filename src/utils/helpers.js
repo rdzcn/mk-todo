@@ -18,8 +18,20 @@ export function colorForDueDate(today, date) {
                 dueDateDay === nowDay
 	) {
 		return "#0f0"
-	} else {
+	} 
 		return "#f00"
-	}
+	
 }
 
+export function generateCalender() {
+	const todos = {};
+	const dates = [];
+	const currentDay = new Date().getDate();
+	for (let i = 0; i < 31 ; ++i) {
+		const today = new Date();
+		dates[i] = new Date(today.setDate(currentDay + i)).toISOString().substr(0, 10);
+      	const x = dates[i];
+      	todos[x] = []
+	}
+	return todos
+}

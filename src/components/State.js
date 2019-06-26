@@ -1,5 +1,7 @@
 import uuid from "uuid/v4";
 import EventEmitter from "events";
+import { generateCalender } from "../utils/helpers"
+
 
 class State extends EventEmitter {
   constructor() {
@@ -7,14 +9,20 @@ class State extends EventEmitter {
     this.data = JSON.parse(localStorage.getItem("data")) || 
       { 
         showCompleted: false,
-        todos: []
+        todos: generateCalender()
       };
-    this.editingID = null;
+    this.editingID = null
+    this.selectedDate = new Date().toISOString().substr(0, 10)
   }
 
   persist() {
     const { data } = this;
     localStorage.setItem("data", JSON.stringify(data));
+    this.emit("stateChanged")
+  }
+
+  updateSelectedDate(event) {
+    this.selectedDate = event.target.innerHTML
     this.emit("stateChanged")
   }
 
@@ -27,12 +35,12 @@ class State extends EventEmitter {
       createdAt: Date.now(),
       modifiedAt: Date.now()
     }
-    this.data.todos = [...this.data.todos, todo]
+    this.data.todos[dueDate] = this.data.todos[dueDate].concat(todo)
     this.persist()
   }
 
   toggleCompletionForTodo(id) {
-    this.data.todos.map(todo => {
+    this.data.todos[this.selectedDate].map(todo => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
         todo.modifiedAt = Date.now();
@@ -47,7 +55,7 @@ class State extends EventEmitter {
   }
 
   saveTodo(id, title) {
-    this.data.todos.map(todo => {
+    this.data.todos[this.selectedDate].map(todo => {
       if (todo.id === id) {
         todo.title = title;
       }
@@ -58,7 +66,7 @@ class State extends EventEmitter {
   }
 
   deleteTodo(id) {
-    this.data.todos = this.data.todos.filter(todo => todo.id !== id);
+    this.data.todos[this.selectedDate] = this.data.todos[this.selectedDate].filter(todo => todo.id !== id)
     this.persist();
   }
 

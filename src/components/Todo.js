@@ -50,7 +50,7 @@ class Todo extends React.Component {
     let listItem
     if (editingID === id) {
       listItem = (
-        <form  name={id} onSubmit={this.handleSave}>
+        <form name={id} onSubmit={this.handleSave}>
           <input
             type="text"
             name="title"
