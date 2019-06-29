@@ -2,8 +2,8 @@ import React from "react"
 import NewTodo from "./NewTodo"
 import TodoList from "./TodoList"
 
-const App = props => {
-	const { repo } = props
+const App = ({ repo }) => {
+	
 	const { showCompleted } = repo.data
 	const { selectedDate } = repo
 

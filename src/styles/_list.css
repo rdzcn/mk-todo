@@ -1,3 +1,7 @@
+.left {
+  padding: 1rem;
+}
+
 .left ul {
   display: flex;
   justify-content: center;
@@ -6,8 +10,21 @@
 }
 
 .left ul li {
-  width: 20%;
+  width: 15%;
   height: 3rem;
   margin-top: 1rem;
-  border: 1px black solid;
+  margin: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left ul li button {
+  padding: 0.5rem;
+  box-shadow: 0 0 5px 2px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.left ul li button:hover {
+  transform: scale(1.1);
 }

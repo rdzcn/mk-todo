@@ -2,12 +2,13 @@ import React from "react"
 import Todo from "./Todo"
 
 class TodoList extends React.Component {
-	
+
 	state = {
 		sorter: ""
 	}
 
 	handleSelect = event => {
+		console.log(event.target.options.selectedIndex)
 		this.setState({ sorter: event.target.value })
 	}
 
@@ -46,14 +47,14 @@ class TodoList extends React.Component {
 				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos(todos).length})
 				<br />
 				
-				<select onChange={this.handleSelect}>
-					<option value="">Sort todos by</option>
-					<option value="a-z">Alphabetically</option>
-					<option value="createdAt">Creation Date</option>
-					<option value="modifiedAt">Modification Date</option>
-					<option value="dueDate">Due Date</option>
-				</select>
-		
+				<label>Sort todos by:
+					<select onInput={this.handleSelect}>
+						<option value="title">Alphabetically</option>
+						<option value="createdAt">Creation Date</option>
+						<option value="modifiedAt">Modification Date</option>
+						<option value="dueDate">Due Date</option>
+					</select>
+				</label>
 				<ul>
 					{ 
 						this.fetchTodos(todos).sort(this.sortTodos).map(todo => 

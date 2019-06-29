@@ -1,25 +1,19 @@
 import uuid from "uuid/v4";
 import EventEmitter from "events";
-import { generateCalender } from "../utils/helpers"
 
 
 class State extends EventEmitter {
-  constructor() {
+  constructor(db) {
     super();
-    this.data = JSON.parse(localStorage.getItem("data")) || 
-      { 
-        showCompleted: false,
-        todos: generateCalender()
-      };
+    this.data = db.read()
+    this.writeData = () => db.write(this.data)
     this.editingID = null
     this.selectedDate = new Date().toISOString().substr(0, 10)
     this.title = ""
   }
 
   persist() {
-    const { data } = this;
-    localStorage.setItem("data", JSON.stringify(data));
-    this.emit("stateChanged")
+    this.writeData()
   }
 
   updateSelectedDate(event) {
@@ -32,16 +26,20 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
 
-  addTodo(title, dueDate, id = null, createdAt = null) {
+  addTodo(title, dueDate, id = null, createdAt = null, modifiedAt = null) {
+    dueDate = new Date(dueDate).toISOString().substr(0,10) //so that dueDate = null creates a todo with dueDate="1970-01-01"
     const todo = {
       title,
       dueDate,
       completed: false,
       id: id || uuid(),
       createdAt: createdAt || Date.now(),
-      modifiedAt: Date.now()
+      modifiedAt: modifiedAt ||Date.now()
     }
-    this.data.todos[dueDate] = this.data.todos[dueDate].concat(todo)
+    if (!this.data.todos.hasOwnProperty(dueDate)) {
+      this.data.todos[dueDate] = []
+    }
+    this.data.todos[dueDate] = [...this.data.todos[dueDate], todo]
     this.persist()
     this.title = ""
   }

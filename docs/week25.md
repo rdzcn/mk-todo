@@ -60,7 +60,7 @@
 
 12. Fixed in commit [a1cb856](https://github.com/rdzcn/mk-todo/commit/a1cb856c8ce0e5261a27585d50bf3e5b08c57869)  
 
-13.
+13. State manages editing title. However, it does not manage the adding-todo title. That is still managed by the NewTodo component. 
 
 14. When we `persist` changes to localStorage, we emit `stateChanged` action. This is picked up in `index.js` with a callback function to re-render App component.  
   ```
@@ -70,11 +70,11 @@
   })
   ```
   
-15. 
+15. PersistentStorage is working. TemporaryStorage is working. 
 
 16.
 
-17.
+17. Running tests with TemporaryStorage. 
 
 18.
 

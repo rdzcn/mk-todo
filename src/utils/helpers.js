@@ -27,7 +27,7 @@ export function generateCalender() {
 	const todos = {};
 	const dates = [];
 	const currentDay = new Date().getDate();
-	for (let i = 0; i < 31 ; ++i) {
+	for (let i = 0; i < 30 ; ++i) {
 		const today = new Date();
 		dates[i] = new Date(today.setDate(currentDay + i)).toISOString().substr(0, 10);
       	const x = dates[i];

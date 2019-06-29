@@ -18,17 +18,16 @@
 }
 
 .right ul li {
-  width: 50%;
+  width: 40%;
   height: 3rem;
   margin-top: 1rem;
-  border: 1px black solid;
 }
 
 .todo {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .todos {
