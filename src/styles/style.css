@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700&display=swap');
 @import "_configuration.css";
 @import "_list.css"; 
+@import "_todolist.css";
 @import "_todo.css";
 @import "_header.css";  
 
@@ -10,27 +11,7 @@
   height: 100vh;
   margin: 0 auto;
   flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
 }
 
-.main {
-  width: 50%;
-  height: 80%;
-}
-
-.right ul li {
-  width: 40%;
-  height: 3rem;
-  margin-top: 1rem;
-}
-
-.todo {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.todos {
-  display: flex;
-  flex-flow: column wrap;
-}

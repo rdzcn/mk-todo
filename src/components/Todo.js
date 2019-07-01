@@ -78,19 +78,20 @@ class Todo extends React.Component {
     } else {
       listItem = (
         <div className="todo unediting">
-					<input 
-            type='checkbox'
-            checked={completed}
-            onChange={() => this.handleComplete(id)}
-          />
-          {completed ? <del>{title}</del> : <span>{title}</span>}
-          <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
-						Edit
-					</button>
-          <button type="button" onClick={() => this.handleDelete(id)}>
-						Delete
-					</button>
-					<br />
+					<div className="todo-actions">
+            <input 
+              type='checkbox'
+              checked={completed}
+              onChange={() => this.handleComplete(id)}
+            />
+            {completed ? <del>{title}</del> : <span>{title}</span>}
+            <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
+              Edit
+            </button>
+            <button type="button" onClick={() => this.handleDelete(id)}>
+              Delete
+            </button>
+          </div>
 					<span style={{color: dueDateColor}}>{dueDate}</span>
         </div>
       )

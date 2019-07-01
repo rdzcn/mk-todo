@@ -1,5 +1,9 @@
 .left {
   padding: 1rem;
+  width: 40vw;
+  min-height: calc(100% - 250px);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
 }
 
 .left ul {
