@@ -8,20 +8,20 @@ class State extends EventEmitter {
     this.writeData = () => db.write(this.data);
     this.editingID = null;
     this.selectedDate = new Date().toISOString().substr(0, 10);
-    this.title = "";
+    this.editingTitle = "";
   }
 
   persist() {
     this.writeData();
   }
 
-  updateSelectedDate(event) {
-    this.selectedDate = event.target.innerHTML;
+  updateSelectedDate(date) {
+    this.selectedDate = date;
     this.emit("stateChanged");
   }
 
-  handleTitleChange(event) {
-    this.title = event.target.value;
+  handleEditingTitleChange(event) {
+    this.editingTitle = event.target.value;
     this.emit("stateChanged");
   }
 
@@ -44,7 +44,7 @@ class State extends EventEmitter {
     }
     this.data.todos[dueDate] = [...this.data.todos[dueDate], todo];
     this.persist();
-    this.title = "";
+    this.editingTitle = "";
   }
 
   toggleCompletionForTodo(id) {
@@ -58,9 +58,14 @@ class State extends EventEmitter {
     this.persist();
   }
 
-  editTodo(id, title) {
-    this.editingID ? (this.editingID = null) : (this.editingID = id);
-    this.title = title;
+  editTodo(id, title = "") {
+    if (this.editingID) {
+      this.editingID = null
+    } else {
+      this.editingID = id
+    }
+    this.editingTitle = title
+    this.emit('stateChanged')
   }
 
   saveTodo = (title, dueDate, id, createdAt) => {

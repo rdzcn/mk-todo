@@ -12,14 +12,13 @@ class Todo extends React.Component {
     if (this.props.repo.editingID) {
       return
     } 
-
     this.setState({
       dueDate: this.props.todo.dueDate
     }, this.props.repo.editTodo(id, title))
   }
 
   handleTitleChange = event => {
-    this.props.repo.handleTitleChange(event)
+    this.props.repo.handleEditingTitleChange(event)
   }
 
   handleDueDateChange = event => {
@@ -31,13 +30,12 @@ class Todo extends React.Component {
     const id = event.target.name
     const { dueDate } = this.state
     const { createdAt } = this.props.todo
-    const { title, saveTodo } = this.props.repo
-		saveTodo(title, dueDate, id, createdAt)
+    const { editingTitle, saveTodo } = this.props.repo
+		saveTodo(editingTitle, dueDate, id, createdAt)
 	}
 	
-	handleCancel = (id, title) => {
-    console.log(id, title)
-    this.props.repo.editTodo(id, title)
+	handleCancel = id => {
+    this.props.repo.editTodo(id)
 	}
 
 	handleDelete = (id) => {
@@ -63,7 +61,7 @@ class Todo extends React.Component {
             <input
               type="text"
               name="title"
-              value={this.props.repo.title}
+              value={this.props.repo.editingTitle}
               onChange={this.handleTitleChange}
             />
             <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>

@@ -28,5 +28,5 @@ test("after adding a todo, db should be equal to dbAfter", () => {
 })
 
 test("A new todo must have a title, cannot be null", () => {
-  expect(() => state.addTodo("null", "2019-07-01")).toReturn(false)
+  expect(state.addTodo(" ", "2019-07-01")).toBeFalsy()
 })
