@@ -44,7 +44,7 @@ class State extends EventEmitter {
     }
     this.data.todos[dueDate] = [...this.data.todos[dueDate], todo];
     this.persist();
-    this.editingTitle = "";
+    this.editingTitle = ""
   }
 
   toggleCompletionForTodo(id) {
@@ -53,9 +53,8 @@ class State extends EventEmitter {
         todo.completed = !todo.completed;
         todo.modifiedAt = Date.now();
       }
-      return todo;
-    });
-    this.persist();
+    })
+    this.persist()
   }
 
   editTodo(id, title = "") {

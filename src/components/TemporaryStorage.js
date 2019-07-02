@@ -1,8 +1,7 @@
-import { data } from "../data/temporaryData"
-
 class TemporaryStorage {
-  constructor() {
-    this.data = data
+
+  constructor(temporaryData) {
+    this.data = temporaryData
   }
   
   read() {

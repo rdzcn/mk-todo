@@ -3,7 +3,10 @@ import ReactDOM from "react-dom"
 import App from "../components/App"
 import State from "../components/State"
 import TemporaryStorage from "../components/TemporaryStorage"
-const db = new TemporaryStorage()
+
+import { data } from "../data/temporaryData"
+
+const db = new TemporaryStorage(data)
 const repo = new State(db)
 
 it("renders without crashing", () => {

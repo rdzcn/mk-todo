@@ -1,7 +1,8 @@
 import State from '../components/State'
 import TemporaryStorage from "../components/TemporaryStorage"
+import { data } from "../data/temporaryData"
 
-const db = new TemporaryStorage()
+const db = new TemporaryStorage(data)
 const state = new State(db)
 
 const todo = {
