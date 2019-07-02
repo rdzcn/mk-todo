@@ -23,7 +23,7 @@ export function colorForDueDate(today, date) {
 	
 }
 
-export function generateCalender() {
+export function generateCalendar() {
 	const todos = {};
 	const dates = [];
 	const currentDay = new Date().getDate();

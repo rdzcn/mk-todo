@@ -1,5 +1,5 @@
 import EventEmitter from "events"
-import { generateCalender } from "../utils/helpers"
+import { generateCalendar } from "../utils/helpers"
 
 class PersistentStorage extends EventEmitter {
 
@@ -7,7 +7,7 @@ class PersistentStorage extends EventEmitter {
     const data = JSON.parse(localStorage.getItem("data")) || 
       { 
         showCompleted: false,
-        todos: generateCalender() 
+        todos: generateCalendar() 
       }
     return data
   }

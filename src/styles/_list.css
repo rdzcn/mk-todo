@@ -31,4 +31,9 @@
 
 .left ul li button:hover {
   transform: scale(1.1);
+  font-weight: 700;
+}
+
+.left ul li button:focus {
+  font-weight: 700;
 }

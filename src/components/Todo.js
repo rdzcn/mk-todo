@@ -35,8 +35,9 @@ class Todo extends React.Component {
 		saveTodo(title, dueDate, id, createdAt)
 	}
 	
-	handleCancel = (id) => {
-    this.props.repo.editTodo(id)
+	handleCancel = (id, title) => {
+    console.log(id, title)
+    this.props.repo.editTodo(id, title)
 	}
 
 	handleDelete = (id) => {
@@ -69,7 +70,7 @@ class Todo extends React.Component {
             <button type="submit">
               Save
             </button>
-            <button type="button" onClick={() => this.handleCancel(id)} >
+            <button type="button" onClick={() => this.handleCancel(id, title)} >
               Cancel
             </button>
           </form>

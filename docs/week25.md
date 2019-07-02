@@ -46,7 +46,7 @@
 
 5. `bold` transition still to be implemented. 
 
-6. Right column contains App logic.
+6. Right column contains the main part of the UI.
 
 7. Persisting on localStorage.
 
