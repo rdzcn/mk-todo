@@ -53,6 +53,7 @@ class State extends EventEmitter {
         todo.completed = !todo.completed;
         todo.modifiedAt = Date.now();
       }
+      return todo
     })
     this.persist()
   }
