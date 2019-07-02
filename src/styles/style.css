@@ -1,15 +1,36 @@
-li {
-  list-style: none;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto:400,700&display=swap');
+@import "_configuration.css";
+@import "_list.css"; 
+@import "_todo.css";
+@import "_header.css";  
+
+.app-container {
+  display: flex;
+  width: 80vw;
+  height: 100vh;
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
 
-.green {
-  color: green;
+.main {
+  width: 50%;
+  height: 80%;
 }
 
-.blue {
-  color: blue;
+.right ul li {
+  width: 40%;
+  height: 3rem;
+  margin-top: 1rem;
 }
 
-.red {
-  color: red;
+.todo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.todos {
+  display: flex;
+  flex-flow: column wrap;
 }

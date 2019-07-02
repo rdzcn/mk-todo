@@ -1,7 +1,24 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./components/App"
+import State from "./components/State"
+import PersistentStorage from "./components/PersistentStorage"
+
 import "./styles/style.css"
 
-ReactDOM.render(<App />, document.getElementById("root"))
+const db = new PersistentStorage()
+const repo = new State(db)
+
+repo.on('stateChanged', () => {
+  ReactDOM.render(<App repo={repo}/>, document.getElementById('root'))
+})
+
+db.on('dataChanged', () => {
+  ReactDOM.render(<App repo={repo}/>, document.getElementById('root'))
+})
+
+ReactDOM.render(<App repo={repo}/>, document.getElementById("root"))
+
+
+
 

@@ -2,16 +2,17 @@ import React from "react"
 import Todo from "./Todo"
 
 class TodoList extends React.Component {
-	
+
 	state = {
 		sorter: ""
 	}
 
 	handleSelect = event => {
+		console.log(event.target.options.selectedIndex)
 		this.setState({ sorter: event.target.value })
 	}
 
-	sortUncompleted = (a, b) => {
+	sortTodos = (a, b) => {
 		const { sorter } = this.state
 		switch (sorter) {
 			case "a-z":
@@ -27,26 +28,39 @@ class TodoList extends React.Component {
 		}
 	}
 
+	fetchTodos = todos => {
+		let filteredTodos
+		if (this.props.completed) {
+			filteredTodos = todos.filter(todo => todo.completed) || []
+		} else {
+			filteredTodos = todos.filter(todo => !todo.completed) || []
+		}
+		return filteredTodos
+	}
+
 	render() {
-		let todos
-		const uncompletedTodos = this.props.todos.filter(todo => !todo.completed)
-		const completedTodos = this.props.todos.filter(todo => todo.completed)
-		!!this.props.completed ? todos = completedTodos : todos = uncompletedTodos  
+		const { repo, completed, selectedDate } = this.props
+		const todos = repo.data.todos[selectedDate] || []
 		return (
-			<div>
-				{!!this.props.completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({todos.length})
+			<div className="todos">
+				<h2>{selectedDate}</h2>
+				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos(todos).length})
 				<br />
-				<select onChange={this.handleSelect}>
-					<option value="">Sort todos by</option>
-					<option value="a-z">Alphabetically</option>
-					<option value="createdAt">Creation Date</option>
-					<option value="modifiedAt">Modification Date</option>
-					<option value="dueDate">Due Date</option>
-				</select>
+				
+				<label>Sort todos by:
+					<select onInput={this.handleSelect}>
+						<option value="title">Alphabetically</option>
+						<option value="createdAt">Creation Date</option>
+						<option value="modifiedAt">Modification Date</option>
+						<option value="dueDate">Due Date</option>
+					</select>
+				</label>
 				<ul>
-					{todos.sort(this.sortUncompleted).map(todo => 
-						<Todo key={todo.id} todo={todo} repo={this.props.repo} updateApp={this.props.updateApp} />
-					)}
+					{ 
+						this.fetchTodos(todos).sort(this.sortTodos).map(todo => 
+							<Todo key={todo.id} todo={todo} repo={this.props.repo} />
+						)
+					}
 				</ul>
 			</div>
 		)
