@@ -7,7 +7,11 @@ export function colorForDueDate(today, date) {
 	const dueDateDay = dueDate.getDate()
 	const dueDateMonth = dueDate.getMonth()
 	const dueDateYear = dueDate.getFullYear()
-  
+	
+	if (isNaN(nowDay) || isNaN(dueDateDay)) {
+		throw "today and/or dueDate is not a date string"
+	}
+
 	if ((dueDateYear > nowYear) || 
         (dueDateYear === nowYear && dueDateMonth > nowMonth) ||
           (dueDateYear === nowYear && dueDateMonth === nowMonth && dueDateDay > nowDay)
@@ -20,7 +24,6 @@ export function colorForDueDate(today, date) {
 		return "#0f0"
 	} 
 		return "#f00"
-	
 }
 
 export function generateCalendar() {
