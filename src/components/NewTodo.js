@@ -4,7 +4,7 @@ import DueDate from "./DueDate"
 class NewTodo extends React.Component {
   constructor(props) {
     super(props);
-    const today = new Date().toISOString().substr(0, 10) //YYYY-MM-DD necessary format for input[type=date] value
+    const today = new Date().toISOString().substr(0, 10)
     this.state = {
       dueDate: today,
       title: ""
@@ -23,10 +23,8 @@ class NewTodo extends React.Component {
     event.preventDefault()
     const { repo } = this.props
     const { dueDate } = this.state
-    const title = this.state.title.trim()
-    if (title.length !== 0) {
-      repo.addTodo(title, dueDate)
-    }
+    const { title } = this.state
+    repo.addTodo(title, dueDate)
     this.setState({ 
       title: ""
     })
@@ -35,7 +33,7 @@ class NewTodo extends React.Component {
   render() {
     const { dueDate, title } = this.state
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} className="new-todo">
         <input
           type="text"
           value={title}

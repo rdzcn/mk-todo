@@ -7,10 +7,6 @@ const App = ({ repo }) => {
 	const { showCompleted } = repo.data
 	const { selectedDate } = repo
 
-	const handleClick = event => {
-		repo.updateSelectedDate(event)
-	}
-
 	return (
 		<div className="app-container">
 			<header className="main header">
@@ -21,7 +17,7 @@ const App = ({ repo }) => {
 				<ul>
 					{
 						Object.keys(repo.data.todos).map(date => 
-							<li key={date} className="main_left-list"><button type="button" onClick={handleClick}>{date}</button></li>
+							<li key={date} className="main_left-list"><button type="button" onClick={() => repo.updateSelectedDate(date)}>{date}</button></li>
 						)
 					}
 				</ul>

@@ -12,14 +12,13 @@ class Todo extends React.Component {
     if (this.props.repo.editingID) {
       return
     } 
-
     this.setState({
       dueDate: this.props.todo.dueDate
     }, this.props.repo.editTodo(id, title))
   }
 
   handleTitleChange = event => {
-    this.props.repo.handleTitleChange(event)
+    this.props.repo.handleEditingTitleChange(event)
   }
 
   handleDueDateChange = event => {
@@ -31,11 +30,11 @@ class Todo extends React.Component {
     const id = event.target.name
     const { dueDate } = this.state
     const { createdAt } = this.props.todo
-    const { title, saveTodo } = this.props.repo
-		saveTodo(title, dueDate, id, createdAt)
+    const { editingTitle, saveTodo } = this.props.repo
+		saveTodo(editingTitle, dueDate, id, createdAt)
 	}
 	
-	handleCancel = (id) => {
+	handleCancel = id => {
     this.props.repo.editTodo(id)
 	}
 
@@ -62,14 +61,14 @@ class Todo extends React.Component {
             <input
               type="text"
               name="title"
-              value={this.props.repo.title}
+              value={this.props.repo.editingTitle}
               onChange={this.handleTitleChange}
             />
             <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
             <button type="submit">
               Save
             </button>
-            <button type="button" onClick={() => this.handleCancel(id)} >
+            <button type="button" onClick={() => this.handleCancel(id, title)} >
               Cancel
             </button>
           </form>
@@ -78,19 +77,20 @@ class Todo extends React.Component {
     } else {
       listItem = (
         <div className="todo unediting">
-					<input 
-            type='checkbox'
-            checked={completed}
-            onChange={() => this.handleComplete(id)}
-          />
-          {completed ? <del>{title}</del> : <span>{title}</span>}
-          <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
-						Edit
-					</button>
-          <button type="button" onClick={() => this.handleDelete(id)}>
-						Delete
-					</button>
-					<br />
+					<div className="todo-actions">
+            <input 
+              type='checkbox'
+              checked={completed}
+              onChange={() => this.handleComplete(id)}
+            />
+            {completed ? <del>{title}</del> : <span>{title}</span>}
+            <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
+              Edit
+            </button>
+            <button type="button" onClick={() => this.handleDelete(id)}>
+              Delete
+            </button>
+          </div>
 					<span style={{color: dueDateColor}}>{dueDate}</span>
         </div>
       )

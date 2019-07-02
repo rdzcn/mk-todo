@@ -44,7 +44,10 @@ class TodoList extends React.Component {
 		return (
 			<div className="todos">
 				<h2>{selectedDate}</h2>
-				{completed ? <span>Completed Todos</span> : <span>My Todos</span> } ({this.fetchTodos(todos).length})
+				{completed ? 
+					<span className="todos-header">Completed Todos ({this.fetchTodos(todos).length})</span> : 
+						<span className="todos-header">My Todos ({this.fetchTodos(todos).length})</span> 
+				} 
 				<br />
 				
 				<label>Sort todos by:
