@@ -8,7 +8,6 @@ class TodoList extends React.Component {
 	}
 
 	handleSelect = event => {
-		console.log(event.target.options.selectedIndex)
 		this.setState({ sorter: event.target.value })
 	}
 
