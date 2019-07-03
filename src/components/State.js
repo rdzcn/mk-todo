@@ -3,20 +3,20 @@ import EventEmitter from "events";
 
 class State extends EventEmitter {
   constructor(db) {
-    super();
-    this.data = db.read();
-    this.writeData = () => db.write(this.data);
-    this.editingID = null;
-    this.selectedDate = new Date().toISOString().substr(0, 10);
-    this.editingTitle = "";
+    super()
+    this.data = db.read()
+    this.writeData = () => db.write(this.data)
+    this.editingID = null
+    this.editingTitle = ""
+    this.category = "notes"
   }
 
   persist() {
     this.writeData();
   }
 
-  updateSelectedDate(date) {
-    this.selectedDate = date;
+  updateCategory(category) {
+    this.category = category;
     this.emit("stateChanged");
   }
 
@@ -25,30 +25,36 @@ class State extends EventEmitter {
     this.emit("stateChanged");
   }
 
-  addTodo(title, dueDate, id = null, createdAt = null, modifiedAt = null) {
-    dueDate = new Date(dueDate).toISOString().substr(0, 10);
+  addTodo(title, category, dueDate, id = null, createdAt = null, modifiedAt = null) {
     title = title.trim();
     if (title.length === 0) {
       return false
     }
+    const dueDateFormat = /\d{4}-\d{2}-\d{2}/
+    if (dueDate.match(dueDateFormat)) {
+      dueDate = new Date(dueDate).toISOString().substr(0, 10);
+    } else {
+      dueDate = ""
+    }
     const todo = {
       title,
+      category,
       dueDate,
       completed: false,
       id: id || uuid(),
       createdAt: createdAt || Date.now(),
       modifiedAt: modifiedAt || Date.now()
     }
-    if (!this.data.todos.hasOwnProperty(dueDate)) {
-      this.data.todos[dueDate] = [];
+    if (!this.data.todos.hasOwnProperty(category)) {
+      this.data.todos[category] = [];
     }
-    this.data.todos[dueDate] = [...this.data.todos[dueDate], todo];
+    this.data.todos[category] = [...this.data.todos[category], todo];
     this.persist();
     this.editingTitle = ""
   }
 
   toggleCompletionForTodo(id) {
-    this.data.todos[this.selectedDate].map(todo => {
+    this.data.todos[this.category].map(todo => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
         todo.modifiedAt = Date.now();
@@ -69,7 +75,7 @@ class State extends EventEmitter {
   }
 
   saveTodo = (title, dueDate, id, createdAt) => {
-    if (this.selectedDate === dueDate) {
+    if (this.category === dueDate) {
       this.data.todos[dueDate].map(todo => {
         if (todo.id === id) {
           todo.title = title;
@@ -85,8 +91,8 @@ class State extends EventEmitter {
   };
 
   deleteTodo(id) {
-    this.data.todos[this.selectedDate] = this.data.todos[
-      this.selectedDate
+    this.data.todos[this.category] = this.data.todos[
+      this.category
     ].filter(todo => todo.id !== id);
     this.persist();
   }

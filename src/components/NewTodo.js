@@ -2,14 +2,12 @@ import React from "react"
 import DueDate from "./DueDate"
 
 class NewTodo extends React.Component {
-  constructor(props) {
-    super(props);
-    const today = new Date().toISOString().substr(0, 10)
-    this.state = {
-      dueDate: today,
-      title: ""
-    }  
-  }
+    
+  state = {
+    dueDate: "",
+    title: "",
+    category: "notes"
+  }  
 
   handleTitleChange = event => {
     this.setState({ title: event.target.value })
@@ -22,9 +20,8 @@ class NewTodo extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     const { repo } = this.props
-    const { dueDate } = this.state
-    const { title } = this.state
-    repo.addTodo(title, dueDate)
+    const { dueDate, title, category } = this.state
+    repo.addTodo(title, category, dueDate)
     this.setState({ 
       title: ""
     })

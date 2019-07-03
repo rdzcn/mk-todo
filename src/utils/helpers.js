@@ -26,15 +26,11 @@ export function colorForDueDate(today, date) {
 		return "#f00"
 }
 
-export function generateCalendar() {
-	const todos = {};
-	const dates = [];
-	const currentDay = new Date().getDate();
-	for (let i = 0; i < 30 ; ++i) {
-		const today = new Date();
-		dates[i] = new Date(today.setDate(currentDay + i)).toISOString().substr(0, 10);
-      	const x = dates[i];
-      	todos[x] = []
+export function generateCategories() {
+	const todos = {}
+	const categories = ["notes", "home", "work", "groceries", "books to read", "movies to watch" ]
+	for (let category of categories) {
+		todos[category] = []
 	}
 	return todos
 }

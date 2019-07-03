@@ -39,15 +39,22 @@ class TodoList extends React.Component {
 	}
 
 	render() {
-		const { repo, completed, selectedDate } = this.props
-		const todos = repo.data.todos[selectedDate] || []
+		const { repo, completed, category } = this.props
+		const todos = repo.data.todos[category] || []
 		return (
 			<div className="todos">
-				<h2>{selectedDate}</h2>
-				{completed ? 
-					<span className="todos-header">Completed Todos ({this.fetchTodos(todos).length})</span> : 
-						<span className="todos-header">My Todos ({this.fetchTodos(todos).length})</span> 
-				} 
+				{
+					completed ? (
+						<span className="todos-header">
+							Completed Todos ({this.fetchTodos(todos).length})
+						</span>  
+					 ) : (
+						<div>
+							<h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
+							<span className="todos-header">My Todos ({this.fetchTodos(todos).length})</span>
+						</div>
+					 )
+				}
 				<br />
 				
 				<label>Sort todos by:

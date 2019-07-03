@@ -5,7 +5,7 @@ import TodoList from "./TodoList"
 const App = ({ repo }) => {
 	
 	const { showCompleted } = repo.data
-	const { selectedDate } = repo
+	const { category } = repo
 
 	return (
 		<div className="app-container">
@@ -16,20 +16,24 @@ const App = ({ repo }) => {
 			<aside className="main left">
 				<ul>
 					{
-						Object.keys(repo.data.todos).map(date => 
-							<li key={date} className="main_left-list"><button type="button" onClick={() => repo.updateSelectedDate(date)}>{date}</button></li>
+						Object.keys(repo.data.todos).map(category => 
+							<li key={category} className="main_left-list">
+								<button type="button" onClick={() => repo.updateCategory(category)}>
+									{category}
+								</button>
+							</li>
 						)
 					}
 				</ul>
 			</aside>
 			<div className="main right">
-				<TodoList repo={repo} selectedDate={selectedDate} />
+				<TodoList repo={repo} category={category} />
 				<button type="button" onClick={repo.toggleShowCompleted}>
 					{showCompleted ? "Hide" : "Show"}
 				</button>
 				{ 
 					showCompleted ? 
-						<TodoList repo={repo} completed="true" selectedDate={selectedDate} /> :
+						<TodoList repo={repo} completed="true" category={category} /> :
 						null 
 				}
 			</div>
