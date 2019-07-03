@@ -1,10 +1,10 @@
-#Tasks and Progress
+# Week-25 Tasks and Progress
 
 1. Please start this week by opening a pull request with the title “Week 26”. This is so that we don’t forget, and the work will be visible at all times and not when it’s ready. It improves communication.
 
-- Done. 
+- Done.
 
-2. Please add an instruction how to use automatic formatting in the README file.  
+2. Please add an instruction how to use automatic formatting in the README file.
 
 - work on eslint-setup branch
 
@@ -12,15 +12,15 @@
 
 - `button:focus { font-weight: 700; }`
 
-4. Implement unit tests for the State class:  
-• addTodo(“Hello”, null) should add todo with a title “Hello" to the storage  
--     
-• addTodo(null, null) should not add a todo to the storage  
-• completeTodo should complete and uncompleted todos in the storage   
-• saveTodo should save the editing title in the storage  
-• deleteTodo should remove the todo from the storage  
+4. Implement unit tests for the State class:
+  • addTodo(“Hello”, null) should add todo with a title “Hello" to the storage
+    -
+  • addTodo(null, null) should not add a todo to the storage
+  • completeTodo should complete and uncompleted todos in the storage
+  • saveTodo should save the editing title in the storage
+  • deleteTodo should remove the todo from the storage
 
-5. Make sorter a function and not a string. const sortedTodos = sorter(todos). Add unit tests for every sorter we have.  
+5. Make sorter a function and not a string. const sortedTodos = sorter(todos). Add unit tests for every sorter we have.
 
 
 
@@ -34,7 +34,7 @@
 
 8. Make filtering by list also a filter:
 `<TodoList repo={repo} filters={[ filterUncompletedTodos, filterByList(‘groceries’) ]} />`
-`filterByList` is a higher-order function: it’s a function that returns another function. Sometimes these are called “factory functions (methods)”. 
+`filterByList` is a higher-order function: it’s a function that returns another function. Sometimes these are called “factory functions (methods)”.
 
 
 
@@ -62,5 +62,5 @@
 
 
 
-15. Very difficult, I don’t expect you to finish it this week: add a search field that would search all of the todo titles in the State. When user starts entering text “foo" in the search field, the title of the list changes to “Search for ‘foo'” and only the todos with the ‘foo’ in their title show up in the TodoList. Add unit tests for this function.  
+15. Very difficult, I don’t expect you to finish it this week: add a search field that would search all of the todo titles in the State. When user starts entering text “foo" in the search field, the title of the list changes to “Search for ‘foo'” and only the todos with the ‘foo’ in their title show up in the TodoList. Add unit tests for this function.
 
