@@ -2,18 +2,19 @@
 
 1. Please start this week by opening a pull request with the title “Week 26”. This is so that we don’t forget, and the work will be visible at all times and not when it’s ready. It improves communication.
 
-
+- Done. 
 
 2. Please add an instruction how to use automatic formatting in the README file.  
 
-
+- work on eslint-setup branch
 
 3. When user selects a List by clicking on it in the left column, its title in the list becomes bold.
 
-
+- `button:focus { font-weight: 700; }`
 
 4. Implement unit tests for the State class:  
-• addTodo(“Hello”, null) should add todo with a title “Hello" to the storage    
+• addTodo(“Hello”, null) should add todo with a title “Hello" to the storage  
+-     
 • addTodo(null, null) should not add a todo to the storage  
 • completeTodo should complete and uncompleted todos in the storage   
 • saveTodo should save the editing title in the storage  
