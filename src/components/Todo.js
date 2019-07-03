@@ -5,7 +5,7 @@ import { colorForDueDate } from "../utils/helpers"
 class Todo extends React.Component {
 
   state = {
-    dueDate: null
+    dueDate: ""
   }
 
 	handleEdit = (id, title) => {
@@ -29,9 +29,9 @@ class Todo extends React.Component {
 		event.preventDefault()
     const id = event.target.name
     const { dueDate } = this.state
-    const { createdAt } = this.props.todo
+    const { createdAt, category } = this.props.todo
     const { editingTitle, saveTodo } = this.props.repo
-		saveTodo(editingTitle, dueDate, id, createdAt)
+		saveTodo(editingTitle, category, dueDate, id, createdAt)
 	}
 	
 	handleCancel = id => {
@@ -50,7 +50,6 @@ class Todo extends React.Component {
 		const { editingID } = this.props.repo
 		const { todo } = this.props
     const { id, title, completed, dueDate } = todo
-    console.log(dueDate)
 		const today = new Date().toISOString().substr(0, 10)
 		const dueDateColor = colorForDueDate(today, dueDate)
 		

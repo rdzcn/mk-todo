@@ -74,26 +74,25 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
 
-  saveTodo = (title, dueDate, id, createdAt) => {
-    if (this.category === dueDate) {
-      this.data.todos[dueDate].map(todo => {
+  saveTodo = (title, category, dueDate, id, createdAt) => {
+    if (this.category === category) {
+      this.data.todos[category].map(todo => {
         if (todo.id === id) {
-          todo.title = title;
+          todo.title = title
+          todo.dueDate = dueDate
         }
         return todo;
       });
       this.persist();
     } else {
-      this.addTodo(title, dueDate, id, createdAt);
+      this.addTodo(title, category, dueDate, id, createdAt);
       this.deleteTodo(id);
     }
     this.editingID = null;
   };
 
   deleteTodo(id) {
-    this.data.todos[this.category] = this.data.todos[
-      this.category
-    ].filter(todo => todo.id !== id);
+    this.data.todos[this.category] = this.data.todos[this.category].filter(todo => todo.id !== id);
     this.persist();
   }
 
