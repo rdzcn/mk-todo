@@ -16,9 +16,13 @@
   • addTodo(“Hello”, null) should add todo with a title “Hello" to the storage
     -
   • addTodo(null, null) should not add a todo to the storage
+    -
   • completeTodo should complete and uncompleted todos in the storage
+    - 
   • saveTodo should save the editing title in the storage
+    - 
   • deleteTodo should remove the todo from the storage
+    - 
 
 5. Make sorter a function and not a string. const sortedTodos = sorter(todos). Add unit tests for every sorter we have.
 
@@ -40,7 +44,7 @@
 
 9. Implement renaming of lists. I would like to create lists like Groceries, Family, Work etc. Begin by adding unit tests for it.
 
- - renamed the lists. 
+ - renamed the lists. They are now "categories".  
 
 10. It should be possible for a task not to have a due date (due date should be nullable)
 
@@ -60,7 +64,7 @@
 
 14. Implement moving tasks between lists. Begin by adding unit tests for it.
 
-
+  - 
 
 15. Very difficult, I don’t expect you to finish it this week: add a search field that would search all of the todo titles in the State. When user starts entering text “foo" in the search field, the title of the list changes to “Search for ‘foo'” and only the todos with the ‘foo’ in their title show up in the TodoList. Add unit tests for this function.
 

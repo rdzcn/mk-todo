@@ -1,8 +1,9 @@
 export const data = {
   showCompleted: false,
   todos: {
-    "2019-06-26": 
+    "notes": 
       [{
+        category: "notes",
         completed: true,
         createdAt: 1561523535332,
         dueDate: "2019-06-26",
@@ -11,6 +12,7 @@ export const data = {
         title: "do the dishes"
       },
       {
+        category: "notes",
         completed: false,
         createdAt: 1561589556457,
         dueDate: "2019-06-26",
@@ -18,8 +20,9 @@ export const data = {
         modifiedAt: 1561589597118,
         title: "walk the dog"
       }],
-    "2019-07-27": 
+    "work": 
       [{
+        category: "work",
         completed: true,
         createdAt: 1561522893224,
         dueDate: "2019-06-27",
@@ -28,16 +31,13 @@ export const data = {
         title: "walk the cat"
       },
       {
+        category: "work",
         completed: false,
         createdAt: 1561523579521,
         dueDate: "2019-06-27",
         id: "babdf308-4e3e-447c-96cd-d73ca6850b93",
         modifiedAt: 1561523579521,
         title: "jump around"
-      }],
-    "1970-01-01": 
-      [
-
-      ]
+      }]
   }
 }

@@ -31,16 +31,23 @@ class State extends EventEmitter {
   }
 
   addTodo = (title, category, dueDate, id = null, createdAt = null, modifiedAt = null) => {
-    title = title.trim();
-    if (title.length === 0) {
+    if (title) {
+      if (title.trim() === 0) {
+        return false
+      }
+      title = title.trim()
+    } else {
       return false
-    }
+    } 
+    
     const dueDateFormat = /\d{4}-\d{2}-\d{2}/
-    if (dueDate.match(dueDateFormat)) {
+    
+    if (dueDate && dueDate.match(dueDateFormat)) {
       dueDate = new Date(dueDate).toISOString().substr(0, 10);
     } else {
       dueDate = ""
     }
+
     const todo = {
       title,
       category,

@@ -56,7 +56,9 @@ class Todo extends React.Component {
 		const { editingID, data } = this.props.repo
 		const { todo } = this.props
     const { id, title, completed, dueDate } = todo
-		const today = new Date().toISOString().substr(0, 10)
+    
+    const today = new Date().toISOString().substr(0, 10)
+    
 		const dueDateColor = colorForDueDate(today, dueDate)
 		
     let listItem
