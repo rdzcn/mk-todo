@@ -5,7 +5,7 @@ import TodoList from "./TodoList"
 const App = ({ repo }) => {
 	
 	const { showCompleted } = repo.data
-	const { category } = repo
+	const { selectedCategory } = repo
 
 	return (
 		<div className="app-container">
@@ -27,13 +27,13 @@ const App = ({ repo }) => {
 				</ul>
 			</aside>
 			<div className="main right">
-				<TodoList repo={repo} category={category} />
+				<TodoList repo={repo} category={selectedCategory} />
 				<button type="button" onClick={repo.toggleShowCompleted}>
 					{showCompleted ? "Hide" : "Show"}
 				</button>
 				{ 
 					showCompleted ? 
-						<TodoList repo={repo} completed="true" category={category} /> :
+						<TodoList repo={repo} completed="true" category={selectedCategory} /> :
 						null 
 				}
 			</div>

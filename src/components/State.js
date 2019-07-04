@@ -8,21 +8,26 @@ class State extends EventEmitter {
     this.writeData = () => db.write(this.data)
     this.editingID = null
     this.editingTitle = ""
-    this.category = "notes"
+    this.selectedCategory = "notes"
   }
 
   persist() {
     this.writeData();
   }
 
-  updateCategory(category) {
-    this.category = category;
+  updateCategory = category => {
+    this.selectedCategory = category;
     this.emit("stateChanged");
   }
 
   handleEditingTitleChange(event) {
     this.editingTitle = event.target.value;
     this.emit("stateChanged");
+  }
+
+  handleSelectedCategoryChange(event) {
+    this.selectedCategory = event.target.value
+    this.emit('stateChanged')
   }
 
   addTodo(title, category, dueDate, id = null, createdAt = null, modifiedAt = null) {
@@ -54,7 +59,7 @@ class State extends EventEmitter {
   }
 
   toggleCompletionForTodo(id) {
-    this.data.todos[this.category].map(todo => {
+    this.data.todos[this.selectedCategory].map(todo => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
         todo.modifiedAt = Date.now();
@@ -75,15 +80,15 @@ class State extends EventEmitter {
   }
 
   saveTodo = (title, category, dueDate, id, createdAt) => {
-    if (this.category === category) {
+    if (this.selectedCategory === category) {
       this.data.todos[category].map(todo => {
         if (todo.id === id) {
           todo.title = title
           todo.dueDate = dueDate
         }
-        return todo;
-      });
-      this.persist();
+        return todo
+      })
+      this.persist()
     } else {
       this.addTodo(title, category, dueDate, id, createdAt);
       this.deleteTodo(id);
@@ -92,7 +97,7 @@ class State extends EventEmitter {
   };
 
   deleteTodo(id) {
-    this.data.todos[this.category] = this.data.todos[this.category].filter(todo => todo.id !== id);
+    this.data.todos[this.selectedCategory] = this.data.todos[this.selectedCategory].filter(todo => todo.id !== id);
     this.persist();
   }
 

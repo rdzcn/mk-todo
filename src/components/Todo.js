@@ -5,7 +5,8 @@ import { colorForDueDate } from "../utils/helpers"
 class Todo extends React.Component {
 
   state = {
-    dueDate: ""
+    dueDate: "",
+    category: ""
   }
 
 	handleEdit = (id, title) => {
@@ -25,11 +26,15 @@ class Todo extends React.Component {
     this.setState({ dueDate: event.target.value })
   }
 
+  handleCategoryChange = event => {
+    this.setState({ category: event.target.value })
+  }
+
   handleSave = (event) => {
 		event.preventDefault()
     const id = event.target.name
-    const { dueDate } = this.state
-    const { createdAt, category } = this.props.todo
+    const { dueDate, category } = this.state
+    const { createdAt } = this.props.todo
     const { editingTitle, saveTodo } = this.props.repo
 		saveTodo(editingTitle, category, dueDate, id, createdAt)
 	}
@@ -47,9 +52,9 @@ class Todo extends React.Component {
 	}
 
   render() {
-		const { editingID } = this.props.repo
+		const { editingID, data, updateCategory } = this.props.repo
 		const { todo } = this.props
-    const { id, title, completed, dueDate } = todo
+    const { id, title, completed, dueDate, category } = todo
 		const today = new Date().toISOString().substr(0, 10)
 		const dueDateColor = colorForDueDate(today, dueDate)
 		
@@ -65,10 +70,20 @@ class Todo extends React.Component {
               onChange={this.handleTitleChange}
             />
             <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
+            <label>
+              Move to another category
+            </label>
+            <select onInput={this.handleCategoryChange}>
+              {
+                Object.keys(data.todos).map(category => (
+                  <option key={category} value={category}>{category}</option>
+                ))
+              }
+            </select>
             <button type="submit">
               Save
             </button>
-            <button type="button" onClick={() => this.handleCancel(id, title)} >
+            <button type="button" onClick={() => this.handleCancel(id)} >
               Cancel
             </button>
           </form>
