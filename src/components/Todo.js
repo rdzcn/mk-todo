@@ -14,7 +14,8 @@ class Todo extends React.Component {
       return
     } 
     this.setState({
-      dueDate: this.props.todo.dueDate
+      dueDate: this.props.todo.dueDate,
+      category: this.props.todo.category
     }, this.props.repo.editTodo(id, title))
   }
 
@@ -52,7 +53,7 @@ class Todo extends React.Component {
 	}
 
   render() {
-		const { editingID, data, updateCategory } = this.props.repo
+		const { editingID, data } = this.props.repo
 		const { todo } = this.props
     const { id, title, completed, dueDate, category } = todo
 		const today = new Date().toISOString().substr(0, 10)
@@ -76,7 +77,7 @@ class Todo extends React.Component {
             <select onInput={this.handleCategoryChange}>
               {
                 Object.keys(data.todos).map(category => (
-                  <option key={category} value={category}>{category}</option>
+                  <option key={category} value={category} selected={category === this.props.repo.selectedCategory ? "selected" : ""}>{category}</option>
                 ))
               }
             </select>

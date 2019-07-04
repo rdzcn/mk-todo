@@ -40,11 +40,11 @@
 
 9. Implement renaming of lists. I would like to create lists like Groceries, Family, Work etc. Begin by adding unit tests for it.
 
-
+ - renamed the lists. 
 
 10. It should be possible for a task not to have a due date (due date should be nullable)
 
-
+ - implemented. `todo.dueDate = ""` in that case. 
 
 11. Implement the following: currently selected list ID needs to be visible in the `window.location.href: https://deploy-preview-6--angry-goldstine-203e71.netlify.com/groceries` should open the “Groceries” list, also when I reload the page. When I click on the Groceries list, it should change the URL too, without reloading the page.
 
