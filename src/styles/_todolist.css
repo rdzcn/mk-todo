@@ -1,3 +1,4 @@
+
 .right {
   width: 40vw;
   padding: 1rem;
@@ -13,7 +14,7 @@
 .todos {
   display: flex;
   flex-wrap: wrap;
-
+  
 }
 
 .todos .todos-header {
@@ -26,3 +27,9 @@
   width: 100%;
 }
 
+.new-todo {
+  margin: 1rem auto;
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}

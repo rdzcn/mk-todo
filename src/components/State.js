@@ -30,7 +30,7 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
 
-  addTodo(title, category, dueDate, id = null, createdAt = null, modifiedAt = null) {
+  addTodo = (title, category, dueDate, id = null, createdAt = null, modifiedAt = null) => {
     title = title.trim();
     if (title.length === 0) {
       return false

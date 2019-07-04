@@ -11,7 +11,6 @@ const App = ({ repo }) => {
 		<div className="app-container">
 			<header className="main header">
 				<h1>Your Todo App #1</h1>
-				<NewTodo repo={repo} />
 			</header>
 			<aside className="main left">
 				<ul>
@@ -27,6 +26,7 @@ const App = ({ repo }) => {
 				</ul>
 			</aside>
 			<div className="main right">
+				<NewTodo repo={repo} />
 				<TodoList repo={repo} category={selectedCategory} />
 				<button type="button" onClick={repo.toggleShowCompleted}>
 					{showCompleted ? "Hide" : "Show"}
