@@ -55,7 +55,7 @@ class Todo extends React.Component {
   render() {
 		const { editingID, data } = this.props.repo
 		const { todo } = this.props
-    const { id, title, completed, dueDate, category } = todo
+    const { id, title, completed, dueDate } = todo
 		const today = new Date().toISOString().substr(0, 10)
 		const dueDateColor = colorForDueDate(today, dueDate)
 		
@@ -74,10 +74,10 @@ class Todo extends React.Component {
             <label>
               Move to another category
             </label>
-            <select onInput={this.handleCategoryChange}>
+            <select defaultValue={this.props.repo.selectedCategory} onInput={this.handleCategoryChange}>
               {
                 Object.keys(data.todos).map(category => (
-                  <option key={category} value={category} selected={category === this.props.repo.selectedCategory ? "selected" : ""}>{category}</option>
+                  <option key={category} value={category}>{category}</option>
                 ))
               }
             </select>
