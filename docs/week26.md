@@ -31,7 +31,7 @@
 
 6. Rename fetchTodos to filter. I would like to have two filter functions (from now on I will call them just “filters") for now: filterUncomletedTodos and filterCompletedTodos. Filter accepts an array A of todos and returns an array A' of todos that includes all or some of the todos from array A. TodoList component should accept two parameters: repo and an array of filters. For the uncompleted list, it should look like this: <TodoList repo={repo} filters={[ filterUncompletedTodos ]} />. For completed list: <TodoList repo={repo} filters={[ filterCompletedTodos ]} />
 
-
+- [Commit](https://github.com/rdzcn/mk-todo/commit/ab9f133394d3f468c619b6d5f9be3149ec341b07)
 
 7. Implement tests for these filters.
 
@@ -65,7 +65,7 @@
 
 14. Implement moving tasks between lists. Begin by adding unit tests for it.
 
-  -
+  - Did it but again not starting with the tests. Tests to follow. 
 
 15. Very difficult, I don’t expect you to finish it this week: add a search field that would search all of the todo titles in the State. When user starts entering text “foo" in the search field, the title of the list changes to “Search for ‘foo'” and only the todos with the ‘foo’ in their title show up in the TodoList. Add unit tests for this function.
 
