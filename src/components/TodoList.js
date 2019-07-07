@@ -8,6 +8,7 @@ class TodoList extends React.Component {
 	}
 
 	handleSelect = event => {
+		console.log(event.target.options)
 		this.setState({ sorter: event.target.value })
 	}
 
@@ -27,30 +28,19 @@ class TodoList extends React.Component {
 		}
 	}
 
-	fetchTodos = todos => {
-		let filteredTodos
-		if (this.props.completed) {
-			filteredTodos = todos.filter(todo => todo.completed) || []
-		} else {
-			filteredTodos = todos.filter(todo => !todo.completed) || []
-		}
-		return filteredTodos
-	}
-
 	render() {
-		const { repo, completed, category } = this.props
-		const todos = repo.data.todos[category] || []
+		const { repo, completed, category, filters } = this.props
 		return (
 			<div className="todos">
 				{
 					completed ? (
 						<span className="todos-header">
-							Completed Todos ({this.fetchTodos(todos).length})
+							Completed Todos ({filters.length})
 						</span>  
 					 ) : (
 						<div>
 							<h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
-							<span className="todos-header">My Todos ({this.fetchTodos(todos).length})</span>
+							<span className="todos-header">My Todos ({filters[0].length})</span>
 						</div>
 					 )
 				}
@@ -66,8 +56,8 @@ class TodoList extends React.Component {
 				</label>
 				<ul>
 					{ 
-						this.fetchTodos(todos).sort(this.sortTodos).map(todo => 
-							<Todo key={todo.id} todo={todo} repo={this.props.repo} />
+						filters[0].sort(this.sortTodos).map(todo => 
+							<Todo key={todo.id} todo={todo} repo={repo} />
 						)
 					}
 				</ul>

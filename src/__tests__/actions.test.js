@@ -5,12 +5,6 @@ import { data } from "../data/temporaryData"
 const db = new TemporaryStorage(data)
 const state = new State(db)
 
-/* beforeEach(() => {
-  return db.clear().then(() => {
-    return new State(db)
-  })
-}) */
-
 const todo = {
   category: "notes",
   completed: true,
