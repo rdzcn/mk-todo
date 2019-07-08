@@ -29,7 +29,8 @@ class TodoList extends React.Component {
 	}
 
 	render() {
-		const { repo, completed, category, filters } = this.props
+		const { repo, completed, filters } = this.props
+		const { selectedCategory } = repo
 		const { editingID } = repo
 		return (
 			<div className="todos">
@@ -40,7 +41,7 @@ class TodoList extends React.Component {
 						</span>  
 					 ) : (
 						<div>
-							<h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
+							<h2>{selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}</h2>
 							<span className="todos-header">My Todos ({filters[0].length})</span>
 						</div>
 					 )

@@ -16,8 +16,8 @@ class App extends React.Component {
 
 	render() {
 		const { repo } = this.props
-		const { showCompleted, todos } = repo.data
 		const { selectedCategory } = repo
+		const { showCompleted, todos } = repo.data
 		const filterUncompletedTodos = this.filterUncompletedTodos(todos, selectedCategory)
 		const filterCompletedTodos = this.filterCompletedTodos(todos, selectedCategory)
 
@@ -41,13 +41,13 @@ class App extends React.Component {
 				</aside>
 				<div className="main right">
 					<NewTodo repo={repo} />
-					<TodoList repo={repo} filters={[ filterUncompletedTodos ]} category={selectedCategory} />
+					<TodoList repo={repo} filters={[ filterUncompletedTodos ]} />
 					<button type="button" onClick={repo.toggleShowCompleted}>
 						{showCompleted ? "Hide" : "Show"}
 					</button>
 					{ 
 						showCompleted ? 
-							<TodoList repo={repo} completed="true" filters={[ filterCompletedTodos ]} category={selectedCategory} /> :
+							<TodoList repo={repo} completed="true" filters={[ filterCompletedTodos ]} /> :
 							null 
 					}
 				</div>
