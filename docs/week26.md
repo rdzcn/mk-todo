@@ -61,7 +61,7 @@
 
 13. Please split the Todo component into two components: Todo and EditingTodo. The EditingTodo component should be shown whenever the todo is being edited.
 
-
+- Editing of a todo is handled in EditingTodo component. 
 
 14. Implement moving tasks between lists. Begin by adding unit tests for it.
 
