@@ -1,5 +1,6 @@
 import React from "react"
 import Todo from "./Todo"
+import EditingTodo from "./EditingTodo"
 
 class TodoList extends React.Component {
 
@@ -8,7 +9,6 @@ class TodoList extends React.Component {
 	}
 
 	handleSelect = event => {
-		console.log(event.target.options)
 		this.setState({ sorter: event.target.value })
 	}
 
@@ -30,6 +30,7 @@ class TodoList extends React.Component {
 
 	render() {
 		const { repo, completed, category, filters } = this.props
+		const { editingID } = repo
 		return (
 			<div className="todos">
 				{
@@ -56,9 +57,13 @@ class TodoList extends React.Component {
 				</label>
 				<ul>
 					{ 
-						filters[0].sort(this.sortTodos).map(todo => 
-							<Todo key={todo.id} todo={todo} repo={repo} />
-						)
+						filters[0].sort(this.sortTodos).map(todo => {
+							if (editingID === todo.id) {
+								return <EditingTodo key={todo.id} todo={todo} repo={repo} />
+							} else {
+								return <Todo key={todo.id} todo={todo} repo={repo} />
+							}
+						})
 					}
 				</ul>
 			</div>
