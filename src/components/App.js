@@ -2,52 +2,39 @@ import React from "react"
 import NewTodo from "./NewTodo"
 import TodoList from "./TodoList"
 
-import State from "./State"
-const repo = new State()
+const App = ({ repo }) => {
+	
+	const { showCompleted } = repo.data
+	const { selectedDate } = repo
 
-class App extends React.Component {
-	constructor(props) {
-		super(props);
-		const { todos, showCompleted } = repo
-		this.state = {
-			todos: todos,
-			showCompleted: showCompleted
-		}
-	}
-
-	toggleShowCompleted = () => {
-		this.setState({
-			showCompleted: !this.state.showCompleted
-		}, repo.toggleShowCompleted(this.state.todos))
-	}
-
-	updateApp = (todos) => {
-		this.setState({ todos })
-	}
-
-	render() {
-		let repo = new State()
-		return (
-			<div>
-				<h1>Your Todo App</h1>
-				<NewTodo repo={repo} updateApp={this.updateApp} />
-				<TodoList repo={repo} updateApp={this.updateApp} todos={this.state.todos} />
-				{ 
-					this.state.showCompleted ?
-						(
-							<div>
-								<button type="button" onClick={this.toggleShowCompleted}>Hide</button>
-								<TodoList repo={repo} completed="true" updateApp={this.updateApp} todos={this.state.todos} />
-							</div>
-						) : (
-							<div>
-								<button type="button" onClick={this.toggleShowCompleted}>Show</button>
-							</div>
+	return (
+		<div className="app-container">
+			<header className="main header">
+				<h1>Your Todo App #1</h1>
+				<NewTodo repo={repo} />
+			</header>
+			<aside className="main left">
+				<ul>
+					{
+						Object.keys(repo.data.todos).map(date => 
+							<li key={date} className="main_left-list"><button type="button" onClick={() => repo.updateSelectedDate(date)}>{date}</button></li>
 						)
+					}
+				</ul>
+			</aside>
+			<div className="main right">
+				<TodoList repo={repo} selectedDate={selectedDate} />
+				<button type="button" onClick={repo.toggleShowCompleted}>
+					{showCompleted ? "Hide" : "Show"}
+				</button>
+				{ 
+					showCompleted ? 
+						<TodoList repo={repo} completed="true" selectedDate={selectedDate} /> :
+						null 
 				}
 			</div>
-		)
-	}
+		</div>
+	)
 }
 
 export default App

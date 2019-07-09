@@ -1,0 +1,39 @@
+.left {
+  padding: 1rem;
+  width: 40vw;
+  min-height: calc(100% - 250px);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.left ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+}
+
+.left ul li {
+  width: 15%;
+  height: 3rem;
+  margin-top: 1rem;
+  margin: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left ul li button {
+  padding: 0.5rem;
+  box-shadow: 0 0 5px 2px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.left ul li button:hover {
+  transform: scale(1.1);
+  font-weight: 700;
+}
+
+.left ul li button:focus {
+  font-weight: 700;
+}

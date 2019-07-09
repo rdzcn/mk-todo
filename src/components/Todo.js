@@ -1,91 +1,96 @@
 import React from "react"
+import DueDate from "./DueDate"
 import { colorForDueDate } from "../utils/helpers"
 
 class Todo extends React.Component {
 
-	state = {
-		title: ""
-	}
+  state = {
+    dueDate: null
+  }
 
 	handleEdit = (id, title) => {
     if (this.props.repo.editingID) {
-      return;
-		} 
-		this.setState({
-			title: title
-		}, this.props.repo.editTodo(id)) 
+      return
+    } 
+    this.setState({
+      dueDate: this.props.todo.dueDate
+    }, this.props.repo.editTodo(id, title))
   }
 
-  handleChange = event => {
-    this.setState({ title: event.target.value })
+  handleTitleChange = event => {
+    this.props.repo.handleEditingTitleChange(event)
+  }
+
+  handleDueDateChange = event => {
+    this.setState({ dueDate: event.target.value })
   }
 
   handleSave = (event) => {
 		event.preventDefault()
-		const id = event.target.name
-		const { title } = this.state
-		this.props.repo.saveTodo(id, title)
-		this.props.updateApp(this.props.repo.todos)
+    const id = event.target.name
+    const { dueDate } = this.state
+    const { createdAt } = this.props.todo
+    const { editingTitle, saveTodo } = this.props.repo
+		saveTodo(editingTitle, dueDate, id, createdAt)
 	}
 	
-	handleCancel = (id) => {
-		this.props.repo.editTodo(id)
-		this.props.updateApp(this.props.repo.todos)
+	handleCancel = id => {
+    this.props.repo.editTodo(id)
 	}
 
 	handleDelete = (id) => {
 		this.props.repo.deleteTodo(id)
-		this.props.updateApp(this.props.repo.todos)
 	}
 
 	handleComplete = (id) => {
 		this.props.repo.toggleCompletionForTodo(id)
-		this.props.updateApp(this.props.repo.todos)
 	}
 
   render() {
 		const { editingID } = this.props.repo
 		const { todo } = this.props
-		const { id, title, completed } = todo
-		const dueDate = new Date(todo.dueDate).toLocaleDateString("en-CA")
-		const today = new Date()
-		const date = new Date(Date.parse(todo.dueDate))
-		const dueDateColor = colorForDueDate(today, date)
+		const { id, title, completed, dueDate } = todo
+		const today = new Date().toISOString().substr(0, 10)
+		const dueDateColor = colorForDueDate(today, dueDate)
 		
     let listItem
     if (editingID === id) {
       listItem = (
-        <form  name={id} onSubmit={this.handleSave}>
-          <input
-            type="text"
-            name="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-          />
-          <button type="submit">
-            Save
-          </button>
-					<button type="button" onClick={() => this.handleCancel(id)} >
-						Cancel
-					</button>
-        </form>
+        <div className="todo editing">
+          <form name={id} onSubmit={this.handleSave}>
+            <input
+              type="text"
+              name="title"
+              value={this.props.repo.editingTitle}
+              onChange={this.handleTitleChange}
+            />
+            <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
+            <button type="submit">
+              Save
+            </button>
+            <button type="button" onClick={() => this.handleCancel(id, title)} >
+              Cancel
+            </button>
+          </form>
+        </div>
       )
     } else {
       listItem = (
-        <div>
-					<input 
-            type='checkbox'
-            checked={completed}
-            onChange={() => this.handleComplete(id)}
-          />
-          {completed ? <del>{title}</del> : <span>{title}</span>}
-          <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
-						Edit
-					</button>
-          <button type="button" onClick={() => this.handleDelete(id)}>
-						Delete
-					</button>
-					<br />
+        <div className="todo unediting">
+					<div className="todo-actions">
+            <input 
+              type='checkbox'
+              checked={completed}
+              onChange={() => this.handleComplete(id)}
+            />
+            {completed ? <del>{title}</del> : <span>{title}</span>}
+            <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
+              Edit
+            </button>
+            <button type="button" onClick={() => this.handleDelete(id)}>
+              Delete
+            </button>
+          </div>
 					<span style={{color: dueDateColor}}>{dueDate}</span>
         </div>
       )
