@@ -29,8 +29,9 @@ class State extends EventEmitter {
     this.selectedCategory = event.target.value
     this.emit('stateChanged')
   }
-
-  addTodo = (title, category, dueDate, id = null, createdAt = null, modifiedAt = null) => {
+  
+  addTodo = (params) => {
+    let { title, category, dueDate = null, id = null, createdAt = null, modifiedAt = null } = params
     if (title) {
       if (title.trim() === 0) {
         return false

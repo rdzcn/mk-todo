@@ -22,7 +22,7 @@ class NewTodo extends React.Component {
     const { selectedCategory, addTodo } = repo
     const { dueDate, title } = this.state
     
-    addTodo(title, selectedCategory, dueDate)
+    addTodo({title: title, category: selectedCategory, dueDate: dueDate})
     
     this.setState({ 
       title: ""
