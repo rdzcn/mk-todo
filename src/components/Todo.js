@@ -9,14 +9,6 @@ class Todo extends React.Component {
     } 
     this.props.repo.editTodo(id, title)
   }
-	
-	handleDelete = (id) => {
-		this.props.repo.deleteTodo(id)
-	}
-
-	handleComplete = (id) => {
-		this.props.repo.toggleCompletionForTodo(id)
-	}
 
   render() {
 		const { todo } = this.props
@@ -32,13 +24,13 @@ class Todo extends React.Component {
             <input 
               type='checkbox'
               checked={completed}
-              onChange={() => this.handleComplete(id)}
+              onChange={() => this.props.repo.toggleCompletionForTodo(id)}
             />
             {completed ? <del>{title}</del> : <span>{title}</span>}
             <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
               Edit
             </button>
-            <button type="button" onClick={() => this.handleDelete(id)}>
+            <button type="button" onClick={() => this.props.repo.deleteTodo(id)}>
               Delete
             </button>
           </div>
