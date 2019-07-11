@@ -1,57 +1,50 @@
 import React from "react"
-import NewTodo from "./NewTodo"
-import TodoList from "./TodoList"
+import NewTodo from "./Content/NewTodo"
+import TodoList from "./Content/TodoList"
+import Sidebar from "./Sidebar/Sidebar"
 
 class App extends React.Component {
 	
-	filterUncompletedTodos = (todos, category) => {
-		const filteredTodos = todos[category].filter(todo => !todo.completed) || []
-		return filteredTodos
+	filterUncompletedTodos = todos => {
+		return todos.filter(todo => !todo.completed)
 	}
 
-	filterCompletedTodos = (todos, category) => {
-		const filteredTodos = todos[category].filter(todo => todo.completed) || []
-		return filteredTodos
+	filterCompletedTodos = todos => {
+		return todos.filter(todo => todo.completed)
+	}
+
+	filterByCategory = category => {
+		return todos => { 
+			return todos.filter(todo => todo.category === category) }
 	}
 
 	render() {
 		const { repo } = this.props
-		const { selectedCategory } = repo
-		const { showCompleted, todos } = repo.data
-		const filterUncompletedTodos = this.filterUncompletedTodos(todos, selectedCategory)
-		const filterCompletedTodos = this.filterCompletedTodos(todos, selectedCategory)
+		const { showCompleted } = repo.data
 
 		return (
-			<div className="app-container">
-				<header className="main header">
-					<h1>Your Todo App #1</h1>
-				</header>
-				<aside className="main left">
-					<ul>
-						{
-							Object.keys(todos).map(category => 
-								<li key={category} className="main_left-list">
-									<button type="button" onClick={() => repo.updateCategory(category)}>
-										{category}
-									</button>
-								</li>
-							)
+			<React.Fragment>
+				<div className="app-container">
+					<header className="main header">
+						<h1>Your Todo App #1</h1>
+					</header>
+					<aside className="main left">
+						<Sidebar repo={repo} />
+					</aside>
+					<div className="main right">
+						<NewTodo repo={repo} />
+						<TodoList repo={repo} filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
+						<button type="button" onClick={repo.toggleShowCompleted}>
+							{showCompleted ? "Hide" : "Show"}
+						</button>
+						{ 
+							showCompleted ? 
+								<TodoList repo={repo} completed="true" filters={[ this.filterCompletedTodos, this.filterByCategory ]} /> :
+								null 
 						}
-					</ul>
-				</aside>
-				<div className="main right">
-					<NewTodo repo={repo} />
-					<TodoList repo={repo} filters={[ filterUncompletedTodos ]} />
-					<button type="button" onClick={repo.toggleShowCompleted}>
-						{showCompleted ? "Hide" : "Show"}
-					</button>
-					{ 
-						showCompleted ? 
-							<TodoList repo={repo} completed="true" filters={[ filterCompletedTodos ]} /> :
-							null 
-					}
+					</div>
 				</div>
-			</div>
+			</React.Fragment>
 		)
 	}
 }

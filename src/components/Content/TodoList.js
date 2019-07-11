@@ -30,8 +30,9 @@ class TodoList extends React.Component {
 
 	render() {
 		const { repo, completed, filters } = this.props
-		const { selectedCategory } = repo
-		const { editingID } = repo
+		const { selectedCategory, data, editingID } = repo
+		const todos = filters[0](data.todos)
+		const todosByCategory = filters[1](selectedCategory)(todos)
 		return (
 			<div className="todos">
 				{
@@ -58,7 +59,7 @@ class TodoList extends React.Component {
 				</label>
 				<ul>
 					{ 
-						filters[0].sort(this.sortTodos).map(todo => {
+						todosByCategory.map(todo => {
 							if (editingID === todo.id) {
 								return <EditingTodo key={todo.id} todo={todo} repo={repo} />
 							} else {

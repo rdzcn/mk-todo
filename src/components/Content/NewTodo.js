@@ -19,10 +19,9 @@ class NewTodo extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     const { repo } = this.props
-    const { selectedCategory, addTodo } = repo
     const { dueDate, title } = this.state
     
-    addTodo({title: title, category: selectedCategory, dueDate: dueDate})
+    repo.addTodo({title: title, dueDate: dueDate})
     
     this.setState({ 
       title: ""

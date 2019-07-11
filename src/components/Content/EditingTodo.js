@@ -9,24 +9,25 @@ class EditingTodo extends React.Component {
   }
 
 	handleTitleChange = event => {
-    this.props.repo.handleEditingTitleChange(event)
+    const title = event.target.value
+    this.props.repo.updateEditingTitleChange(title)
   }
 
   handleDueDateChange = event => {
-    this.setState({ dueDate: event.target.value })
+    const dueDate = event.target.value
+    this.setState({ dueDate })
   }
 
   handleCategoryChange = event => {
-    this.setState({ category: event.target.value })
+    const category = event.target.value
+    this.setState({ category })
   }
 
   handleSave = (event) => {
 		event.preventDefault()
-    const id = event.target.name
     const { dueDate, category } = this.state
-    const { createdAt } = this.props.todo
     const { editingTitle, saveTodo } = this.props.repo
-		saveTodo(editingTitle, category, dueDate, id, createdAt)
+		saveTodo({title: editingTitle, category: category, dueDate: dueDate})
 	}
 	
 	handleCancel = id => {
@@ -34,9 +35,10 @@ class EditingTodo extends React.Component {
 	}
 
   render() {
-		const { data, selectedCategory, editingTitle } = this.props.repo
+		const { selectedCategory, editingTitle } = this.props.repo
 		const { todo } = this.props
     const { id } = todo
+    const categories = ["My Todos", "Home Related", "Work Related", "Groceries"]
     
     return (
       <li>
@@ -56,7 +58,7 @@ class EditingTodo extends React.Component {
             </label>
             <select defaultValue={selectedCategory} onInput={this.handleCategoryChange}>
               {
-                Object.keys(data.todos).map(category => (
+                categories.map(category => (
                   <option key={category} value={category}>{category}</option>
                 ))
               }

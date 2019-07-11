@@ -8,30 +8,28 @@ class State extends EventEmitter {
     this.writeData = () => db.write(this.data)
     this.editingID = null
     this.editingTitle = ""
-    this.selectedCategory = "notes"
+    this.selectedCategory = "My Todos"
   }
 
   persist() {
     this.writeData();
   }
 
-  updateCategory = category => {
+  updateSelectedCategory = category => {
     this.selectedCategory = category;
     this.emit("stateChanged");
   }
 
-  handleEditingTitleChange(event) {
-    this.editingTitle = event.target.value;
+  updateEditingTitleChange(title) {
+    this.editingTitle = title
     this.emit("stateChanged");
   }
 
-  handleSelectedCategoryChange(event) {
-    this.selectedCategory = event.target.value
-    this.emit('stateChanged')
-  }
-  
   addTodo = (params) => {
-    let { title, category, dueDate = null, id = null, createdAt = null, modifiedAt = null } = params
+    
+    let { title, dueDate = null } = params
+    const category = this.selectedCategory
+    
     if (title) {
       if (title.trim() === 0) {
         return false
@@ -54,20 +52,18 @@ class State extends EventEmitter {
       category,
       dueDate,
       completed: false,
-      id: id || uuid(),
-      createdAt: createdAt || Date.now(),
-      modifiedAt: modifiedAt || Date.now()
+      id: uuid(),
+      createdAt: Date.now(),
+      modifiedAt: Date.now()
     }
-    if (!this.data.todos.hasOwnProperty(category)) {
-      this.data.todos[category] = [];
-    }
-    this.data.todos[category] = [...this.data.todos[category], todo];
+
+    this.data.todos= [...this.data.todos, todo];
     this.persist();
     this.editingTitle = ""
   }
 
   toggleCompletionForTodo(id) {
-    this.data.todos[this.selectedCategory].map(todo => {
+    this.data.todos.map(todo => {
       if (todo.id === id) {
         todo.completed = !todo.completed;
         todo.modifiedAt = Date.now();
@@ -87,25 +83,23 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
 
-  saveTodo = (title, category, dueDate, id, createdAt) => {
-    if (this.selectedCategory === category) {
-      this.data.todos[category].map(todo => {
-        if (todo.id === id) {
-          todo.title = title
-          todo.dueDate = dueDate
-        }
-        return todo
-      })
-      this.persist()
-    } else {
-      this.addTodo(title, category, dueDate, id, createdAt);
-      this.deleteTodo(id);
-    }
+  saveTodo = (params) => {
+    let { title, category, dueDate } = params
+    
+    this.data.todos.map(todo => {
+      if (todo.id === this.editingID) {
+        todo.title = title
+        todo.category = category
+        todo.dueDate = dueDate
+      }
+      return todo
+    })
+    this.persist()
     this.editingID = null;
   };
 
   deleteTodo(id) {
-    this.data.todos[this.selectedCategory] = this.data.todos[this.selectedCategory].filter(todo => todo.id !== id);
+    this.data.todos = this.data.todos.filter(todo => todo.id !== id);
     this.persist();
   }
 

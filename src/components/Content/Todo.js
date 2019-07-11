@@ -1,9 +1,9 @@
 import React from "react"
-import { colorForDueDate } from "../utils/helpers"
+import { colorForDueDate } from "../../utils/helpers"
 
 class Todo extends React.Component {
 
-	handleEdit = (id, title) => {
+	handleEdit(id, title) {
     if (this.props.repo.editingID) {
       return
     } 
