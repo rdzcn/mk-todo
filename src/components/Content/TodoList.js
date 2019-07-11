@@ -1,5 +1,6 @@
 import React from "react"
 import Todo from "./Todo"
+import EditingTodo from "./EditingTodo"
 
 class TodoList extends React.Component {
 
@@ -8,7 +9,6 @@ class TodoList extends React.Component {
 	}
 
 	handleSelect = event => {
-		console.log(event.target.options.selectedIndex)
 		this.setState({ sorter: event.target.value })
 	}
 
@@ -28,26 +28,25 @@ class TodoList extends React.Component {
 		}
 	}
 
-	fetchTodos = todos => {
-		let filteredTodos
-		if (this.props.completed) {
-			filteredTodos = todos.filter(todo => todo.completed) || []
-		} else {
-			filteredTodos = todos.filter(todo => !todo.completed) || []
-		}
-		return filteredTodos
-	}
-
 	render() {
-		const { repo, completed, selectedDate } = this.props
-		const todos = repo.data.todos[selectedDate] || []
+		const { repo, completed, filters } = this.props
+		const { selectedCategory, data, editingID } = repo
+		const todos = filters[0](data.todos)
+		const todosByCategory = filters[1](selectedCategory)(todos)
 		return (
 			<div className="todos">
-				<h2>{selectedDate}</h2>
-				{completed ? 
-					<span className="todos-header">Completed Todos ({this.fetchTodos(todos).length})</span> : 
-						<span className="todos-header">My Todos ({this.fetchTodos(todos).length})</span> 
-				} 
+				{
+					completed ? (
+						<span className="todos-header">
+							Completed Todos ({filters.length})
+						</span>  
+					 ) : (
+						<div>
+							<h2>{selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}</h2>
+							<span className="todos-header">My Todos ({filters[0].length})</span>
+						</div>
+					 )
+				}
 				<br />
 				
 				<label>Sort todos by:
@@ -60,9 +59,13 @@ class TodoList extends React.Component {
 				</label>
 				<ul>
 					{ 
-						this.fetchTodos(todos).sort(this.sortTodos).map(todo => 
-							<Todo key={todo.id} todo={todo} repo={this.props.repo} />
-						)
+						todosByCategory.map(todo => {
+							if (editingID === todo.id) {
+								return <EditingTodo key={todo.id} todo={todo} repo={repo} />
+							} else {
+								return <Todo key={todo.id} todo={todo} repo={repo} />
+							}
+						})
 					}
 				</ul>
 			</div>

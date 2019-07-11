@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./components/App"
-import State from "./components/State"
+import State from "./components/state"
 import PersistentStorage from "./components/PersistentStorage"
 
 import "./styles/style.css"
