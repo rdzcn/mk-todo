@@ -42,8 +42,8 @@ class NewTodo extends React.Component {
     const {
       date
     } = this.state
-    return ( <
-      form onSubmit = {
+    return ( 
+      <form onSubmit = {
         this.handleSubmit
       } >
       <
@@ -54,8 +54,8 @@ class NewTodo extends React.Component {
       onChange = {
         this.handleTitleChange
       }
-      /> <
-      label > Due date: < /label>  <
+      /> 
+      <label > Due date: </label>  <
       input type = "date"
       min = {
         date
@@ -66,9 +66,9 @@ class NewTodo extends React.Component {
       onChange = {
         this.handleDueDateChange
       }
-      /> <
-      button type = "submit" > Add a todo < /button> <
-      /form>
+      /> 
+      <button type = "submit" > Add a todo </button> 
+      </form>
     )
   }
 }

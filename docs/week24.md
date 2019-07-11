@@ -74,7 +74,7 @@ sortUncompleted = (a, b) => {
 
 13.
 
-14. Partly done. Currently no need for CompletedTodoList component. (still to implement fetchTodos) 
+14. Check commit in week-25 for an implementation of `fetchTodos`: commit [a1cb856](https://github.com/rdzcn/mk-todo/commit/a1cb856c8ce0e5261a27585d50bf3e5b08c57869)  
 
 15. Passing a `{completed}` prop to TodoList to specify the title. Instead of `h1` now using `span` as it is inline element. That is, `{todos.length}` will appear next to the title.
 
