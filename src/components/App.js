@@ -38,22 +38,22 @@ class App extends React.Component {
 	
   render() {
     const { repo } = this.props
-    const { showCompleted } = repo.data
 
     return (
       <React.Fragment>
         <div className="app-container">
           <header className="main header">
-            <h1>Your Todo App #1</h1>
+            <h1>Your #1 Todo App</h1>
           </header>
           <aside className="main left">
             <Sidebar repo={repo} />
           </aside>
           <div className="main right">
+            <h2 className="content-header">{repo.selectedCategory.charAt(0).toUpperCase() + repo.selectedCategory.slice(1)}</h2>
             <NewTodo repo={repo} />
-            <TodoList repo={repo} filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
+            <TodoList repo={repo} header="Todos" filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
             <ShowCompletedToggler repo={repo}>
-		        	<TodoList repo={repo} filters={[ this.filterCompletedTodos, this.filterByCategory ]} />
+              <TodoList repo={repo} header="CompletedTodos" filters={[ this.filterCompletedTodos, this.filterByCategory ]} />
             </ShowCompletedToggler>
           </div>
         </div>

@@ -10,26 +10,17 @@ class TodoList extends React.Component {
 	}
 
 	render() {
-		const { repo, completed, filters } = this.props
+		const { repo, filters, header } = this.props
 		const { selectedCategory, data, editingID } = repo
 		const todos = filters[0](data.todos)
 		const todosByCategory = filters[1](selectedCategory)(todos)
 
 		return (
 			<div className="todos">
-				{
-					completed ? (
-						<span className="todos-header">
-							Completed Todos ({filters.length})
-						</span>  
-					 ) : (
-						<div>
-							<h2>{selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}</h2>
-							<span className="todos-header">My Todos ({filters[0].length})</span>
-						</div>
-					 )
-				}
-				<br />
+				<h3 className="todos-header">
+					{ header } 
+					<span>({todosByCategory.length})</span>
+				</h3>  
 				<form>
 					<label>
 						Sort todos by:
