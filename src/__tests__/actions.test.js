@@ -1,4 +1,4 @@
-import State from '../components/State'
+import State from '../components/Content/State'
 import TemporaryStorage from '../components/TemporaryStorage'
 import { data } from '../data/temporaryData'
 

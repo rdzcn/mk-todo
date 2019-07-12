@@ -4,12 +4,8 @@ import EditingTodo from "./EditingTodo"
 
 class TodoList extends React.Component {
 
-	state = {
-		sorter: ""
-	}
-
 	handleSelect = event => {
-		this.setState({ sorter: event.target.value })
+		
 	}
 
 	sortTodos = (a, b) => {
@@ -26,6 +22,10 @@ class TodoList extends React.Component {
 			default:
 				return b.createdAt - a.createdAt
 		}
+	}
+
+	sorterAlphabetic() {
+
 	}
 
 	render() {
@@ -48,15 +48,17 @@ class TodoList extends React.Component {
 					 )
 				}
 				<br />
-				
-				<label>Sort todos by:
+				<form>
+					<label>
+						Sort todos by:
+					</label>
 					<select onInput={this.handleSelect}>
 						<option value="title">Alphabetically</option>
 						<option value="createdAt">Creation Date</option>
 						<option value="modifiedAt">Modification Date</option>
 						<option value="dueDate">Due Date</option>
 					</select>
-				</label>
+				</form>
 				<ul>
 					{ 
 						todosByCategory.map(todo => {
