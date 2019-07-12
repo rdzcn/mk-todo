@@ -52,12 +52,9 @@ class App extends React.Component {
           <div className="main right">
             <NewTodo repo={repo} />
             <TodoList repo={repo} filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
-            <ShowCompletedToggler repo={repo} />
-            { 
-              showCompleted ? 
-                <TodoList repo={repo} completed="true" filters={[ this.filterCompletedTodos, this.filterByCategory ]} /> :
-                null 
-            }
+            <ShowCompletedToggler repo={repo}>
+		        	<TodoList repo={repo} filters={[ this.filterCompletedTodos, this.filterByCategory ]} />
+            </ShowCompletedToggler>
           </div>
         </div>
       </React.Fragment>
