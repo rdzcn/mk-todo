@@ -27,7 +27,6 @@
 5. Implement tests for these filters.
 
 
-
 6. Implement renaming of lists. I would like to create lists like Groceries, Family, Work etc. Begin by adding unit tests for it.
 
  - 
@@ -38,6 +37,7 @@
 
 8. Implement `ShowCompletedToggler` component. It should accept repo as its only parameter. It should contain all the logic whether to show “Show” or “Hide” button, and it should interact with the repo directly.
 
+- Done. [commit](https://github.com/rdzcn/mk-todo/pull/10/commits/bc4908ab14ea22fe148a7fc891a74067cf37ca28)
 
 9. Implement moving tasks between lists. Begin by adding unit tests for it.
 
