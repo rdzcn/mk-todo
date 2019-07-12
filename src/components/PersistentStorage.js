@@ -6,6 +6,7 @@ class PersistentStorage extends EventEmitter {
     const data = JSON.parse(localStorage.getItem('data')) || 
       { 
         showCompleted: false,
+        categories: ['My Todos', 'Home Related', 'Work Related', 'Groceries'],
         todos: [] 
       }
     return data
