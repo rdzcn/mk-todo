@@ -9,6 +9,7 @@ class State extends EventEmitter {
     this.editingID = null
     this.editingTitle = ""
     this.selectedCategory = "My Todos"
+    this.readOnly = true
   }
 
   persist() {
@@ -18,6 +19,17 @@ class State extends EventEmitter {
   updateSelectedCategory = category => {
     this.selectedCategory = category;
     this.emit("stateChanged");
+  }
+
+  deleteCategoryName = index => {
+    this.data.categories.splice(index, 1)
+    this.persist()
+  }
+
+  addNewCategory = (categoryName) => {
+    console.log(categoryName)
+    this.data.categories = this.data.categories.concat(categoryName)
+    this.persist()
   }
 
   updateEditingTitleChange(title) {
