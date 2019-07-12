@@ -1,8 +1,8 @@
-import React from "react"
+import React from 'react'
  
 const Sidebar = ({ repo }) => {
   
-  let categories = ["My Todos", "Home Related", "Work Related", "Groceries"]
+  let categories = ['My Todos', 'Home Related', 'Work Related', 'Groceries']
 
   return(
     <ul>

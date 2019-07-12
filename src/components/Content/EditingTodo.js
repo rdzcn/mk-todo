@@ -2,10 +2,12 @@ import React from "react"
 import DueDate from "./DueDate"
 
 class EditingTodo extends React.Component {
-
-  state = {
-    dueDate: this.props.todo.dueDate,
-    category: this.props.repo.selectedCategory
+  constructor(props) {
+    super(props);
+    this.state = {
+      dueDate: this.props.todo.dueDate,
+      category: this.props.repo.selectedCategory
+    }
   }
 
 	handleTitleChange = event => {

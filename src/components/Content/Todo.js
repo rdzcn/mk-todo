@@ -1,9 +1,9 @@
-import React from "react"
-import { colorForDueDate } from "../../utils/helpers"
+import React from 'react'
+import { colorForDueDate } from '../../utils/helpers'
 
 class Todo extends React.Component {
 
-	handleEdit(id, title) {
+  handleEdit(id, title) {
     if (this.props.repo.editingID) {
       return
     } 
@@ -11,16 +11,16 @@ class Todo extends React.Component {
   }
 
   render() {
-		const { todo } = this.props
+    const { todo } = this.props
     const { id, title, completed, dueDate } = todo
     
     const today = new Date().toISOString().substr(0, 10)
-		const dueDateColor = colorForDueDate(today, dueDate)
+    const dueDateColor = colorForDueDate(today, dueDate)
     
     return (
       <li>
         <div className="todo unediting">
-					<div className="todo-actions">
+          <div className="todo-actions">
             <input 
               type='checkbox'
               checked={completed}
@@ -34,7 +34,7 @@ class Todo extends React.Component {
               Delete
             </button>
           </div>
-					<span style={{color: dueDateColor}}>{dueDate}</span>
+          <span style={{color: dueDateColor}}>{dueDate}</span>
         </div>
       </li>
     )

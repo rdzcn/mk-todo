@@ -2,11 +2,13 @@ import React from "react"
 import DueDate from "./DueDate"
 
 class NewTodo extends React.Component {
-    
-  state = {
-    dueDate: "",
-    title: ""
-  }  
+  constructor(props) {
+    super(props);
+      this.state = {
+        dueDate: "",
+        title: ""
+      }  
+  }
 
   handleTitleChange = event => {
     this.setState({ title: event.target.value })

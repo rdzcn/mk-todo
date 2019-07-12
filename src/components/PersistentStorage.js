@@ -1,9 +1,9 @@
-import EventEmitter from "events"
+import EventEmitter from 'events'
 
 class PersistentStorage extends EventEmitter {
 
   read() {
-    const data = JSON.parse(localStorage.getItem("data")) || 
+    const data = JSON.parse(localStorage.getItem('data')) || 
       { 
         showCompleted: false,
         todos: [] 
@@ -12,7 +12,7 @@ class PersistentStorage extends EventEmitter {
   }
 
   write(data) {
-    localStorage.setItem("data", JSON.stringify(data))
+    localStorage.setItem('data', JSON.stringify(data))
     this.emit('dataChanged')
   }
 }
