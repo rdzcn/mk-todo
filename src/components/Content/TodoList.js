@@ -14,8 +14,6 @@ class TodoList extends React.Component {
 		const { selectedCategory, data, editingID } = repo
 		const todos = filters[0](data.todos)
 		const todosByCategory = filters[1](selectedCategory)(todos)
-		console.log(this.props.sorters)
-		//const sortedTodos = sorters["createdAt"](todosByCategory)
 
 		return (
 			<div className="todos">

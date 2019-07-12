@@ -14,7 +14,7 @@ class Sidebar extends React.Component {
   }
 
   renameCategoryName = event => {
-
+    
   }
 
   handleCategoryNameChange = event => {
@@ -35,6 +35,7 @@ class Sidebar extends React.Component {
   renderCategories = () => {
     const { categories } = this.props.repo.data
     const { repo } = this.props
+    
     const component = categories.map(category => {
       return (  
           <li key={category} className="sidebar-category">
