@@ -29,11 +29,12 @@ class State extends EventEmitter {
     this.persist()
   }
 
-  addNewCategory = categoryName => {
-    this.data.categories = this.data.categories.concat(categoryName)
-    this.persist()
+  deleteTodo(id) {
+    this.data.todos = this.data.todos.filter(todo => todo.id !== id);
+    this.persist();
   }
 
+  
   editCategory = category => {
     if (this.editingCategory !== "") {
       return
@@ -43,7 +44,7 @@ class State extends EventEmitter {
       this.emit('stateChanged')
     }
   }
-
+  
   editTodo(id, title) {
     if (this.editingID) {
       return
@@ -53,7 +54,7 @@ class State extends EventEmitter {
       this.emit('stateChanged')
     }
   }
-
+  
   updateEditingCategoryChange(category) {
     this.editingCategory = category
     console.log(this.editingCategory)
@@ -64,7 +65,7 @@ class State extends EventEmitter {
     this.editingTitle = title
     this.emit('stateChanged');
   }
-
+  
   saveCategory = category => {
     this.data.categories[this.editingCategoryID] = category
     this.editingCategoryID = null
@@ -72,7 +73,7 @@ class State extends EventEmitter {
     this.selectedCategory = category
     this.persist()
   }
-
+  
   saveTodo = (params) => {
     let { title, category, dueDate } = params
     
@@ -89,6 +90,11 @@ class State extends EventEmitter {
     this.persist()
   };
   
+  addNewCategory = categoryName => {
+    this.data.categories = this.data.categories.concat(categoryName)
+    this.persist()
+  }
+
   addTodo = (params) => {
     
     let { title, dueDate = null } = params
@@ -137,18 +143,18 @@ class State extends EventEmitter {
     this.persist()
   }
 
-  
-
-
-  deleteTodo(id) {
-    this.data.todos = this.data.todos.filter(todo => todo.id !== id);
-    this.persist();
-  }
-
   toggleShowCompleted = () => {
     this.data.showCompleted = !this.data.showCompleted;
     this.persist();
   };
+
+  cancel = () => {
+    this.editingID = null
+    this.editingTitle = ""
+    this.editingCategoryID = null
+    this.editingCategory = ""
+    this.emit('stateChanged')
+  }
 }
 
 export default State;

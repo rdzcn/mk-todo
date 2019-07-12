@@ -32,10 +32,6 @@ class EditingTodo extends React.Component {
     const { editingTitle } = repo
 		repo.saveTodo({title: editingTitle, category: category, dueDate: dueDate})
 	}
-	
-	handleCancel = id => {
-    this.props.repo.editTodo(id)
-	}
 
   render() {
 		const { selectedCategory, editingTitle } = this.props.repo
@@ -71,7 +67,7 @@ class EditingTodo extends React.Component {
               Save
             </button>
             
-            <button type="button" onClick={() => this.handleCancel(id)} >
+            <button type="button" onClick={() => this.props.repo.cancel()} >
               Cancel
             </button>
           </form>

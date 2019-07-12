@@ -30,7 +30,7 @@ class EditingCategory extends React.Component {
             <button type="submit">
               Save
             </button>
-            <button type="button" onClick={() => this.props.repo.cancelEditingCategory()} >
+            <button type="button" onClick={() => this.props.repo.cancel()} >
               Cancel
             </button>
           </form>
