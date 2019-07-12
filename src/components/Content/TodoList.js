@@ -4,28 +4,9 @@ import EditingTodo from "./EditingTodo"
 
 class TodoList extends React.Component {
 
-	handleSelect = event => {
-		
-	}
-
-	sortTodos = (a, b) => {
-		const { sorter } = this.state
-		switch (sorter) {
-			case "a-z":
-			 return a.title.toLowerCase().localeCompare(b.title.toLowerCase())
-			case "modifiedAt":
-				return a.modifiedAt - b.modifiedAt
-			case "createdAt":
-				return a.createdAt - b.createdAt
-			case "dueDate":
-				return new Date(a.dueDate) - new Date(b.dueDate)
-			default:
-				return b.createdAt - a.createdAt
-		}
-	}
-
-	sorterAlphabetic() {
-
+	handleSort = event => {
+		const sorter = event.target.value
+		console.log(this.props.sorters[sorter])
 	}
 
 	render() {
@@ -33,6 +14,9 @@ class TodoList extends React.Component {
 		const { selectedCategory, data, editingID } = repo
 		const todos = filters[0](data.todos)
 		const todosByCategory = filters[1](selectedCategory)(todos)
+		console.log(this.props.sorters)
+		//const sortedTodos = sorters["createdAt"](todosByCategory)
+
 		return (
 			<div className="todos">
 				{
@@ -52,11 +36,11 @@ class TodoList extends React.Component {
 					<label>
 						Sort todos by:
 					</label>
-					<select onInput={this.handleSelect}>
+					<select onInput={this.handleSort}>
 						<option value="title">Alphabetically</option>
 						<option value="createdAt">Creation Date</option>
-						<option value="modifiedAt">Modification Date</option>
 						<option value="dueDate">Due Date</option>
+						<option value="modifiedAt">Modification Date</option>
 					</select>
 				</form>
 				<ul>
@@ -73,6 +57,6 @@ class TodoList extends React.Component {
 			</div>
 		)
 	}
-} 
+}
 
 export default TodoList

@@ -16,9 +16,26 @@ class App extends React.Component {
 
   filterByCategory(category) {
     return todos => { 
-      return todos.filter(todo => todo.category === category) }
+      return todos.filter(todo => todo.category === category) 
+    }
+  }
+	
+  sortTitle(todos) {
+    return todos.sort((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase))
   }
 
+  sortCreatedAt(todos) {
+    return todos.sort((a,b) => b.createdAt - a.createdAt)
+  }
+
+  sortModifiedAt(todos) {
+    return todos.sort((a,b) => b.modifiedAt - a.modifiedAt)
+  }
+
+  sortDueDate(todos) {
+    return todos.sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate))
+  }
+	
   render() {
     const { repo } = this.props
     const { showCompleted } = repo.data
