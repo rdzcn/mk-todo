@@ -1,4 +1,4 @@
-import State from '../components/Content/State'
+import State from '../components/state'
 import TemporaryStorage from '../components/TemporaryStorage'
 import { data } from '../data/temporaryData'
 
@@ -16,7 +16,7 @@ const todo = {
 }
 
 const dbAfter = {...db} 
-dbAfter.data.todos['notes'] = dbAfter.data.todos['notes'].concat(todo)
+dbAfter.data.todos = dbAfter.data.todos.concat(todo)
 
 describe('testing addTodo', () => {
   test('persist() to be called when addTodo() is called', () => {
@@ -47,7 +47,7 @@ describe('testing toggleCompletionForTodo', () => {
   test('toggleCompletionForTodo should change todo.completed = false to true', () => {
     state.addTodo({title: 'hello', category: 'notes', dueDate: null, id: 15})
     state.toggleCompletionForTodo(15)
-    const addedTodo = state.data.todos['notes'].filter(todo => todo.id === 15)
+    const addedTodo = state.data.todos.filter(todo => todo.id === 15)
     expect(addedTodo[0].completed).toBeTruthy()
   })
   

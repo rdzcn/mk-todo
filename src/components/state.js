@@ -105,7 +105,7 @@ class State extends EventEmitter {
 
   addTodo = (params) => {
     
-    let { title, dueDate = null } = params
+    let { title, dueDate = null, id = null } = params
     const category = this.selectedCategory
     
     if (title) {
@@ -130,7 +130,7 @@ class State extends EventEmitter {
       category,
       dueDate,
       completed: false,
-      id: uuid(),
+      id: id || uuid(),
       createdAt: Date.now(),
       modifiedAt: Date.now()
     }
