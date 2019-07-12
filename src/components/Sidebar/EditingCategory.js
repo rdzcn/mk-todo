@@ -9,9 +9,7 @@ class EditingCategory extends React.Component {
 
   handleSave = (event) => {
     event.preventDefault()
-    const { repo } = this.props
-    const { editingCategory } = repo
-		repo.saveCategory(editingCategory)
+    this.props.repo.saveCategory()
   }
   
   render() {

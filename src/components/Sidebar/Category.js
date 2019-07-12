@@ -8,9 +8,9 @@ class Category extends React.Component {
     return (
       <li key={category} className="sidebar-category">
         <div>
-          <label onClick={() => repo.updateSelectedCategory(category)}>
+          <button onClick={() => repo.updateSelectedCategory(category)}>
             {category}
-          </label>
+          </button>
           <button onClick={() => repo.editCategory(category)}>
             Rename
           </button>

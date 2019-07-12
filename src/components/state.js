@@ -66,11 +66,19 @@ class State extends EventEmitter {
     this.emit('stateChanged');
   }
   
-  saveCategory = category => {
-    this.data.categories[this.editingCategoryID] = category
+  saveCategory = () => {
+    const { editingCategory, editingCategoryID } = this
+    const prevCategory = this.data.categories[editingCategoryID]
+    this.data.todos.map(todo => {
+      if (todo.category === prevCategory) {
+        todo.category = editingCategory
+      }
+      return todo
+    })
+    this.data.categories[this.editingCategoryID] = editingCategory
     this.editingCategoryID = null
     this.editingCategory = ""
-    this.selectedCategory = category
+    this.selectedCategory = editingCategory
     this.persist()
   }
   
