@@ -1,6 +1,7 @@
 import React from 'react'
 import NewTodo from './Content/NewTodo'
 import TodoList from './Content/TodoList'
+import ShowCompletedToggler from './Content/ShowCompletedToggler'
 import Sidebar from './Sidebar/Sidebar'
 
 class App extends React.Component {
@@ -34,9 +35,7 @@ class App extends React.Component {
           <div className="main right">
             <NewTodo repo={repo} />
             <TodoList repo={repo} filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
-            <button type="button" onClick={repo.toggleShowCompleted}>
-              {showCompleted ? 'Hide' : 'Show'}
-            </button>
+            <ShowCompletedToggler repo={repo} />
             { 
               showCompleted ? 
                 <TodoList repo={repo} completed="true" filters={[ this.filterCompletedTodos, this.filterByCategory ]} /> :
