@@ -28,8 +28,9 @@ class EditingTodo extends React.Component {
   handleSave = (event) => {
 		event.preventDefault()
     const { dueDate, category } = this.state
-    const { editingTitle, saveTodo } = this.props.repo
-		saveTodo({title: editingTitle, category: category, dueDate: dueDate})
+    const { repo } = this.props
+    const { editingTitle } = repo
+		repo.saveTodo({title: editingTitle, category: category, dueDate: dueDate})
 	}
 	
 	handleCancel = id => {

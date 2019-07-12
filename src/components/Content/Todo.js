@@ -3,13 +3,6 @@ import { colorForDueDate } from '../../utils/helpers'
 
 class Todo extends React.Component {
 
-  handleEdit(id, title) {
-    if (this.props.repo.editingID) {
-      return
-    } 
-    this.props.repo.editTodo(id, title)
-  }
-
   render() {
     const { todo } = this.props
     const { id, title, completed, dueDate } = todo
@@ -27,7 +20,7 @@ class Todo extends React.Component {
               onChange={() => this.props.repo.toggleCompletionForTodo(id)}
             />
             {completed ? <del>{title}</del> : <span>{title}</span>}
-            <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
+            <button type="button" hidden={completed} onClick={() => this.props.repo.editTodo(id, title)}>
               Edit
             </button>
             <button type="button" onClick={() => this.props.repo.deleteTodo(id)}>
