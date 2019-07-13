@@ -15,9 +15,11 @@ class SearchingTodoList extends React.Component {
         <ul>
           { 
             repo.data.todos.map(todo => {
-              const regexSearchText = new RegExp(`${repo.searchText}`)
+              
+              const regexSearchText = new RegExp(`${repo.searchText}`, 'gi')
               const renderTodo = !!(repo.editingID === todo.id || todo.title.match(regexSearchText))
               const renderEditingTodo = !!(repo.editingID === todo.id && todo.title.match(regexSearchText))
+
               if (renderEditingTodo) {
                 return <EditingTodo key={todo.id} todo={todo} repo={repo} /> 
               } else if (renderTodo) {
