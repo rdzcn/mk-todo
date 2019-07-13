@@ -17,7 +17,7 @@ db.on('dataChanged', () => {
   ReactDOM.render(<App repo={repo}/>, document.getElementById('root'))
 })
 
-ReactDOM.render(<App repo={repo}/>, document.getElementById('root'))
+ReactDOM.render(<App repo={repo} pathname={window.location.pathname} />, document.getElementById('root'))
 
 
 

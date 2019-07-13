@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from '../_shared/Link'
 
 class Category extends React.Component {
 
@@ -8,9 +9,7 @@ class Category extends React.Component {
     return (
       <li key={category} className="sidebar-category">
         <div>
-          <button onClick={() => repo.updateSelectedCategory(category)}>
-            {category}
-          </button>
+          <Link to={category}>{category}</Link>
           <button onClick={() => repo.editCategory(category)}>
             Rename
           </button>

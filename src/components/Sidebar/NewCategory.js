@@ -24,16 +24,18 @@ class NewCategory extends React.Component {
   render() {
     const { categoryName } = this.state
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input 
-          type="text" 
-          value={categoryName} 
-          onChange={this.handleCategoryNameChange} 
-        />
-        <button type="submit">
-          Add Category
-        </button>
-      </form>     
+      <div className="new-category">
+        <form onSubmit={this.handleSubmit}>
+          <input 
+            type="text" 
+            value={categoryName} 
+            onChange={this.handleCategoryNameChange} 
+          />
+          <button type="submit">
+            Add Category
+          </button>
+        </form>
+      </div>     
     )
   }
 }
