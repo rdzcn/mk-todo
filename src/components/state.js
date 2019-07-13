@@ -7,33 +7,29 @@ class State extends EventEmitter {
     this.data = db.read()
     this.writeData = () => db.write(this.data)
     this.editingID = null
-    this.editingTitle = ""
+    this.editingTitle = ''
     this.editingCategoryID = null
-    this.editingCategory = ""
+    this.editingCategory = ''
     this.selectedCategory = "My Todos"
+    this.searchText = ''
     this.readOnly = true
   }
 
   persist() {
     this.writeData();
   }
-
-  updateSelectedCategory = category => {
-    this.selectedCategory = category;
-    this.emit("stateChanged");
-  }
-
+  
   deleteCategory = category => {
     const index = this.data.categories.indexOf(category) 
     this.data.categories.splice(index, 1)
     this.persist()
   }
-
+  
   deleteTodo(id) {
     this.data.todos = this.data.todos.filter(todo => todo.id !== id);
     this.persist();
   }
-
+  
   
   editCategory = category => {
     if (this.editingCategory !== "") {
@@ -54,16 +50,27 @@ class State extends EventEmitter {
       this.emit('stateChanged')
     }
   }
+
+  updateSelectedCategory = category => {
+    this.selectedCategory = category;
+    this.emit("stateChanged");
+  }
   
-  updateEditingCategoryChange(category) {
+  updateEditingCategory(category) {
     this.editingCategory = category
     console.log(this.editingCategory)
     this.emit('stateChanged')
   }
   
-  updateEditingTitleChange(title) {
+  updateEditingTitle(title) {
     this.editingTitle = title
     this.emit('stateChanged');
+  }
+
+  updateSearchText(text) {
+    this.selectedCategory = `Searching for...${text}`
+    this.searchText = text
+    this.emit('stateChanged')
   }
   
   saveCategory = () => {
@@ -99,6 +106,14 @@ class State extends EventEmitter {
   };
   
   addNewCategory = categoryName => {
+    if (categoryName) {
+      if (categoryName.trim() === 0) {
+        return false
+      }
+      categoryName = categoryName.trim()
+    } else {
+      return false
+    } 
     this.data.categories = this.data.categories.concat(categoryName)
     this.persist()
   }
@@ -161,6 +176,8 @@ class State extends EventEmitter {
     this.editingTitle = ""
     this.editingCategoryID = null
     this.editingCategory = ""
+    this.selectedCategory = "My Todos"
+    this.searchText = ""
     this.emit('stateChanged')
   }
 }
