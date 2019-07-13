@@ -13,7 +13,8 @@ class NewCategory extends React.Component {
     })
   }
 
-  addNewCategory = () => {
+  handleSubmit = event => {
+    event.preventDefault()
     const { categoryName } = this.state
     this.setState({
       categoryName: ""
@@ -23,7 +24,7 @@ class NewCategory extends React.Component {
   render() {
     const { categoryName } = this.state
     return (
-      <form onSubmit={this.addNewCategory}>
+      <form onSubmit={this.handleSubmit}>
         <input 
           type="text" 
           value={categoryName} 
