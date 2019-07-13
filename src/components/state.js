@@ -97,8 +97,9 @@ class State extends EventEmitter {
         todo.title = title
         todo.category = category
         todo.dueDate = dueDate
+      } else {
+        return null
       }
-      return todo
     })
     this.editingID = null
     this.editingTitle = ''
