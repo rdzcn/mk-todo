@@ -45,3 +45,8 @@
 
 10. Very difficult, I don’t expect you to finish it this week: add a search field that would search all of the todo titles in the State. When user starts entering text “foo" in the search field, the title of the list changes to “Search for ‘foo'” and only the todos with the ‘foo’ in their title show up in the TodoList. Add unit tests for this function.
 
+# Ideas to implement
+
+1. Only one kind of editing can be done simultaneously: either edit `category` or `todo`.  
+
+

@@ -4,7 +4,7 @@ class EditingCategory extends React.Component {
   
 	handleCategoryChange = event => {
     const category = event.target.value
-    this.props.repo.updateEditingCategoryChange(category)
+    this.props.repo.updateEditingCategory(category)
   }
 
   handleSave = (event) => {

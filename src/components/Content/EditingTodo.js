@@ -12,7 +12,7 @@ class EditingTodo extends React.Component {
 
 	handleTitleChange = event => {
     const title = event.target.value
-    this.props.repo.updateEditingTitleChange(title)
+    this.props.repo.updateEditingTitle(title)
   }
 
   handleDueDateChange = event => {

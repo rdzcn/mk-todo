@@ -1,24 +1,9 @@
 import React from 'react'
-import NewTodo from './Content/NewTodo'
-import TodoList from './Content/TodoList'
-import ShowCompletedToggler from './Content/ShowCompletedToggler'
+import Content from './Content/Content'
 import Sidebar from './Sidebar/Sidebar'
+import SearchingTodoList from './Content/SearchingTodoList'
 
 class App extends React.Component {
-	
-  filterUncompletedTodos(todos) {
-    return todos.filter(todo => !todo.completed)
-  }
-
-  filterCompletedTodos(todos) {
-    return todos.filter(todo => todo.completed)
-  }
-
-  filterByCategory(category) {
-    return todos => { 
-      return todos.filter(todo => todo.category === category) 
-    }
-  }
 	
   sortTitle(todos) {
     return todos.sort((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase))
@@ -50,11 +35,7 @@ class App extends React.Component {
           </aside>
           <div className="main right">
             <h2 className="content-header">{repo.selectedCategory.charAt(0).toUpperCase() + repo.selectedCategory.slice(1)}</h2>
-            <NewTodo repo={repo} />
-            <TodoList repo={repo} header="Todos" filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
-            <ShowCompletedToggler repo={repo}>
-              <TodoList repo={repo} header="CompletedTodos" filters={[ this.filterCompletedTodos, this.filterByCategory ]} />
-            </ShowCompletedToggler>
+            {repo.searchText === "" ? <Content repo={repo} /> : <SearchingTodoList repo={repo} /> }
           </div>
         </div>
       </React.Fragment>
