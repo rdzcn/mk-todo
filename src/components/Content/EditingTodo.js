@@ -6,7 +6,7 @@ class EditingTodo extends React.Component {
     super(props);
     this.state = {
       dueDate: this.props.todo.dueDate,
-      category: this.props.repo.selectedCategory
+      category: this.props.todo.category
     }
   }
 
@@ -34,10 +34,10 @@ class EditingTodo extends React.Component {
 	}
 
   render() {
-		const { selectedCategory, editingTitle } = this.props.repo
+		const { editingTitle, data } = this.props.repo
 		const { todo } = this.props
     const { id } = todo
-    const categories = ["My Todos", "Home Related", "Work Related", "Groceries"]
+    const categories = data.categories
     
     return (
       <li>
@@ -55,7 +55,7 @@ class EditingTodo extends React.Component {
             <label>
               Move to another category
             </label>
-            <select defaultValue={selectedCategory} onInput={this.handleCategoryChange}>
+            <select defaultValue={todo.category} onInput={this.handleCategoryChange}>
               {
                 categories.map(category => (
                   <option key={category} value={category}>{category}</option>
