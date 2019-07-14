@@ -1,5 +1,5 @@
 import State from '../components/state'
-import TemporaryStorage from '../components/TemporaryStorage'
+import TemporaryStorage from '../components/temporaryStorage'
 import { data } from '../data/temporaryData'
 
 const db = new TemporaryStorage(data)

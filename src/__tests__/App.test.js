@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '../components/App'
 import State from '../components/state'
-import TemporaryStorage from '../components/TemporaryStorage'
+import TemporaryStorage from '../components/temporaryStorage'
 
 import { data } from '../data/temporaryData'
 

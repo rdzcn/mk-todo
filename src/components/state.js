@@ -1,5 +1,6 @@
-import uuid from "uuid/v4";
-import EventEmitter from "events";
+import uuid from 'uuid/v4'
+import EventEmitter from 'events'
+import Router from './router'
 
 class State extends EventEmitter {
   constructor(db) {
@@ -10,15 +11,16 @@ class State extends EventEmitter {
     this.editingTitle = ''
     this.editingCategoryID = null
     this.editingCategory = ''
-    this.selectedCategory = "My Todos"
+    this.route = "My Todos"
     this.searchText = ''
     this.readOnly = true
   }
 
   persist() {
     this.writeData();
+    this.emit('stateChanged')
   }
-  
+
   deleteCategory = category => {
     const index = this.data.categories.indexOf(category) 
     this.data.categories.splice(index, 1)
@@ -29,7 +31,6 @@ class State extends EventEmitter {
     this.data.todos = this.data.todos.filter(todo => todo.id !== id);
     this.persist();
   }
-  
   
   editCategory = category => {
     if (this.editingCategory !== "") {
@@ -51,9 +52,9 @@ class State extends EventEmitter {
     }
   }
 
-  updateSelectedCategory = category => {
-    this.selectedCategory = category;
-    this.emit("stateChanged");
+  updateRoute = route => {
+    this.route = route
+    this.emit("stateChanged")
   }
   
   updateEditingCategory(category) {
@@ -68,7 +69,7 @@ class State extends EventEmitter {
   }
 
   updateSearchText(text) {
-    this.selectedCategory = `Searching for...${text}`
+    this.route = `Searching for...${text}`
     this.searchText = text
     this.emit('stateChanged')
   }
@@ -85,7 +86,7 @@ class State extends EventEmitter {
     this.data.categories[this.editingCategoryID] = editingCategory
     this.editingCategoryID = null
     this.editingCategory = ""
-    this.selectedCategory = editingCategory
+    this.route = editingCategory
     this.persist()
   }
   
@@ -121,7 +122,7 @@ class State extends EventEmitter {
   addTodo = (params) => {
     
     let { title, dueDate = null, id = null } = params
-    const category = this.selectedCategory
+    const category = this.route
     
     if (title) {
       if (title.trim() === 0) {
@@ -176,7 +177,7 @@ class State extends EventEmitter {
     this.editingTitle = ""
     this.editingCategoryID = null
     this.editingCategory = ""
-    this.selectedCategory = "My Todos"
+    this.route = "My Todos"
     this.searchText = ""
     this.emit('stateChanged')
   }
