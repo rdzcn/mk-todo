@@ -63,12 +63,12 @@
   height: 2rem;
 }
 
-.todos label {
-  margin-right: 1rem;
-}
-
 .todos ul {
   width: 100%;
+}
+
+.todos ul li {
+  min-height: 40px;
 }
 
 
