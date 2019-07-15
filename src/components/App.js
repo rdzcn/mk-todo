@@ -29,13 +29,12 @@ class App extends React.Component {
         <div className="app-container">
           <header className="main header">
             <h1>Your #1 Todo App</h1>
-            { console.log(this.props.pathname) }
           </header>
-          <aside className="main left">
+          <aside className="main left">	
             <Sidebar repo={repo} />
           </aside>
           <div className="main right">
-            <h2 className="content-header">{repo.selectedCategory.charAt(0).toUpperCase() + repo.selectedCategory.slice(1)}</h2>
+            <h2 className="content-header">{repo.route.charAt(0).toUpperCase() + repo.route.slice(1)}</h2>
             {repo.searchText === '' ? <Content repo={repo} /> : <SearchingTodoList repo={repo} /> }
           </div>
         </div>

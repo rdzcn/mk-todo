@@ -9,7 +9,7 @@ class Category extends React.Component {
     return (
       <li key={category} className="sidebar-category">
         <div>
-          <Link to={category}>{category}</Link>
+          <Link to={category} repo={repo}>{category}</Link>
           <button onClick={() => repo.editCategory(category)}>
             Rename
           </button>

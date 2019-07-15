@@ -11,9 +11,9 @@ class TodoList extends React.Component {
 
 	render() {
 		const { repo, filters, header } = this.props
-		const { selectedCategory, data, editingID } = repo
+		const { route, data, editingID } = repo
 		const todos = filters[0](data.todos)
-		const todosByCategory = filters[1](selectedCategory)(todos)
+		const todosByCategory = filters[1](route)(todos)
 
 		return (
 			<div className="todos">
