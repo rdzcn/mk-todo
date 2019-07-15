@@ -9,26 +9,27 @@ class State extends EventEmitter {
     this.writeData = () => db.write(this.data)
     this.editingID = null
     this.editingTitle = ''
+    this.searchText = ''
     this.editingCategoryID = null
     this.editingCategory = ''
     this.route = "My Todos"
-    this.searchText = ''
     this.readOnly = true
   }
 
   persist() {
     this.writeData();
-    this.emit('stateChanged')
   }
 
   deleteCategory = category => {
     const index = this.data.categories.indexOf(category) 
     this.data.categories.splice(index, 1)
+    this.emit('stateChanged')
     this.persist()
   }
   
   deleteTodo(id) {
-    this.data.todos = this.data.todos.filter(todo => todo.id !== id);
+    this.data.todos = this.data.todos.filter(todo => todo.id !== id)
+    this.emit('stateChanged')
     this.persist();
   }
   
@@ -59,7 +60,6 @@ class State extends EventEmitter {
   
   updateEditingCategory(category) {
     this.editingCategory = category
-    console.log(this.editingCategory)
     this.emit('stateChanged')
   }
   
@@ -87,6 +87,7 @@ class State extends EventEmitter {
     this.editingCategoryID = null
     this.editingCategory = ""
     this.route = editingCategory
+    this.emit('stateChanged')
     this.persist()
   }
   
@@ -116,6 +117,7 @@ class State extends EventEmitter {
       return false
     } 
     this.data.categories = this.data.categories.concat(categoryName)
+    this.emit('stateChanged')
     this.persist()
   }
 
@@ -151,9 +153,10 @@ class State extends EventEmitter {
       modifiedAt: Date.now()
     }
 
-    this.data.todos= [...this.data.todos, todo];
-    this.persist();
     this.editingTitle = ""
+    this.data.todos= [...this.data.todos, todo]
+    this.emit('stateChanged')
+    this.persist()
   }
 
   toggleCompletionForTodo(id) {
@@ -164,11 +167,13 @@ class State extends EventEmitter {
       }
       return todo
     })
+    this.emit('stateChanged')
     this.persist()
   }
 
   toggleShowCompleted = () => {
-    this.data.showCompleted = !this.data.showCompleted;
+    this.data.showCompleted = !this.data.showCompleted
+    this.emit('stateChanged')
     this.persist();
   };
 
