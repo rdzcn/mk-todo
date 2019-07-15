@@ -42,35 +42,39 @@ class EditingTodo extends React.Component {
     return (
       <li>
         <div className="todo editing">
-          <form name={id} onSubmit={this.handleSave}>
-            <input
-              type="text"
-              name="title"
-              value={editingTitle}
-              onChange={this.handleTitleChange}
-            />
-            
-            <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
-            
-            <label>
-              Move to another category
-            </label>
-            <select defaultValue={todo.category} onInput={this.handleCategoryChange}>
-              {
-                categories.map(category => (
-                  <option key={category} value={category}>{category}</option>
-                ))
-              }
-            </select>
-            
-            <button type="submit">
-              Save
-            </button>
-            
-            <button type="button" onClick={() => this.props.repo.cancel()} >
-              Cancel
-            </button>
-          </form>
+          <div>
+            <form name={id} onSubmit={this.handleSave}>
+              <div>
+                <input
+                  type="text"
+                  name="title"
+                  value={editingTitle}
+                  onChange={this.handleTitleChange}
+                />
+                <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
+              </div>
+              <div>
+                <label>
+                  Move to another category
+                </label>
+                <select defaultValue={todo.category} onInput={this.handleCategoryChange}>
+                  {
+                    categories.map(category => (
+                      <option key={category} value={category}>{category}</option>
+                    ))
+                  }
+                </select>
+              </div>
+              <div>
+                <button type="submit">
+                  Save
+                </button>
+                <button type="button" onClick={() => this.props.repo.cancel()} >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </li>
     )
