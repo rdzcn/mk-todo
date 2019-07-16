@@ -1,4 +1,4 @@
-# Week-25 Tasks and Progress
+# Week-27 Tasks and Progress
 
 1. Please start this week by opening a pull request with the title “Week 27”.
 
@@ -45,10 +45,10 @@
 
 10. Very difficult, I don’t expect you to finish it this week: add a search field that would search all of the todo titles in the State. When user starts entering text “foo" in the search field, the title of the list changes to “Search for ‘foo'” and only the todos with the ‘foo’ in their title show up in the TodoList. Add unit tests for this function.
 
-- Tests are missing. [commit](https://github.com/rdzcn/mk-todo/commit/0d67dd11258e35855f2166908ac0b9a571dd18a5)  
+- Tests are missing. [commit](https://github.com/rdzcn/mk-todo/commit/0d67dd11258e35855f2166908ac0b9a571dd18a5)
 
 # Ideas to implement
 
-1. Only one kind of editing can be done simultaneously: either edit `category` or `todo`.  
+1. Only one kind of editing can be done simultaneously: either edit `category` or `todo`.
 
 
