@@ -1,24 +1,47 @@
 import EventEmitter from 'events'
 
+const CATEGORIES = ['My Todos', 'Home Related', 'Work Related', 'Groceries']
+
 class Router extends EventEmitter {
   constructor() {
     super()
-    const { state } = window.history
-    this.renderCategory = ''
-    this.root = '/'
-    this.pathname = state ? state.category : 'My Todos'
+    this.pathname = window.location.pathname
+    this.getRoute()
   }
   
-  //this.on('urlChanged', route => this.props.repo.updateRoute(route))
-  //this.emit('urlChanged', this.props.to)
-
-  route() {
-    if (this.pathname === this.root) {
-      this.renderCategory = 'My Todos'
+  pathnameToRoute(pathname) {
+    let route 
+    if (pathname === '/') {
+      route = 'My Todos'
     } else {
-      this.renderCategory = this.pathname
+      route = pathname.match(/[A-Za-z]+/g).join(' ')
     }
-    return this.renderCategory
+    return route
+  }
+
+  routeToPathname(route) {
+    let pathname
+    if (route === 'My Todos') {
+      pathname = '/'
+    } else {
+      pathname = '/' + route.replace(' ', '%20')
+    }
+    return pathname
+  }
+
+  getRoute() {
+    const route = this.pathnameToRoute(this.pathname)
+    if (CATEGORIES.includes(route)) {
+      this.route = route
+    } else {
+      this.route = "404"
+    }
+  }
+
+  updatePathname = pathname => {
+    this.pathname = pathname
+    this.getRoute()
+    this.emit('routeChanged')
   }
 }
 

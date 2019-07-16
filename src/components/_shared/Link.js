@@ -6,7 +6,7 @@ class Link extends React.Component {
   handleRoute = event => {
     event.preventDefault()
     const urlEmitter = new EventEmitter()
-    urlEmitter.on('urlChanged', route => this.props.repo.updateRoute(route))
+    urlEmitter.on('urlChanged', pathname => this.props.router.updatePathname(pathname))
     urlEmitter.emit('urlChanged', this.props.to)
     window.history.pushState(null, null, this.props.to)
   }

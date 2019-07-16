@@ -4,12 +4,12 @@ import Link from '../_shared/Link'
 class Category extends React.Component {
 
   render() {
-    const { repo, category } = this.props
+    const { repo, category, router } = this.props
     
     return (
       <li key={category} className="sidebar-category">
         <div>
-          <Link to={category} repo={repo}>{category}</Link>
+          <Link to={category} router={router}>{category}</Link>
           <button onClick={() => repo.editCategory(category)}>
             Rename
           </button>

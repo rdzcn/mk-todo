@@ -22,7 +22,7 @@ class App extends React.Component {
   }
 	
   render() {
-    const { repo } = this.props
+    const { router, repo } = this.props
 
     return (
       <React.Fragment>
@@ -31,11 +31,11 @@ class App extends React.Component {
             <h1>Your #1 Todo App</h1>
           </header>
           <aside className="main left">	
-            <Sidebar repo={repo} />
+            <Sidebar repo={repo} router={router} />
           </aside>
           <div className="main right">
-            <h2 className="content-header">{repo.route.charAt(0).toUpperCase() + repo.route.slice(1)}</h2>
-            {repo.searchText === '' ? <Content repo={repo} /> : <SearchingTodoList repo={repo} /> }
+            <h2 className="content-header">{router.route.charAt(0).toUpperCase() + router.route.slice(1)}</h2>
+            {repo.searchText === '' ? <Content repo={repo} router={router} /> : <SearchingTodoList repo={repo} router={router} /> }
           </div>
         </div>
       </React.Fragment>

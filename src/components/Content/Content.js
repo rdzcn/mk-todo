@@ -20,13 +20,13 @@ class Content extends React.Component {
   }
   
   render() {
-    const { repo } = this.props
+    const { repo, router } = this.props
     return (
       <div>
         <NewTodo repo={repo} />
-        <TodoList repo={repo} header="Todos" filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
+        <TodoList repo={repo} router={router} header="Todos" filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
         <ShowCompletedToggler repo={repo}>
-          <TodoList repo={repo} header="CompletedTodos" filters={[ this.filterCompletedTodos, this.filterByCategory ]} />
+          <TodoList repo={repo} router={router} header="CompletedTodos" filters={[ this.filterCompletedTodos, this.filterByCategory ]} />
         </ShowCompletedToggler>
       </div>
     )

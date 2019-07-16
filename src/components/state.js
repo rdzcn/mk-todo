@@ -1,6 +1,5 @@
 import uuid from 'uuid/v4'
 import EventEmitter from 'events'
-import Router from './router'
 
 class State extends EventEmitter {
   constructor(db) {
@@ -12,8 +11,6 @@ class State extends EventEmitter {
     this.searchText = ''
     this.editingCategoryID = null
     this.editingCategory = ''
-    this.route = "My Todos"
-    this.readOnly = true
   }
 
   persist() {
@@ -51,11 +48,6 @@ class State extends EventEmitter {
       this.editingTitle = title
       this.emit('stateChanged')
     }
-  }
-
-  updateRoute = route => {
-    this.route = route
-    this.emit("stateChanged")
   }
   
   updateEditingCategory(category) {
@@ -104,6 +96,7 @@ class State extends EventEmitter {
       })
     this.editingID = null
     this.editingTitle = ''
+    this.emit('stateChanged')
     this.persist()
   };
   

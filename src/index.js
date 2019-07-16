@@ -9,14 +9,17 @@ import './styles/style.css'
 
 const db = new PersistentStorage()
 const repo = new State(db)
-
 const router = new Router()
 
 repo.on('stateChanged', () => {
-  ReactDOM.render(<App repo={repo} />, document.getElementById('root'))
+  ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
 })
 
-ReactDOM.render(<App repo={repo} />, document.getElementById('root'))
+router.on('routeChanged', () => {
+  ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
+})
+
+ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
 
 
 
