@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from '../_shared/Link'
 
 class Search extends React.Component {
   
@@ -9,16 +10,22 @@ class Search extends React.Component {
 
   render() {
     const { searchText } = this.props.repo
+    const { router } = this.props
+    const { route } = router
+
     return (
       <form>
-        <label>
-          Search for a todo
-        </label>
-        <input 
-          type="text"
-          value={searchText} 
-          onChange={this.handleChange} 
-        />
+        <Link to='/search' router={router}>
+          <button type="button">Search</button>
+        </Link>
+        {
+          route === 'search' &&
+            <input 
+              type="text"
+              value={searchText} 
+              onChange={this.handleChange} 
+            /> 
+        }
       </form>
     )
   }

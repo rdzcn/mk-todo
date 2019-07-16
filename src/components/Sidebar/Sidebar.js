@@ -7,7 +7,7 @@ const Sidebar = ({ repo, router }) => {
 
   return (
     <ul>
-      <Search repo={repo} />
+      <Search router={router} repo={repo} />
       <CategoryList repo={repo} router={router} />
       <NewCategory repo={repo} />
     </ul>
