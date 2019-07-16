@@ -5,18 +5,18 @@ class Search extends React.Component {
   
   handleChange = event => {
     const searchText = event.target.value
-    this.props.repo.updateSearchText(searchText)
+    this.props.router.updatePathSearch(searchText)
   }
 
   render() {
-    const { searchText } = this.props.repo
+    const searchText  = window.location.search.replace('?', '')
     const { router } = this.props
     const { route } = router
 
     return (
       <form>
         <Link to='/search' router={router}>
-          <button type="button">Search</button>
+          <button type="reset">Search</button>
         </Link>
         {
           route === 'search' &&

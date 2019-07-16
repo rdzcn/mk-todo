@@ -15,7 +15,7 @@ repo.on('stateChanged', () => {
   ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
 })
 
-router.on('routeChanged', () => {
+router.on('urlChanged', () => {
   ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
 })
 

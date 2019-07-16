@@ -8,7 +8,6 @@ class State extends EventEmitter {
     this.writeData = () => db.write(this.data)
     this.editingID = null
     this.editingTitle = ''
-    this.searchText = ''
     this.editingCategoryID = null
     this.editingCategory = ''
   }
@@ -116,8 +115,7 @@ class State extends EventEmitter {
 
   addTodo = (params) => {
     
-    let { title, dueDate = null, id = null } = params
-    const category = this.route
+    let { title, category, dueDate = null, id = null } = params
     
     if (title) {
       if (title.trim() === 0) {

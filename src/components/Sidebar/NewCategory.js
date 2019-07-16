@@ -7,18 +7,19 @@ class NewCategory extends React.Component {
   }
 
   handleCategoryNameChange = event => {
-    const newCategoryName = event.target.value
+    const categoryName = event.target.value
     this.setState({ 
-      categoryName: newCategoryName 
+      categoryName
     })
   }
 
   handleSubmit = event => {
     event.preventDefault()
     const { categoryName } = this.state
+    this.props.repo.addNewCategory(categoryName)
     this.setState({
       categoryName: ""
-    }, this.props.repo.addNewCategory(categoryName))
+    })
   }
 
   render() {

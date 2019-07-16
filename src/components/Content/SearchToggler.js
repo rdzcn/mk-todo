@@ -8,7 +8,7 @@ const SearchToggler = ({ router, repo }) => {
   let component, header
 
   if (renderSearch) {
-    header = `Searching for: ${repo.searchText}`
+    header = `Searching for: ${window.location.search.replace('?', '')}`
     component = <SearchingTodoList repo={repo} router={router} />
   } else {
     header = router.route.charAt(0).toUpperCase() + router.route.slice(1)

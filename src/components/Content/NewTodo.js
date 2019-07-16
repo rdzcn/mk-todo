@@ -20,10 +20,10 @@ class NewTodo extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    const { repo } = this.props
+    const { repo, router } = this.props
     const { dueDate, title } = this.state
     
-    repo.addTodo({title: title, dueDate: dueDate})
+    repo.addTodo({title: title, category: router.route, dueDate: dueDate})
     
     this.setState({ 
       title: ""

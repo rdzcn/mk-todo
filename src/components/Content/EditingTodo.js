@@ -69,7 +69,7 @@ class EditingTodo extends React.Component {
                 <button type="submit">
                   Save
                 </button>
-                <button type="button" onClick={() => this.props.repo.cancel()} >
+                <button type="reset" onClick={() => this.props.repo.cancel()} >
                   Cancel
                 </button>
               </div>

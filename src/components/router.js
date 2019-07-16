@@ -33,7 +33,19 @@ class Router extends EventEmitter {
   updatePathname = pathname => {
     this.pathname = pathname
     this.getRoute()
-    this.emit('routeChanged')
+    this.emit('urlChanged')
+  }
+
+  updatePathSearch = searchText => {
+    const search = '?' + searchText
+    this.pathname = window.location.pathname + search
+    window.history.replaceState(null, null, this.pathname)
+    this.emit('urlChanged')
+  }
+
+  resetSearch() {
+    window.history.replaceState(null, null, this.route)
+    this.emit('urlChanged')
   }
 }
 
