@@ -19,22 +19,14 @@ class Router extends EventEmitter {
     return route
   }
 
-  routeToPathname(route) {
-    let pathname
-    if (route === 'My Todos') {
-      pathname = '/'
-    } else {
-      pathname = '/' + route.replace(' ', '%20')
-    }
-    return pathname
-  }
-
   getRoute() {
     const route = this.pathnameToRoute(this.pathname)
     if (CATEGORIES.includes(route)) {
       this.route = route
+    } else if (route === 'search') {
+      this.route = route
     } else {
-      this.route = "404"
+      this.route = '404'
     }
   }
 

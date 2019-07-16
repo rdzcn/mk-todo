@@ -1,7 +1,6 @@
 import React from 'react'
-import Content from './Content/Content'
+import SearchToggler from './Content/SearchToggler'
 import Sidebar from './Sidebar/Sidebar'
-import SearchingTodoList from './Content/SearchingTodoList'
 
 class App extends React.Component {
 	
@@ -34,8 +33,7 @@ class App extends React.Component {
             <Sidebar repo={repo} router={router} />
           </aside>
           <div className="main right">
-            <h2 className="content-header">{router.route.charAt(0).toUpperCase() + router.route.slice(1)}</h2>
-            {repo.searchText === '' ? <Content repo={repo} router={router} /> : <SearchingTodoList repo={repo} router={router} /> }
+            <SearchToggler repo={repo} router={router} /> 
           </div>
         </div>
       </React.Fragment>
