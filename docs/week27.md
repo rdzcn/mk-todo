@@ -1,3 +1,55 @@
+# Current structure of the App
+
+## Outside the React scope  
+
+1. We have four classes  
+
+  - **PersistentStorage**: It interacts with `LocalStorage` and `State`. It has `read()` and `write()` methods.   
+  - **TemporaryStorage**: It interacts with `temporaryData`. It has `read()` and `write()` methods. It is used in tests.
+  - **Router**: It gets information about the changes in URL, updates its `pathname` and accordingly selects the route. `Router.route` decides on what to display eventually.
+  - **State**: It has user data from `LocalStorage`. It contains all the actions for user to change data. It updates `LocalStorage` when data is changed.  
+
+2. Database is LocalStorage
+
+  - It has the following default data structure:
+
+  ```
+  data: {
+    showCompleted: false,
+    categories: ['My Todos', 'Home Related', 'Work Related', 'Groceries'],
+    todos: [] 
+  }
+  ```
+  - Each todo item is an `Object` within `todos` array.
+
+## Inside the React scope
+
+1. **`index.js`** 
+
+  - It creates an instance of `PersistentStorage`, `db`.
+  - It creates an instance of `State`, `repo` with `db`.
+  - It creates an instance of `Router`, `router`. 
+  - It renders `App` with `router` and `repo` as its props. 
+  - `repo` and `router` listen to changes in their instance variables. When they catch a change, they re-render `App` as a callback. 
+
+2. **App**
+
+  - It renders two components in a two-column format: `Sidebar` and `SearchToggler`. 
+  - `Sidebar` shows a list of categories of todo items. These categories can be renamed or deleted. Clicking category names will change the URL. Pathname becomes the category name. Here `router` updates `route`.   
+  - `Sidebar` also has a button to search within todo item titles. Clicking `search` button will change the URL. Here `router` updates `route`. 
+  - `Sidebar` makes it possible to add a new category.  
+  - `SearchToggler` toggles between `search` view or `content` view, depending on the URL. 
+
+3. **Sidebar**
+
+  - It renders three components: `Search`, `CategoryList` and `NewCategory`.  
+  - `Search` starts with a search button. Clicking the search button, changes the URL to "/search" and brings an `input` field. User search input is captured in the URL, after `?`. `router` doesn't update `route` but its `pathname`. 
+  - `CategoryList` renders a list of categories as `Category` components. 
+  - 
+
+4. **SearchToggler**
+
+
 # Week-27 Tasks and Progress
 
 1. Please start this week by opening a pull request with the title “Week 27”.
