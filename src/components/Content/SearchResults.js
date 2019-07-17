@@ -2,7 +2,7 @@ import React from 'react'
 import Todo from './Todo'
 import EditingTodo from './EditingTodo'
 
-const SearchingTodoList = ({ repo, router }) => {
+const SearchResults = ({ repo, router }) => {
 
   const { search } = window.location
 
@@ -33,4 +33,4 @@ const SearchingTodoList = ({ repo, router }) => {
 }
 
 
-export default SearchingTodoList
+export default SearchResults

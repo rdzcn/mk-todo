@@ -16,7 +16,7 @@ class State extends EventEmitter {
     this.writeData();
   }
 
-  deleteCategory = category => {
+  deleteCategory(category) {
     const index = this.data.categories.indexOf(category) 
     this.data.categories.splice(index, 1)
     this.emit('stateChanged')
@@ -29,7 +29,7 @@ class State extends EventEmitter {
     this.persist();
   }
   
-  editCategory = category => {
+  editCategory(category) {
     if (this.editingCategory !== "") {
       return
     } else {
@@ -65,7 +65,7 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
   
-  saveCategory = () => {
+  saveCategory() {
     const { editingCategory, editingCategoryID } = this
     const prevCategory = this.data.categories[editingCategoryID]
     this.data.todos.map(todo => {
@@ -82,7 +82,7 @@ class State extends EventEmitter {
     this.persist()
   }
   
-  saveTodo = (params) => {
+  saveTodo(params) {
     let { title, category, dueDate } = params
     
     this.data.todos
@@ -99,7 +99,7 @@ class State extends EventEmitter {
     this.persist()
   };
   
-  addNewCategory = categoryName => {
+  addNewCategory(categoryName) {
     if (categoryName) {
       if (categoryName.trim() === 0) {
         return false
@@ -113,7 +113,7 @@ class State extends EventEmitter {
     this.persist()
   }
 
-  addTodo = (params) => {
+  addTodo(params) {
     
     let { title, category, dueDate = null, id = null } = params
     
@@ -165,7 +165,7 @@ class State extends EventEmitter {
   toggleShowCompleted = () => {
     this.data.showCompleted = !this.data.showCompleted
     this.emit('stateChanged')
-    this.persist();
+    this.persist()
   };
 
   cancel = () => {

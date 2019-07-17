@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchToggler from './Content/SearchToggler'
+import Content from './MainSection/Content'
 import Sidebar from './Sidebar/Sidebar'
 
 class App extends React.Component {
@@ -33,7 +33,7 @@ class App extends React.Component {
             <Sidebar repo={repo} router={router} />
           </aside>
           <div className="main right">
-            <SearchToggler repo={repo} router={router} /> 
+            <Content repo={repo} router={router} /> 
           </div>
         </div>
       </React.Fragment>

@@ -1,13 +1,13 @@
 import React from 'react'
- 
-const ShowCompletedToggler = props => {
-  
+
+const ShowCompletedToggler = ({ repo, children }) => {
+
   return (
     <div>
-      <button type="button" onClick={props.repo.toggleShowCompleted}>
-        {props.repo.data.showCompleted ? 'Hide' : 'Show'}
+      <button type="button" onClick={repo.toggleShowCompleted}>
+        {repo.data.showCompleted ? 'Hide' : 'Show'}
       </button>
-      {props.repo.data.showCompleted ? {...props.children} : null}
+      {repo.data.showCompleted ? {...children} : null}
     </div>
   )
 }

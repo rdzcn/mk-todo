@@ -34,46 +34,49 @@
 
 2. **App**
 
-  - It renders two components in a two-column format: `Sidebar` and `SearchToggler`. 
+  - It renders two components in a two-column format: `Sidebar` and `Content`. 
   - `Sidebar` shows a list of categories of todo items. These categories can be renamed or deleted. Clicking category names will change the URL. Pathname becomes the category name. Here `router` updates `route`.   
   - `Sidebar` also has a button to search within todo item titles. Clicking `search` button will change the URL. Here `router` updates `route`. 
   - `Sidebar` makes it possible to add a new category.  
-  - `SearchToggler` toggles between `search` view or `content` view, depending on the URL. 
+  - `Content` toggles between `search` view or `content` view, depending on the URL. 
 
 3. **App -> Sidebar**
 
   - It renders three components: `Search`, `CategoryList` and `NewCategory`.  
   - `Search` starts with a search button. Clicking the search button, changes the URL to "/search" and brings an `input` field.  
-  - `CategoryList` renders a list of categories with each item as `Category` components. If a `Category` is in editing mode, then `EditingCategory` is rendered.  
+  - `CategoryList` renders a list of categories with each item as `Category` components. If a `Category` is in editing mode, then `EditingCategory` is rendered instead.  
   - `NewCategory` makes it possible to add a new category. 
 
 4. **App -> Sidebar -> Search**
 
   - User search input is captured in the URL, after `?`. `router` doesn't update `route` but its `pathname`.
-  - When `Search` is active, `SearchingTodoList` is rendered in the right column.  
+  - When `Search` is active, `SearchResults` is rendered in the right column.  
 
 5. **App -> Sidebar -> CategoryList**
 
-  - Clicking a category changes the URL. This causes `Content` in the right column to render todo items within that category. 
+  - Clicking a category changes the URL. This causes `MainSection` in the right column to render todo items within that category. 
 
 6. **App -> Sidebar -> NewCategory**  
 
   - It has its own state to capture user input. 
 
-7. **App -> SearchToggler**
+7. **App -> Content**
 
-  - It renders either `SearchingTodoList` **or** `Content` component. This decision is based on the URL, set by `Sidebar -> Search` component. 
-  - `SearchingTodoList` renders a list of todo items with each item as `Todo` or `EditingTodo` component. In this sense each item is editable. 
-  - `SearchingTodoList` gets the search term from the URL and accordingly displays the relevant todo items. It has also a `Reset Search` button which resets the search input. 
-  - `Content` is rendered if `route` is not "search" and pathname is within `repo.data.categories`.  
+  - It renders either `SearchResults` **or** `MainSection` component. This decision is based on the URL, set by `Sidebar -> Search` component. 
+  - `SearchResults` renders a list of todo items with each item as `Todo` or `EditingTodo` component. In this sense each item is editable. 
+  - `SearchResults` gets the search term from the URL and accordingly displays the relevant todo items. It has also a `Reset Search` button which resets the search input. 
+  - `MainSection` is rendered if `route` is not "search" and pathname is within `repo.data.categories`.  
 
-8. **App -> SearchToggler -> SearchingTodoList**
+8. **App -> Content -> SearchResults**
 
   - This is the list of search results. Each todo item displayed can be edited on the spot. 
 
-9. **App -> SearchToggler -> Content**
+9. **App -> Content -> MainSection**
 
-  - 
+  - It renders three components: `NewTodo`, `TodoList` and `ShowCompletedToggler`.
+  - `NewTodo` makes it possible to add a new todo. New todo item has to have a title but can be created without due date. It gets its category value from the URL. It has its own state to capture the changes in title input or due date input. 
+  - `TodoList` renders a list of todo items with each item as a `Todo` component. If a `Todo` is in editing mode, then `EditingTodo` is rendered instead. `EditingTodo` makes it possible to change category, title and due date of the component. Each `Todo` can be checked, which removes the `Todo` from view. 
+  -  
 
 # Week-27 Tasks and Progress
 
