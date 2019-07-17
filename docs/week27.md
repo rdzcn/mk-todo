@@ -40,15 +40,40 @@
   - `Sidebar` makes it possible to add a new category.  
   - `SearchToggler` toggles between `search` view or `content` view, depending on the URL. 
 
-3. **Sidebar**
+3. **App -> Sidebar**
 
   - It renders three components: `Search`, `CategoryList` and `NewCategory`.  
-  - `Search` starts with a search button. Clicking the search button, changes the URL to "/search" and brings an `input` field. User search input is captured in the URL, after `?`. `router` doesn't update `route` but its `pathname`. 
-  - `CategoryList` renders a list of categories as `Category` components. 
+  - `Search` starts with a search button. Clicking the search button, changes the URL to "/search" and brings an `input` field.  
+  - `CategoryList` renders a list of categories with each item as `Category` components. If a `Category` is in editing mode, then `EditingCategory` is rendered.  
+  - `NewCategory` makes it possible to add a new category. 
+
+4. **App -> Sidebar -> Search**
+
+  - User search input is captured in the URL, after `?`. `router` doesn't update `route` but its `pathname`.
+  - When `Search` is active, `SearchingTodoList` is rendered in the right column.  
+
+5. **App -> Sidebar -> CategoryList**
+
+  - Clicking a category changes the URL. This causes `Content` in the right column to render todo items within that category. 
+
+6. **App -> Sidebar -> NewCategory**  
+
+  - It has its own state to capture user input. 
+
+7. **App -> SearchToggler**
+
+  - It renders either `SearchingTodoList` **or** `Content` component. This decision is based on the URL, set by `Sidebar -> Search` component. 
+  - `SearchingTodoList` renders a list of todo items with each item as `Todo` or `EditingTodo` component. In this sense each item is editable. 
+  - `SearchingTodoList` gets the search term from the URL and accordingly displays the relevant todo items. It has also a `Reset Search` button which resets the search input. 
+  - `Content` is rendered if `route` is not "search" and pathname is within `repo.data.categories`.  
+
+8. **App -> SearchToggler -> SearchingTodoList**
+
+  - This is the list of search results. Each todo item displayed can be edited on the spot. 
+
+9. **App -> SearchToggler -> Content**
+
   - 
-
-4. **SearchToggler**
-
 
 # Week-27 Tasks and Progress
 
