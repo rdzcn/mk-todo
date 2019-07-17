@@ -74,9 +74,21 @@
 9. **App -> Content -> MainSection**
 
   - It renders three components: `NewTodo`, `TodoList` and `ShowCompletedToggler`.
-  - `NewTodo` makes it possible to add a new todo. New todo item has to have a title but can be created without due date. It gets its category value from the URL. It has its own state to capture the changes in title input or due date input. 
-  - `TodoList` renders a list of todo items with each item as a `Todo` component. If a `Todo` is in editing mode, then `EditingTodo` is rendered instead. `EditingTodo` makes it possible to change category, title and due date of the component. Each `Todo` can be checked, which removes the `Todo` from view. 
-  -  
+  - `NewTodo` makes it possible to add a new todo.  
+  - `TodoList` renders a list of todo items with each item as a `Todo` component. If a `Todo` is in editing mode, then `EditingTodo` is rendered instead. 
+  - `ShowCompletedToggler` renders a `TodoList` with only completed todo items, if Show button is clicked. `ShowCompletedToggler` renders `TodoList` as `props.children`. 
+
+10. **App -> Content -> MainSection -> NewTodo**
+
+  - New todo item has to have a title but can be created without due date. It gets its category value from the URL. It has its own state to capture the changes in title input or due date input. Default category is "My Todos" as "/" renders category "My Todos".  
+
+11. **App -> Content -> MainSection -> TodoList**
+
+  - `TodoList` displays completed or uncompleted todos, depending on the filter passed from `MainSection`. 
+
+12. **App -> Content -> MainSection -> ShowCompletedToggler**
+
+  - It decides whether to render another `TodoList` with completed todos. 
 
 # Week-27 Tasks and Progress
 
