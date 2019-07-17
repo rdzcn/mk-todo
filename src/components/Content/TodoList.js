@@ -4,8 +4,15 @@ import EditingTodo from "./EditingTodo"
 
 class TodoList extends React.Component {
 
+  handleSelect = event => {
+    const sortBy = event.target.value
+    this.props.router.updatePathSearch(sortBy)
+  }
+  
   render() {
-    const { repo, filters, header, router } = this.props
+    const { repo, filters, header, router, sorters } = this.props
+    const sortBy = window.location.search.replace('?', '') || 'createdAt'
+    const sorter = sorters[sortBy]
     const { route } = router
     const { data, editingID } = repo
     const todos = filters[0](data.todos)
@@ -21,7 +28,7 @@ class TodoList extends React.Component {
           <label>
 						Sort todos by:
           </label>
-          <select onInput={this.handleSort}>
+          <select defaultValue={sortBy} onInput={this.handleSelect}>
             <option value="title">Alphabetically</option>
             <option value="createdAt">Creation Date</option>
             <option value="dueDate">Due Date</option>
@@ -30,7 +37,7 @@ class TodoList extends React.Component {
         </form>
         <ul>
           { 
-            todosByCategory.map(todo => {
+            todosByCategory.sort(sorter).map(todo => {
               if (editingID === todo.id) {
                 return <EditingTodo key={todo.id} todo={todo} repo={repo} />
               } else {

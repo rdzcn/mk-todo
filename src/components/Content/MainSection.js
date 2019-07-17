@@ -3,34 +3,39 @@ import NewTodo from './NewTodo'
 import TodoList from './TodoList'
 import ShowCompletedToggler from './ShowCompletedToggler'
 
-class MainSection extends React.Component {
+const MainSection = ({ repo, router }) => {
 
-  filterUncompletedTodos(todos) {
+  const filterUncompletedTodos = todos => {
     return todos.filter(todo => !todo.completed)
   }
 
-  filterCompletedTodos(todos) {
+  const filterCompletedTodos = todos => {
     return todos.filter(todo => todo.completed)
   }
 
-  filterByCategory(category) {
+  const filterByCategory = category => {
     return todos => { 
       return todos.filter(todo => todo.category === category) 
     }
   }
-  
-  render() {
-    const { repo, router } = this.props
-    return (
-      <div>
-        <NewTodo repo={repo} router={router} />
-        <TodoList repo={repo} router={router} header="Todos" filters={[ this.filterUncompletedTodos, this.filterByCategory ]} />
-        <ShowCompletedToggler repo={repo}>
-          <TodoList repo={repo} router={router} header="CompletedTodos" filters={[ this.filterCompletedTodos, this.filterByCategory ]} />
-        </ShowCompletedToggler>
-      </div>
-    )
+
+  const sorters = {
+    title: (a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()),
+    modifiedAt: (a, b) => a.modifiedAt - b.modifiedAt,
+    createdAt: (a, b) => a.createdAt - b.createdAt,
+    dueDate: (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
   }
+
+  return (
+    <div>
+      <NewTodo repo={repo} router={router} />
+      <TodoList repo={repo} router={router} header="Todos" sorters={sorters} filters={[ filterUncompletedTodos, filterByCategory ]} />
+      <ShowCompletedToggler repo={repo}>
+        <TodoList repo={repo} router={router} header="Completed Todos" sorters={sorters} filters={[ filterCompletedTodos, filterByCategory ]} />
+      </ShowCompletedToggler>
+    </div>
+  )
 }
+
 
 export default MainSection
