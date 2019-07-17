@@ -1,5 +1,5 @@
 import React from 'react'
-import Content from './MainSection/Content'
+import Content from './Content/Content'
 import Sidebar from './Sidebar/Sidebar'
 
 class App extends React.Component {
