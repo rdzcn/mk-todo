@@ -14,7 +14,7 @@ const SearchResults = ({ repo, router }) => {
       <ul>
         { 
           repo.data.todos.map(todo => {
-            const regexSearchText = new RegExp(`${search.replace('?', '')}`, 'gi')
+            const regexSearchText = new RegExp(`\\b${search.replace('?', '')}`, 'gi')
             const renderTodo = !!todo.title.match(regexSearchText)
             const renderEditingTodo = !!(repo.editingID === todo.id && todo.title.match(regexSearchText))
 
