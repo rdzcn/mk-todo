@@ -23,6 +23,7 @@
 
 4. Make sorter a function and not a string. const sortedTodos = sorter(todos). Add unit tests for every sorter we have.
 
+ - 
 
 5. Implement tests for these filters.
 
@@ -47,8 +48,18 @@
 
 - Tests are missing. [commit](https://github.com/rdzcn/mk-todo/commit/0d67dd11258e35855f2166908ac0b9a571dd18a5)
 
+# Remaining from Week 26
+
+- How would you make sure that month is between 01 and 12 and day is between 01 and 31? How would you make sure that impossible dates (02-31) are rejected?  
+
 # Ideas to implement
 
-1. Only one kind of editing can be done simultaneously: either edit `category` or `todo`.
+1. Only one kind of editing can be done simultaneously: either edit `category` or `todo`. Introduce a global editing/readOnly variable to decide which particular item will be edited. 
+
+2. Remove `SearchResults` component and re-use `TodoList` component. 
+
+3. Remove State instance variables `editingID`, `editingTitle`, `editingCategory` and `editingCategoryID`. `Router` can handle these "temp" variables in the URL. 
+
+4. 
 
 
