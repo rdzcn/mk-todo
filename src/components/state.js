@@ -98,25 +98,24 @@ class State extends EventEmitter {
     this.emit('stateChanged')
     this.persist()
   };
-  
-  addCategory(categoryName) {
-    if (categoryName) {
-      if (categoryName.trim() === 0) {
+
+  addCategory(category) {
+    if (category) {
+      if (category.trim() === 0) {
         return false
       }
-      categoryName = categoryName.trim()
+      category = category.trim()
     } else {
       return false
-    } 
-    this.data.categories = this.data.categories.concat(categoryName)
+    }
+    this.data.categories = [...this.data.categories, category]
     this.emit('stateChanged')
     this.persist()
   }
 
   addTodo(params) {
-    
     let { title, category, dueDate = null, id = null } = params
-    
+
     if (title) {
       if (title.trim() === 0) {
         return false
