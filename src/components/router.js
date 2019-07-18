@@ -1,12 +1,11 @@
 import EventEmitter from 'events'
 
-const CATEGORIES = ['My Todos', 'Home Related', 'Work Related', 'Groceries']
-
 class Router extends EventEmitter {
-  constructor() {
+  constructor(db) {
     super()
+    this.categories = db.read().categories
     this.pathname = window.location.pathname
-    this.getRoute()
+    this.route = this.getRoute()
   }
   
   pathnameToRoute(pathname) {
@@ -21,18 +20,24 @@ class Router extends EventEmitter {
 
   getRoute() {
     const route = this.pathnameToRoute(this.pathname)
-    if (CATEGORIES.includes(route)) {
-      this.route = route
-    } else if (route === 'search') {
-      this.route = route
+
+    if (this.categories.includes(route) || route === 'search' ) {
+      return route
     } else {
-      this.route = '404'
+      return '404'
     }
+  }
+
+  updateCategories(category) {
+    this.categories = this.categories.concat(category)
+    this.route = this.getRoute()
+    this.emit('urlChanged')
   }
 
   updatePathname(pathname) {
     this.pathname = pathname
-    this.getRoute()
+    this.route = this.getRoute()
+    window.history.pushState(null, null, this.pathname)
     this.emit('urlChanged')
   }
 
