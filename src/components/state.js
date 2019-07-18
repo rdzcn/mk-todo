@@ -17,18 +17,18 @@ class State extends EventEmitter {
   }
 
   deleteCategory(category) {
-    const index = this.data.categories.indexOf(category) 
+    const index = this.data.categories.indexOf(category)
     this.data.categories.splice(index, 1)
     this.emit('stateChanged')
     this.persist()
   }
-  
+
   deleteTodo(id) {
     this.data.todos = this.data.todos.filter(todo => todo.id !== id)
     this.emit('stateChanged')
     this.persist();
   }
-  
+
   editCategory(category) {
     if (this.editingCategory !== "") {
       return
@@ -38,7 +38,7 @@ class State extends EventEmitter {
       this.emit('stateChanged')
     }
   }
-  
+
   editTodo(id, title) {
     if (this.editingID) {
       return
@@ -48,12 +48,12 @@ class State extends EventEmitter {
       this.emit('stateChanged')
     }
   }
-  
+
   updateEditingCategory(category) {
     this.editingCategory = category
     this.emit('stateChanged')
   }
-  
+
   updateEditingTitle(title) {
     this.editingTitle = title
     this.emit('stateChanged');
@@ -64,7 +64,7 @@ class State extends EventEmitter {
     this.searchText = text
     this.emit('stateChanged')
   }
-  
+
   saveCategory() {
     const { editingCategory, editingCategoryID } = this
     const prevCategory = this.data.categories[editingCategoryID]
@@ -81,10 +81,10 @@ class State extends EventEmitter {
     this.emit('stateChanged')
     this.persist()
   }
-  
+
   saveTodo(params) {
     let { title, category, dueDate } = params
-    
+
     this.data.todos
       .filter(todo => todo.id === this.editingID)
       .map(todo => {
@@ -123,11 +123,10 @@ class State extends EventEmitter {
       title = title.trim()
     } else {
       return false
-    } 
-    
+    }
+
     const dueDateFormat = /\d{4}-\d{2}-\d{2}/
-    
-    if (dueDate && dueDate.match(dueDateFormat)) {
+    if (dueDate.match(dueDateFormat) && !isNaN(Date.parse(dueDate))) {
       dueDate = new Date(dueDate).toISOString().substr(0, 10);
     } else {
       dueDate = ""
