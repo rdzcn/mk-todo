@@ -5,7 +5,6 @@ class Link extends React.Component {
   handleRoute = event => {
     event.preventDefault()
     this.props.router.updatePathname(this.props.to)
-    window.history.pushState(null, null, this.props.to)
   }
   
   render() {
