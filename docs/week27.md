@@ -23,7 +23,10 @@
 
 4. Make sorter a function and not a string. const sortedTodos = sorter(todos). Add unit tests for every sorter we have.
 
- - 
+  - `MainSection` has an object with key/value pairs where key is `sorter` and value is `sorterMethod`. `MainSection` passes this object to  `TodoList` as a prop.  
+  - Default sorter is `createdAt`. 
+  - `TodoList` has `<select>` element with `<option>`s. When user selects an option, `router` updates `window.location.search` with the selected `sorter`.  
+  - `App` is re-rendered. `TodoList` sorts todos according to `sorterMethod`. 
 
 5. Implement tests for these filters.
 

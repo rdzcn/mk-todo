@@ -19,7 +19,7 @@ test('Due date in the past returns #f00', () => {
   expect(colorForDueDate(today, dueDateYesterday)).toBe('#f00')
 })
 
-test('Due date has to be date.Object and not null or string', () => {
+test('Due date has to be date Object', () => {
   expect(colorForDueDate(invalidDateObject, dueDateToday)).toBe('#f00') 
   expect(colorForDueDate(today, invalidDateObject)).toBe('#f00')
 })
