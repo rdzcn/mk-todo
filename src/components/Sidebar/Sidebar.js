@@ -9,7 +9,7 @@ const Sidebar = ({ repo, router }) => {
     <ul>
       <Search router={router} repo={repo} />
       <CategoryList repo={repo} router={router} />
-      <NewCategory repo={repo} />
+      <NewCategory repo={repo} router={router} />
     </ul>
   )
 }

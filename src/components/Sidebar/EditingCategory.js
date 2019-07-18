@@ -5,6 +5,8 @@ class EditingCategory extends React.Component {
 	handleCategoryChange = event => {
     const category = event.target.value
     this.props.repo.updateEditingCategory(category)
+    this.props.router.updateCategories(category)
+    this.props.router.updatePathname(`/${category}`)
   }
 
   handleSave = (event) => {
