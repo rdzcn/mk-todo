@@ -9,7 +9,7 @@ import './styles/style.css'
 
 const db = new PersistentStorage()
 const repo = new State(db)
-const router = new Router()
+const router = new Router(db)
 
 repo.on('stateChanged', () => {
   ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
