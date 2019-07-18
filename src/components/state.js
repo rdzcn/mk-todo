@@ -99,7 +99,7 @@ class State extends EventEmitter {
     this.persist()
   };
   
-  addNewCategory(categoryName) {
+  addCategory(categoryName) {
     if (categoryName) {
       if (categoryName.trim() === 0) {
         return false
