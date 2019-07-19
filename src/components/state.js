@@ -114,7 +114,7 @@ class State extends EventEmitter {
   }
 
   addTodo(params) {
-    let { title, category, dueDate = null, id = null } = params
+    let { title, category, dueDate = "", id = null } = params
 
     if (title) {
       if (title.trim() === 0) {
@@ -126,7 +126,7 @@ class State extends EventEmitter {
     }
 
     const dueDateFormat = /\d{4}-\d{2}-\d{2}/
-    if (dueDate.match(dueDateFormat) && !isNaN(Date.parse(dueDate))) {
+    if (!isNaN(Date.parse(dueDate)) && dueDate.match(dueDateFormat)) {
       dueDate = new Date(dueDate).toISOString().substr(0, 10);
     } else {
       dueDate = ""
