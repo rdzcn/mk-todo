@@ -53,7 +53,18 @@
 
 # Remaining from Week 26
 
-- How would you make sure that month is between 01 and 12 and day is between 01 and 31? How would you make sure that impossible dates (02-31) are rejected?  
+1. How would you make sure that month is between 01 and 12 and day is between 01 and 31? How would you make sure that impossible dates (02-31) are rejected? 
+
+- Modified the conditon to include `!isNaN(Date.parse(dueDate))`
+  ```
+    const dueDateFormat = /\d{4}-\d{2}-\d{2}/
+    if (dueDate.match(dueDateFormat) && !isNaN(Date.parse(dueDate))) {
+      dueDate = new Date(dueDate).toISOString().substr(0, 10);
+    } else {
+      dueDate = ""
+    }
+  ```
+- `Date.parse("2019-02-31")` returns `NaN`. 
 
 # Ideas to implement
 
@@ -63,6 +74,8 @@
 
 3. Remove State instance variables `editingID`, `editingTitle`, `editingCategory` and `editingCategoryID`. `Router` can handle these "temp" variables in the URL. 
 
-4. 
+4. Move `<select>` elements into a `Select` component which receives an `<option>`s array as a prop. 
+
+5. How to handle temporary instance variables in React such as `this.state.title`? It is populated and set to '' after certain actions. Is it better or worse practice to capture the user input solely from URL? 
 
 
