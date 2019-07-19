@@ -26,6 +26,22 @@ const MainSection = ({ repo, router }) => {
     dueDate: (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
   }
 
+  const sortTitle = todos => {
+    return todos.sort((a,b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase))
+  }
+
+  const sortCreatedAt = todos => {
+    return todos.sort((a,b) => b.createdAt - a.createdAt)
+  }
+
+  const sortModifiedAt = todos => {
+    return todos.sort((a,b) => b.modifiedAt - a.modifiedAt)
+  }
+
+  const sortDueDate = todos => {
+    return todos.sort((a,b) => new Date(a.dueDate) - new Date(b.dueDate))
+  }
+
   return (
     <div>
       <NewTodo repo={repo} router={router} />
