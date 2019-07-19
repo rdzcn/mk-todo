@@ -1,9 +1,13 @@
 import State from '../components/state'
 import TemporaryStorage from '../components/temporaryStorage'
 import { data } from '../data/temporaryData'
+import Router from '../components/router'
 
-const db = new TemporaryStorage(data)
-const state = new State(db)
+let db = new TemporaryStorage(data)
+let state = new State(db)
+let router = new Router(db)
+
+
 
 const todo = {
   category: 'notes',
@@ -20,9 +24,12 @@ dbAfter.data.todos = dbAfter.data.todos.concat(todo)
 
 describe('testing addTodo', () => {
   test('persist() to be called when addTodo() is called', () => {
-    const spy = jest.spyOn(state, 'persist')
+    const spyPersist = jest.spyOn(state, 'persist')
+    const spyEmit = jest.spyOn(state, 'emit')
+
     state.addTodo({title: 'hello', category: 'notes', dueDate: null, id: 11})
-    expect(spy).toHaveBeenCalled()
+    expect(spyPersist).toHaveBeenCalled()
+    expect(spyEmit).toHaveBeenCalled()
   })
 
   test('null dueDate should add the task without a dueDate', () => {
