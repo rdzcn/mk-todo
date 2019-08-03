@@ -13,7 +13,7 @@ class State extends EventEmitter {
   }
 
   persist() {
-    this.writeData();
+    this.writeData()
   }
 
   deleteCategory(category) {
@@ -117,7 +117,7 @@ class State extends EventEmitter {
     let { title, category, dueDate = "", id = null } = params
 
     if (title) {
-      if (title.trim() === 0) {
+      if (title.trim().length === 0) {
         return false
       }
       title = title.trim()
@@ -142,7 +142,6 @@ class State extends EventEmitter {
       modifiedAt: Date.now()
     }
 
-    this.editingTitle = ""
     this.data.todos= [...this.data.todos, todo]
     this.emit('stateChanged')
     this.persist()
