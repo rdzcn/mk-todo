@@ -1,63 +1,91 @@
 import State from '../components/state'
 import TemporaryStorage from '../components/temporaryStorage'
-import { data } from '../data/temporaryData'
-import Router from '../components/router'
 
-let db = new TemporaryStorage(data)
-let state = new State(db)
-let router = new Router(db)
+let db = new TemporaryStorage()
+let repo = new State(db)
 
-
-
-const todo = {
-  category: 'notes',
-  completed: true,
-  createdAt: Date.now(),
-  dueDate: '',
-  id: 12,
-  modifiedAt: Date.now(),
-  title: 'hello'
-}
-
-const dbAfter = {...db} 
-dbAfter.data.todos = dbAfter.data.todos.concat(todo)
+afterEach(() => {
+  db.reset()
+  repo = new State(db)
+})
 
 describe('testing addTodo', () => {
-  test('persist() to be called when addTodo() is called', () => {
-    const spyPersist = jest.spyOn(state, 'persist')
-    const spyEmit = jest.spyOn(state, 'emit')
-
-    state.addTodo({title: 'hello', category: 'notes', dueDate: null, id: 11})
+ 
+  test('persist and emit are called when addTodo', () => {
+    const spyPersist = jest.spyOn(repo, 'persist')
+    const spyEmit = jest.spyOn(repo, 'emit')
+    repo.addTodo({
+      title: 'hello', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 99
+    })
     expect(spyPersist).toHaveBeenCalled()
     expect(spyEmit).toHaveBeenCalled()
   })
-
-  test('null dueDate should add the task without a dueDate', () => {
-    state.addTodo({title: 'hello', category: 'notes', dueDate: null, id: 12})
-    expect(db).toEqual(dbAfter)
-  })
   
-  test('A new todo must have a title, title cannot be empty', () => {
-    expect(state.addTodo({title: ' ', category: 'notes', dueDate: ''})).toBeFalsy()
-    expect(state.addTodo({title: null, category: 'notes', dueDate: null})).toBeFalsy()
+  test('addTodo adds a todo', () => {
+    repo.addTodo({
+      title: 'hello', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 99
+    })
+    expect(db.read().todos.length).toBe(1)
+ 
+    repo.addTodo({
+      title: 'hello', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 100
+    })
+    expect(db.read().todos.length).toBe(2)
+ 
+    repo.addTodo({
+      title: 'hello', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 101
+    })
+    expect(db.read().todos.length).toBe(3)
+  })
+
+  test('blank titles do not addTodo', () => {
+    repo.addTodo({
+      title: '  ', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 99
+    })
+    expect(db.read().todos.length).toBe(0)
   })
 })
 
 describe('testing toggleCompletionForTodo', () => {
-  test('persist() to be called when toggleCompletionForTodo is called', () => {
-    const spy = jest.spyOn(state, 'persist')
-    state.addTodo({title: 'hello', category: 'notes', dueDate: null, id: 14})
-    state.toggleCompletionForTodo(14)
-    expect(spy).toHaveBeenCalled()
-  })
-  
-  test('toggleCompletionForTodo should change todo.completed = false to true', () => {
-    state.addTodo({title: 'hello', category: 'notes', dueDate: null, id: 15})
-    state.toggleCompletionForTodo(15)
-    const addedTodo = state.data.todos.filter(todo => todo.id === 15)
-    expect(addedTodo[0].completed).toBeTruthy()
-  })
-  
-  test('toggleCompletionForTodo should change todo.completed = true to false', () => {
+  test('toggleCompletionForTodo toggles between true and false', () => {
+    repo.addTodo({
+      title: 'hello', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 99
+    })
+    repo.toggleCompletionForTodo(99)
+    expect(db.read().todos[0].completed).toBeTruthy()
+    repo.toggleCompletionForTodo(99)
+    expect(db.read().todos[0].completed).toBeFalsy()
   })
 })
+
+describe('testing deleteTodo', () => {
+  test('deleteTodo deletes the Todo', () => {
+    repo.addTodo({
+      title: 'hello', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 99
+    })
+    repo.deleteTodo(99)
+    expect(db.read().todos.length).toBe(0)
+  })
+})
+

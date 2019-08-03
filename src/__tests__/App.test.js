@@ -5,9 +5,7 @@ import State from '../components/state'
 import TemporaryStorage from '../components/temporaryStorage'
 import Router from '../components/router'
 
-import { data } from '../data/temporaryData'
-
-const db = new TemporaryStorage(data)
+const db = new TemporaryStorage()
 const repo = new State(db)
 const router = new Router(db)
 
