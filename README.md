@@ -5,7 +5,7 @@
 1. We have four classes  
 
   - **PersistentStorage**: It interacts with `LocalStorage` and `State`. It has `read()` and `write()` methods.   
-  - **TemporaryStorage**: It interacts with `temporaryData`. It has `read()` and `write()` methods. It is used in tests.
+  - **TemporaryStorage**: It interacts with `mockData`. It has `read()` and `write()` methods. It is used in tests.
   - **Router**: It gets information about the changes in URL, updates its `pathname` and accordingly selects the route. `Router.route` decides on what to display eventually.
   - **State**: It has user data from `LocalStorage`. It contains all the actions for user to change data. It updates `LocalStorage` when data is changed.  
 
