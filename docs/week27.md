@@ -39,7 +39,7 @@
 
 
 
-8. Implement `ShowCompletedToggler` component. It should accept repo as its only parameter. It should contain all the logic whether to show “Show” or “Hide” button, and it should interact with the repo directly.
+8. Implement `ShowCompletedToggler` component. It should accept state as its only parameter. It should contain all the logic whether to show “Show” or “Hide” button, and it should interact with the state directly.
 
 - Done. [commit](https://github.com/rdzcn/mk-todo/pull/10/commits/bc4908ab14ea22fe148a7fc891a74067cf37ca28)
 

@@ -4,7 +4,7 @@ import { colorForDueDate } from '../../utils/helpers'
 class Todo extends React.Component {
 
   render() {
-    const { todo, repo } = this.props
+    const { todo, state } = this.props
     const { id, title, completed, dueDate } = todo
     
     const today = new Date().toISOString().substr(0, 10)
@@ -17,13 +17,13 @@ class Todo extends React.Component {
             <input 
               type='checkbox'
               checked={completed}
-              onChange={() => repo.toggleCompletionForTodo(id)}
+              onChange={() => state.toggleCompletionForTodo(id)}
             />
             {completed ? <del>{title}</del> : <span>{title}</span>}
-            <button type="button" hidden={completed} onClick={() => repo.editTodo(id, title)}>
+            <button type="button" hidden={completed} onClick={() => state.editTodo(id, title)}>
               Edit
             </button>
-            <button type="button" onClick={() => repo.deleteTodo(id)}>
+            <button type="button" onClick={() => state.deleteTodo(id)}>
               Delete
             </button>
           </div>

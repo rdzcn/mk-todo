@@ -3,13 +3,13 @@ import NewCategory from './NewCategory'
 import CategoryList from './CategoryList'
 import Search from './Search'
 
-const Sidebar = ({ repo, router }) => {
+const Sidebar = ({ state, router }) => {
 
   return (
     <ul>
-      <Search repo={repo} router={router} />
-      <CategoryList repo={repo} router={router} />
-      <NewCategory repo={repo} router={router} />
+      <Search state={state} router={router} />
+      <CategoryList state={state} router={router} />
+      <NewCategory state={state} router={router} />
     </ul>
   )
 }

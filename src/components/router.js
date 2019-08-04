@@ -1,9 +1,9 @@
 import EventEmitter from 'events'
 
 class Router extends EventEmitter {
-  constructor(db) {
+  constructor(persistentStorage) {
     super()
-    this.categories = db.read().categories
+    this.categories = persistentStorage.read().categories
     this.pathname = window.location.pathname
     this.route = this.getRoute()
   }

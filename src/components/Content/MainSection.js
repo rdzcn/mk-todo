@@ -3,7 +3,7 @@ import NewTodo from './NewTodo'
 import TodoList from './TodoList'
 import ShowCompletedToggler from './ShowCompletedToggler'
 
-const MainSection = ({ repo, router }) => {
+const MainSection = ({ state, router }) => {
 
   const filterUncompletedTodos = todos => {
     return todos.filter(todo => !todo.completed)
@@ -28,10 +28,10 @@ const MainSection = ({ repo, router }) => {
 
   return (
     <div>
-      <NewTodo repo={repo} router={router} />
-      <TodoList repo={repo} router={router} header="Todos" sorters={sorters} filters={[ filterUncompletedTodos, filterByCategory ]} />
-      <ShowCompletedToggler repo={repo}>
-        <TodoList repo={repo} router={router} header="Completed Todos" sorters={sorters} filters={[ filterCompletedTodos, filterByCategory ]} />
+      <NewTodo state={state} router={router} />
+      <TodoList state={state} router={router} header="Todos" sorters={sorters} filters={[ filterUncompletedTodos, filterByCategory ]} />
+      <ShowCompletedToggler state={state}>
+        <TodoList state={state} router={router} header="Completed Todos" sorters={sorters} filters={[ filterCompletedTodos, filterByCategory ]} />
       </ShowCompletedToggler>
     </div>
   )

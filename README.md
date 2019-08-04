@@ -26,11 +26,11 @@
 
 1. **`index.js`** 
 
-  - It creates an instance of `PersistentStorage`, `db`.
-  - It creates an instance of `State`, `repo` with `db`.
-  - It creates an instance of `Router`, `router`. 
-  - It renders `App` with `router` and `repo` as its props. 
-  - `repo` and `router` listen to changes in their instance variables. When they catch a change, they re-render `App` as a callback. 
+  - It creates an instance of `PersistentStorage`, `persistentStorage`.
+  - It creates an instance of `State`, `state` with `persistentStorage`.
+  - It creates an instance of `Router`, `router` with `persistentStorage`. 
+  - It renders `App` with `router` and `state` as its props. 
+  - `state` and `router` listen to changes in their instance variables. When they catch a change, they re-render `App` as a callback. 
 
 2. **App**
 
@@ -65,7 +65,7 @@
   - It renders either `SearchResults` **or** `MainSection` component. This decision is based on the URL, set by `Sidebar -> Search` component. 
   - `SearchResults` renders a list of todo items with each item as `Todo` or `EditingTodo` component. In this sense each item is editable. 
   - `SearchResults` gets the search term from the URL and accordingly displays the relevant todo items. It has also a `Reset Search` button which resets the search input. 
-  - `MainSection` is rendered if `route` is not "search" and pathname is within `repo.data.categories`.  
+  - `MainSection` is rendered if `route` is not "search" and pathname is within `state.data.categories`.  
 
 8. **App -> Content -> SearchResults**
 

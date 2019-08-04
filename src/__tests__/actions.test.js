@@ -1,20 +1,20 @@
 import State from '../components/state'
 import TemporaryStorage from '../components/temporaryStorage'
 
-let db = new TemporaryStorage()
-let repo = new State(db)
+let temporaryStorage = new TemporaryStorage()
+let state = new State(temporaryStorage)
 
-afterEach(() => {
-  db.reset()
-  repo = new State(db)
+beforeEach(() => {
+  temporaryStorage.reset()
+  state = new State(temporaryStorage)
 })
 
 describe('testing addTodo', () => {
  
   test('persist and emit are called when addTodo', () => {
-    const spyPersist = jest.spyOn(repo, 'persist')
-    const spyEmit = jest.spyOn(repo, 'emit')
-    repo.addTodo({
+    const spyPersist = jest.spyOn(state, 'persist')
+    const spyEmit = jest.spyOn(state, 'emit')
+    state.addTodo({
       title: 'hello', 
       category: 'notes', 
       dueDate: null, 
@@ -25,82 +25,93 @@ describe('testing addTodo', () => {
   })
   
   test('addTodo adds a todo', () => {
-    repo.addTodo({
+    state.addTodo({
       title: 'hello', 
       category: 'notes', 
       dueDate: null, 
       id: 99
     })
-    expect(db.read().todos.length).toBe(1)
+    expect(temporaryStorage.read().todos.length).toBe(1)
  
-    repo.addTodo({
+    state.addTodo({
       title: 'hello', 
       category: 'notes', 
       dueDate: null, 
       id: 100
     })
-    expect(db.read().todos.length).toBe(2)
+    expect(temporaryStorage.read().todos.length).toBe(2)
  
-    repo.addTodo({
+    state.addTodo({
       title: 'hello', 
       category: 'notes', 
       dueDate: null, 
       id: 101
     })
-    expect(db.read().todos.length).toBe(3)
+    expect(temporaryStorage.read().todos.length).toBe(3)
   })
 
   test('blank titles do not addTodo', () => {
-    repo.addTodo({
+    state.addTodo({
       title: '  ', 
       category: 'notes', 
       dueDate: null, 
       id: 99
     })
-    expect(db.read().todos.length).toBe(0)
+    expect(temporaryStorage.read().todos.length).toBe(0)
   })
 })
 
 describe('testing toggleCompletionForTodo', () => {
   test('toggleCompletionForTodo toggles between true and false', () => {
-    repo.addTodo({
+    state.addTodo({
       title: 'hello', 
       category: 'notes', 
       dueDate: null, 
       id: 99
     })
-    repo.toggleCompletionForTodo(99)
-    expect(db.read().todos[0].completed).toBeTruthy()
-    repo.toggleCompletionForTodo(99)
-    expect(db.read().todos[0].completed).toBeFalsy()
+    state.toggleCompletionForTodo(99)
+    expect(temporaryStorage.read().todos[0].completed).toBeTruthy()
+    state.toggleCompletionForTodo(99)
+    expect(temporaryStorage.read().todos[0].completed).toBeFalsy()
   })
 })
 
 describe('testing deleteTodo', () => {
   test('deleteTodo deletes the Todo', () => {
-    repo.addTodo({
+    state.addTodo({
       title: 'hello', 
       category: 'notes', 
       dueDate: null, 
       id: 99
     })
-    repo.deleteTodo(99)
-    expect(db.read().todos.length).toBe(0)
+    state.deleteTodo(99)
+    expect(temporaryStorage.read().todos.length).toBe(0)
   })
 })
 
 describe('testing saveTodo', () => {
-  test('saveTodo deletes the Todo', () => {
-    repo.addTodo({
+  test('saveTodo save the Todo with new information', () => {
+    state.addTodo({
       title: 'hello', 
       category: 'notes', 
       dueDate: null, 
       id: 99
     })
-    repo.saveTodo({title: 'world', category: 'work', dueDate: '2019-10-10', id: 99})
-    expect(db.read().todos[0].title).toBe('world')
-    expect(db.read().todos[0].category).toBe('work')
-    expect(db.read().todos[0].dueDate).toBe('2019-10-10')
+    state.saveTodo({title: 'world', category: 'work', dueDate: '2019-10-10', id: 99})
+    expect(temporaryStorage.read().todos[0].title).toBe('world')
+    expect(temporaryStorage.read().todos[0].category).toBe('work')
+    expect(temporaryStorage.read().todos[0].dueDate).toBe('2019-10-10')
+  })
+
+  test('blank titles do not saveTodo', () => {
+    state.addTodo({
+      title: 'hello', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 99
+    })
+    state.saveTodo({title: '  ', category: 'work', dueDate: '2019-10-10', id: 99})
+    expect(temporaryStorage.read().todos[0].title).toBe('hello')
   })
 })
 

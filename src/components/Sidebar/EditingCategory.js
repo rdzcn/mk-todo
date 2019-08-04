@@ -4,18 +4,18 @@ class EditingCategory extends React.Component {
   
 	handleCategoryChange = event => {
     const category = event.target.value
-    this.props.repo.updateEditingCategory(category)
+    this.props.state.updateEditingCategory(category)
     this.props.router.updateCategories(category)
     this.props.router.updatePathname(`/${category}`)
   }
 
   handleSave = (event) => {
     event.preventDefault()
-    this.props.repo.saveCategory()
+    this.props.state.saveCategory()
   }
   
   render() {
-		const { editingCategory } = this.props.repo
+		const { editingCategory } = this.props.state
     
     return (
       <li>
@@ -30,7 +30,7 @@ class EditingCategory extends React.Component {
             <button type="submit">
               Save
             </button>
-            <button type="button" onClick={() => this.props.repo.cancel()} >
+            <button type="button" onClick={() => this.props.state.cancel()} >
               Cancel
             </button>
           </form>

@@ -12,7 +12,7 @@ class EditingTodo extends React.Component {
 
 	handleTitleChange = event => {
     const title = event.target.value
-    this.props.repo.updateEditingTitle(title)
+    this.props.state.updateEditingTitle(title)
   }
 
   handleDueDateChange = event => {
@@ -28,13 +28,13 @@ class EditingTodo extends React.Component {
   handleSave = (event) => {
 		event.preventDefault()
     const { dueDate, category } = this.state
-    const { repo, todo } = this.props
-    const { editingTitle } = repo
-		repo.saveTodo({title: editingTitle, category: category, dueDate: dueDate, id: todo.id })
+    const { state, todo } = this.props
+    const { editingTitle } = state
+		state.saveTodo({title: editingTitle, category: category, dueDate: dueDate, id: todo.id })
 	}
 
   render() {
-		const { editingTitle, data } = this.props.repo
+		const { editingTitle, data } = this.props.state
 		const { todo } = this.props
     const { id } = todo
     const categories = data.categories
@@ -69,7 +69,7 @@ class EditingTodo extends React.Component {
                 <button type="submit">
                   Save
                 </button>
-                <button type="reset" onClick={() => this.props.repo.cancel()} >
+                <button type="reset" onClick={() => this.props.state.cancel()} >
                   Cancel
                 </button>
               </div>

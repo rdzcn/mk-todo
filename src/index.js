@@ -7,19 +7,19 @@ import Router from './components/router'
 
 import './styles/style.css'
 
-const db = new PersistentStorage()
-const repo = new State(db)
-const router = new Router(db)
+const persistentStorage = new PersistentStorage()
+const state = new State(persistentStorage)
+const router = new Router(persistentStorage)
 
-repo.on('stateChanged', () => {
-  ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
+state.on('stateChanged', () => {
+  ReactDOM.render(<App state={state} router={router} />, document.getElementById('root'))
 })
 
 router.on('urlChanged', () => {
-  ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
+  ReactDOM.render(<App state={state} router={router} />, document.getElementById('root'))
 })
 
-ReactDOM.render(<App repo={repo} router={router} />, document.getElementById('root'))
+ReactDOM.render(<App state={state} router={router} />, document.getElementById('root'))
 
 
 

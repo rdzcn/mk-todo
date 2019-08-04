@@ -2,10 +2,10 @@ import uuid from 'uuid/v4'
 import EventEmitter from 'events'
 
 class State extends EventEmitter {
-  constructor(db) {
+  constructor(persistentStorage) {
     super()
-    this.data = db.read()
-    this.writeData = () => db.write(this.data)
+    this.data = persistentStorage.read()
+    this.writeData = () => persistentStorage.write(this.data)
     this.editingID = null
     this.editingTitle = ''
     this.editingCategoryID = null

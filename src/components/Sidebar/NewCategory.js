@@ -16,8 +16,8 @@ class NewCategory extends React.Component {
   handleSubmit = event => {
     event.preventDefault()
     const { categoryName } = this.state
-    const { repo, router } = this.props
-    repo.addCategory(categoryName)
+    const { state, router } = this.props
+    state.addCategory(categoryName)
     router.updatePathname(categoryName)
     router.updateCategories(categoryName)
     this.setState({
