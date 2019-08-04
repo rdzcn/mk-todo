@@ -83,10 +83,19 @@ class State extends EventEmitter {
   }
 
   saveTodo(params) {
-    let { title, category, dueDate } = params
+    let { title, category, dueDate, id } = params
+
+    if (title) {
+      if (title.trim().length === 0) {
+        return false
+      }
+      title = title.trim()
+    } else {
+      return false
+    }
 
     this.data.todos
-      .filter(todo => todo.id === this.editingID)
+      .filter(todo => todo.id === id)
       .map(todo => {
          todo.title = title
          todo.category = category

@@ -89,3 +89,18 @@ describe('testing deleteTodo', () => {
   })
 })
 
+describe('testing saveTodo', () => {
+  test('saveTodo deletes the Todo', () => {
+    repo.addTodo({
+      title: 'hello', 
+      category: 'notes', 
+      dueDate: null, 
+      id: 99
+    })
+    repo.saveTodo({title: 'world', category: 'work', dueDate: '2019-10-10', id: 99})
+    expect(db.read().todos[0].title).toBe('world')
+    expect(db.read().todos[0].category).toBe('work')
+    expect(db.read().todos[0].dueDate).toBe('2019-10-10')
+  })
+})
+
