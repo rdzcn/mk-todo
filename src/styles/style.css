@@ -5,6 +5,15 @@
 @import "_todo.css";
 @import "_header.css";  
 
+@media screen and (max-width: 900px) {
+  html, body {
+    font-size: 10px !important;
+  }
+  .main {
+    width: 100vw !important;
+  }
+}
+
 .app-container {
   display: flex;
   width: 80vw;
@@ -14,4 +23,6 @@
   align-items: flex-start;
   justify-content: center;
 }
+
+
 
