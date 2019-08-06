@@ -6,8 +6,7 @@ class State extends EventEmitter {
     super()
     this.data = persistentStorage.read()
     this.writeData = () => persistentStorage.write(this.data)
-    this.editingID = null
-    this.editingTitle = ''
+    this.editingTitle = null
     this.editingCategoryID = null
     this.editingCategory = ''
   }
@@ -39,11 +38,11 @@ class State extends EventEmitter {
     }
   }
 
-  editTodo(id, title) {
-    if (this.editingID) {
+  editTodo(title) {
+    if (!this.readOnly) {
       return
     } else {
-      this.editingID = id
+      this.readOnly = false
       this.editingTitle = title
       this.emit('stateChanged')
     }
@@ -175,12 +174,9 @@ class State extends EventEmitter {
   };
 
   cancel = () => {
-    this.editingID = null
-    this.editingTitle = ""
+    this.editingTitle = null
     this.editingCategoryID = null
     this.editingCategory = ""
-    this.route = "My Todos"
-    this.searchText = ""
     this.emit('stateChanged')
   }
 }

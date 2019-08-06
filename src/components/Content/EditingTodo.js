@@ -28,14 +28,15 @@ class EditingTodo extends React.Component {
   handleSave = (event) => {
 		event.preventDefault()
     const { dueDate, category } = this.state
-    const { state, todo } = this.props
+    const { state, todo, router } = this.props
     const { editingTitle } = state
-		state.saveTodo({title: editingTitle, category: category, dueDate: dueDate, id: todo.id })
+    state.saveTodo({title: editingTitle || todo.title, category: category, dueDate: dueDate, id: todo.id })
+    router.resetPath()
 	}
 
   render() {
-		const { editingTitle, data } = this.props.state
-		const { todo } = this.props
+    const { todo, state, router } = this.props
+		const { editingTitle, data } = state
     const { id } = todo
     const categories = data.categories
     
@@ -48,7 +49,7 @@ class EditingTodo extends React.Component {
                 <input
                   type="text"
                   name="title"
-                  value={editingTitle}
+                  value={editingTitle || todo.title}
                   onChange={this.handleTitleChange}
                 />
                 <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
@@ -69,7 +70,7 @@ class EditingTodo extends React.Component {
                 <button type="submit">
                   Save
                 </button>
-                <button type="reset" onClick={() => this.props.state.cancel()} >
+                <button type="reset" onClick={() => router.resetPath()} >
                   Cancel
                 </button>
               </div>

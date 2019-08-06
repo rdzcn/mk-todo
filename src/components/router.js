@@ -6,6 +6,7 @@ class Router extends EventEmitter {
     this.categories = persistentStorage.read().categories
     this.pathname = window.location.pathname
     this.route = this.getRoute()
+    this.search = ''
   }
   
   pathnameToRoute(pathname) {
@@ -42,9 +43,14 @@ class Router extends EventEmitter {
   }
 
   updatePathSearch(searchText) {
-    const search = '?' + searchText
-    this.pathname = window.location.pathname + search
-    window.history.replaceState(null, null, this.pathname)
+    this.search = searchText
+    window.history.replaceState(null, null, this.pathname + '?' + this.search)
+    this.emit('urlChanged')
+  }
+
+  resetPath() {
+    this.search = ''
+    window.history.pushState(null, null, this.pathname)
     this.emit('urlChanged')
   }
 
