@@ -3,7 +3,7 @@
   padding: 1rem;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.05);
   border-radius: 3px;
-  min-height: calc(100% - 250px);
+  min-height: calc(100% - 16rem);
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -37,7 +37,7 @@
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.05);
   border-radius: 3px;
   padding: 0.2rem;
-  width: 100px;
+  width: 6rem;
 }
 
 .right button:hover {
@@ -67,7 +67,7 @@
 }
 
 .todos ul li {
-  min-height: 40px;
+  min-height: 2.5rem;
 }
 
 
