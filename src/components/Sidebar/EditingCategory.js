@@ -4,18 +4,27 @@ class EditingCategory extends React.Component {
   
 	handleCategoryChange = event => {
     const category = event.target.value
-    this.props.state.updateEditingCategory(category)
-    this.props.router.updateCategories(category)
-    this.props.router.updatePathname(`/${category}`)
+    const { state, router } = this.props
+    state.updateEditingCategory(category)
+    router.updatePathname(`/${category}`)
   }
-
-  handleSave = (event) => {
+  
+  handleSave = event => {
     event.preventDefault()
-    this.props.state.saveCategory()
+    const { state, router, category } = this.props
+    const { editingCategory } = state
+    if (!editingCategory) {
+      router.resetPath()
+    } else {
+      const prevCategoryIndex = router.categories.indexOf(category)
+      state.saveCategory(prevCategoryIndex)
+      router.updateCategories(editingCategory)
+    }
   }
   
   render() {
-		const { editingCategory } = this.props.state
+    const { category, router, state } = this.props
+    const { editingCategory } = state
     
     return (
       <li>
@@ -24,13 +33,13 @@ class EditingCategory extends React.Component {
             <input
               type="text"
               name="category"
-              value={editingCategory}
+              value={editingCategory || category}
               onChange={this.handleCategoryChange}
             />
             <button type="submit">
               Save
             </button>
-            <button type="button" onClick={() => this.props.state.cancel()} >
+            <button type="button" onClick={() => router.resetPath()} >
               Cancel
             </button>
           </form>

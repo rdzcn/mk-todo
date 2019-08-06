@@ -7,8 +7,7 @@ class State extends EventEmitter {
     this.data = persistentStorage.read()
     this.writeData = () => persistentStorage.write(this.data)
     this.editingTitle = null
-    this.editingCategoryID = null
-    this.editingCategory = ''
+    this.editingCategory = null
   }
 
   persist() {
@@ -38,16 +37,6 @@ class State extends EventEmitter {
     }
   }
 
-  editTodo(title) {
-    if (!this.readOnly) {
-      return
-    } else {
-      this.readOnly = false
-      this.editingTitle = title
-      this.emit('stateChanged')
-    }
-  }
-
   updateEditingCategory(category) {
     this.editingCategory = category
     this.emit('stateChanged')
@@ -64,19 +53,17 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
 
-  saveCategory() {
-    const { editingCategory, editingCategoryID } = this
-    const prevCategory = this.data.categories[editingCategoryID]
-    this.data.todos.map(todo => {
-      if (todo.category === prevCategory) {
+  saveCategory(index) {
+    const { editingCategory, data } = this
+    const { categories } = data
+    data.todos.map(todo => {
+      if (todo.category === categories[index]) {
         todo.category = editingCategory
       }
       return todo
     })
-    this.data.categories[this.editingCategoryID] = editingCategory
-    this.editingCategoryID = null
-    this.editingCategory = ""
-    this.route = editingCategory
+    this.data.categories[index] = editingCategory
+    this.editingCategory = null
     this.emit('stateChanged')
     this.persist()
   }
@@ -101,8 +88,7 @@ class State extends EventEmitter {
          todo.dueDate = dueDate
          return todo
       })
-    this.editingID = null
-    this.editingTitle = ''
+    this.editingTitle = null
     this.emit('stateChanged')
     this.persist()
   };

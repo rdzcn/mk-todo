@@ -3,6 +3,12 @@ import Link from '../_shared/Link'
 
 class Category extends React.Component {
 
+  handleRename = () => {
+    const { router, category } = this.props
+    router.updatePathname(category)
+    router.updatePathSearch(category)
+  }
+
   render() {
     const { state, category, router } = this.props
     
@@ -12,7 +18,7 @@ class Category extends React.Component {
           <Link to={category} router={router}>
             {category}
           </Link>
-          <button onClick={() => state.editCategory(category)}>
+          <button onClick={this.handleRename}>
             Rename
           </button>
           <button onClick={() => state.deleteCategory(category)}>
