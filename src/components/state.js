@@ -47,12 +47,6 @@ class State extends EventEmitter {
     this.emit('stateChanged');
   }
 
-  updateSearchText(text) {
-    this.route = `Searching for...${text}`
-    this.searchText = text
-    this.emit('stateChanged')
-  }
-
   saveCategory(index) {
     const { editingCategory, data } = this
     const { categories } = data

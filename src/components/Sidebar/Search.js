@@ -16,7 +16,7 @@ class Search extends React.Component {
     return (
       <form>
         <Link to='/search' router={router}>
-          <button type="reset">Search</button>
+          <button type="button">Search</button>
         </Link>
         {
           route === 'search' &&
