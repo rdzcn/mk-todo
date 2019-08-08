@@ -17,7 +17,20 @@
   data: {
     showCompleted: false,
     categories: ['My Todos', 'Home Related', 'Work Related', 'Groceries'],
-    todos: [] 
+    todos: 
+      [{
+        title: 'Buy milk',
+        category: 'Groceries',
+        dueDate: '2019-07-22',
+        completed: false,
+        id: 'f8eeca46-3f3e-4ce1-9d6b-d4646fe3ec9e',
+        createdAt: Date.now(),
+        modifiedAt: Date.now()
+      },{
+          ...
+      },
+      ...
+      ] 
   }
   ```
   - Each todo item is an `Object` within `todos` array.
