@@ -8,7 +8,7 @@ const Content = ({ router, state }) => {
   let component, header
 
   if (renderSearch) {
-    header = `Searching for: ${window.location.search.replace('?', '')}`
+    header = `Searching for: ${router.search}`
     component = <SearchResults state={state} router={router} />
   } else {
     header = router.route.charAt(0).toUpperCase() + router.route.slice(1)
