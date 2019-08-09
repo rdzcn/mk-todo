@@ -15,11 +15,11 @@
   • addTodo(null, null) should not add a todo to the storage
     - [commit](https://github.com/rdzcn/mk-todo/commit/46f553b5564af036f181c3663db97a82b40e005a)
   • completeTodo should complete and uncompleted todos in the storage
-    -
+    - done
   • saveTodo should save the editing title in the storage
-    -
+    - done
   • deleteTodo should remove the todo from the storage
-    -
+    - done
 
 4. Make sorter a function and not a string. const sortedTodos = sorter(todos). Add unit tests for every sorter we have.
 
