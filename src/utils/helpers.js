@@ -1,5 +1,5 @@
-export function colorForDueDate(date) {
-  const now = new Date()
+export function colorForDueDate(today, date) {
+  const now = new Date(today)
   const dueDate = new Date(date)
   
   const [nowDay, nowMonth, nowYear] = [now.getDate(), now.getMonth(), now.getFullYear()]
