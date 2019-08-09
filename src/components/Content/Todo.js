@@ -6,9 +6,7 @@ class Todo extends React.Component {
   render() {
     const { todo, router, state } = this.props
     const { id, title, completed, dueDate } = todo
-    
-    const today = new Date().toISOString().substr(0, 10)
-    const dueDateColor = colorForDueDate(today, dueDate)
+    const dueDateColor = colorForDueDate(dueDate)
     
     return (
       <li>

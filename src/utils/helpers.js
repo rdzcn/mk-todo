@@ -1,5 +1,5 @@
-export function colorForDueDate(today, date) {
-  const now = new Date(today)
+export function colorForDueDate(date) {
+  const now = new Date()
   const dueDate = new Date(date)
   
   const [nowDay, nowMonth, nowYear] = [now.getDate(), now.getMonth(), now.getFullYear()]
@@ -7,15 +7,15 @@ export function colorForDueDate(today, date) {
 
   if (isNaN(Date.parse(now)) || isNaN(Date.parse(dueDate))
   ) {
-    return false
+    return null
   } if ((dueDateYear > nowYear) || 
          (dueDateYear === nowYear && dueDateMonth > nowMonth) ||
            (dueDateYear === nowYear && dueDateMonth === nowMonth && dueDateDay > nowDay)
   ) {
     return '#00f'
   } if (dueDateYear === nowYear &&
-              dueDateMonth === nowMonth &&
-                dueDateDay === nowDay
+          dueDateMonth === nowMonth &&
+            dueDateDay === nowDay
   ) {
     return '#0f0'
   } 
