@@ -11,10 +11,10 @@ class TodoList extends React.Component {
 
   render() {
     const { state, filters, header, router, sorters } = this.props
-    const sortBy = window.location.search.replace('?', '') || 'createdAt'
-    const sorterMethod = sorters[sortBy]
     const { route, search } = router
     const { data } = state
+    const sortBy = search || 'createdAt'
+    const sorterMethod = sorters[sortBy]
     const todos = filters[0](data.todos)
     const todosByCategory = filters[1](route)(todos)
 
