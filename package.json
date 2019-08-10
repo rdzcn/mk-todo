@@ -2,7 +2,7 @@
   "name": "mk-todo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://week-26--angry-goldstine-203e71.netlify.com/",
+  "homepage": "https://week-27--angry-goldstine-203e71.netlify.com/",
   "dependencies": {
     "babel-loader": "8.0.5",
     "react": "^16.8.6",
@@ -30,8 +30,8 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.2",
-    "eslint": "5.3.0",
+    "eslint": "5.16.0",
+    "babel-eslint": "10.0.1",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-jsx-a11y": "6.1.1",
     "eslint-plugin-react": "^7.14.2",

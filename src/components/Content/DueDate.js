@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DueDate = (props) => {
+const DueDate = props => {
   
   return (
     <input 

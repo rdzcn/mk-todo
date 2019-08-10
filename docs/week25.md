@@ -64,9 +64,9 @@
 
 14. When we `persist` changes to localStorage, we emit `stateChanged` action. This is picked up in `index.js` with a callback function to re-render App component.  
   ```
-  const repo = new State()
-  repo.on('stateChanged', () => {
-    ReactDOM.render(<App repo={repo}/>, document.getElementById('root'))
+  const state = new State()
+  state.on('stateChanged', () => {
+    ReactDOM.render(<App state={state}/>, document.getElementById('root'))
   })
   ```
   

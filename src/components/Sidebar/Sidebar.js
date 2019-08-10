@@ -1,20 +1,15 @@
 import React from 'react'
- 
-const Sidebar = ({ repo }) => {
-  
-  let categories = ['My Todos', 'Home Related', 'Work Related', 'Groceries']
+import NewCategory from './NewCategory'
+import CategoryList from './CategoryList'
+import Search from './Search'
 
-  return(
+const Sidebar = ({ state, router }) => {
+
+  return (
     <ul>
-      {
-        categories.map(category => 
-          <li key={category} className="sidebar-category">
-            <button type="button" onClick={() => repo.updateSelectedCategory(category)}>
-              {category}
-            </button>
-          </li>
-        )
-      }
+      <Search state={state} router={router} />
+      <CategoryList state={state} router={router} />
+      <NewCategory state={state} router={router} />
     </ul>
   )
 }

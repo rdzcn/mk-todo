@@ -29,7 +29,7 @@
 
 
 
-6. Rename fetchTodos to filter. I would like to have two filter functions (from now on I will call them just “filters") for now: filterUncomletedTodos and filterCompletedTodos. Filter accepts an array A of todos and returns an array A' of todos that includes all or some of the todos from array A. TodoList component should accept two parameters: repo and an array of filters. For the uncompleted list, it should look like this: <TodoList repo={repo} filters={[ filterUncompletedTodos ]} />. For completed list: <TodoList repo={repo} filters={[ filterCompletedTodos ]} />
+6. Rename fetchTodos to filter. I would like to have two filter functions (from now on I will call them just “filters") for now: filterUncomletedTodos and filterCompletedTodos. Filter accepts an array A of todos and returns an array A' of todos that includes all or some of the todos from array A. TodoList component should accept two parameters: state and an array of filters. For the uncompleted list, it should look like this: <TodoList state={state} filters={[ filterUncompletedTodos ]} />. For completed list: <TodoList state={state} filters={[ filterCompletedTodos ]} />
 
 - [Commit](https://github.com/rdzcn/mk-todo/commit/ab9f133394d3f468c619b6d5f9be3149ec341b07)
 
@@ -38,7 +38,7 @@
 
 
 8. Make filtering by list also a filter:
-`<TodoList repo={repo} filters={[ filterUncompletedTodos, filterByList(‘groceries’) ]} />`
+`<TodoList state={state} filters={[ filterUncompletedTodos, filterByList(‘groceries’) ]} />`
 `filterByList` is a higher-order function: it’s a function that returns another function. Sometimes these are called “factory functions (methods)”.
 
 
@@ -55,7 +55,7 @@
 
 
 
-12. Implement `ShowCompletedToggler` component. It should accept repo as its only parameter. It should contain all the logic whether to show “Show” or “Hide” button, and it should interact with the repo directly.
+12. Implement `ShowCompletedToggler` component. It should accept state as its only parameter. It should contain all the logic whether to show “Show” or “Hide” button, and it should interact with the state directly.
 
 
 

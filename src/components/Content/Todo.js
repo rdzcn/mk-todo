@@ -3,15 +3,8 @@ import { colorForDueDate } from '../../utils/helpers'
 
 class Todo extends React.Component {
 
-  handleEdit(id, title) {
-    if (this.props.repo.editingID) {
-      return
-    } 
-    this.props.repo.editTodo(id, title)
-  }
-
   render() {
-    const { todo } = this.props
+    const { todo, router, state } = this.props
     const { id, title, completed, dueDate } = todo
     
     const today = new Date().toISOString().substr(0, 10)
@@ -24,17 +17,17 @@ class Todo extends React.Component {
             <input 
               type='checkbox'
               checked={completed}
-              onChange={() => this.props.repo.toggleCompletionForTodo(id)}
+              onChange={() => state.toggleCompletionForTodo(id)}
             />
             {completed ? <del>{title}</del> : <span>{title}</span>}
-            <button type="button" hidden={completed} onClick={() => this.handleEdit(id, title)}>
+            <button type="button" hidden={completed} onClick={() => router.updatePathSearch(id)}>
               Edit
             </button>
-            <button type="button" onClick={() => this.props.repo.deleteTodo(id)}>
+            <button type="button" onClick={() => state.deleteTodo(id)}>
               Delete
             </button>
           </div>
-          <span style={{color: dueDateColor}}>{dueDate}</span>
+          {dueDateColor && <span style={{color: dueDateColor}}>{dueDate}</span>}
         </div>
       </li>
     )
