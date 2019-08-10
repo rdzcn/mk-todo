@@ -74,14 +74,13 @@ class State extends EventEmitter {
       return false
     }
 
-    this.data.todos
-      .filter(todo => todo.id === id)
-      .map(todo => {
-         todo.title = title
-         todo.category = category
-         todo.dueDate = dueDate
-         return todo
-      })
+    const editedTodo = { id, title, dueDate, category }
+    this.data.todos.map(todo => {
+      if (todo.id === id) {
+        Object.assign(todo, editedTodo)
+      } 
+      return todo
+    })
     this.editingTitle = null
     this.emit('stateChanged')
     this.persist()

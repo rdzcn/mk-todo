@@ -17,8 +17,8 @@ const Content = ({ router, state }) => {
 
   return (
     <div>
-      <h2 className="content-header">{ header }</h2>
-      { component }
+      <h2 className="content-header">{header}</h2>
+      {component}
     </div>
   )
 }
