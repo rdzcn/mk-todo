@@ -88,7 +88,7 @@ class State extends EventEmitter {
 
   addCategory(category) {
     if (category) {
-      if (category.trim() === 0) {
+      if (category.trim().length === 0) {
         return false
       }
       category = category.trim()

@@ -2,7 +2,7 @@
   "name": "mk-todo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://week-27--angry-goldstine-203e71.netlify.com/",
+  "homepage": "https://angry-goldstine-203e71.netlify.com/",
   "dependencies": {
     "babel-loader": "8.0.5",
     "react": "^16.8.6",
