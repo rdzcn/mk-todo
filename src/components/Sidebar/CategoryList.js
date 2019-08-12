@@ -12,9 +12,9 @@ class CategoryList extends React.Component {
         {
           categories.map(category => {
             if (category === router.search) {
-              return <EditingCategory key={category} category={category} state={state} router={router} />
+              return <EditingCategory key={category.id} category={category} state={state} router={router} />
             } else {
-              return <Category key={category} category={category} state={state} router={router} />
+              return <Category key={category.id} category={category} state={state} router={router} />
             }
           })
         }

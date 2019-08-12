@@ -22,7 +22,7 @@ class Router extends EventEmitter {
   getRoute() {
     const route = this.pathnameToRoute(this.pathname)
 
-    if (this.categories.includes(route) || route === 'search' ) {
+    if (this.categories.filter(category => category === route) || route === 'search' ) {
       return route
     } else {
       return '404'

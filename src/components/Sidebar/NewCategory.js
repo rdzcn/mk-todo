@@ -3,37 +3,37 @@ import React from "react"
 class NewCategory extends React.Component {
   
   state = {
-    categoryName: ""
+    categoryTitle: ""
   }
 
-  handleCategoryNameChange = event => {
-    const categoryName = event.target.value
+  handleCategoryTitleChange = event => {
+    const categoryTitle = event.target.value
     this.setState({ 
-      categoryName
+      categoryTitle
     })
   }
 
   handleSubmit = event => {
     event.preventDefault()
-    const { categoryName } = this.state
+    const { categoryTitle } = this.state
     const { state, router } = this.props
-    state.addCategory(categoryName)
-    router.updatePathname(categoryName)
-    router.updateCategories(categoryName)
+    state.addCategory(categoryTitle)
+    router.updatePathname(categoryTitle)
+    router.updateCategories(categoryTitle)
     this.setState({
-      categoryName: ""
+      categoryTitle: ""
     })
   }
 
   render() {
-    const { categoryName } = this.state
+    const { categoryTitle } = this.state
     return (
       <div className="new-category">
         <form onSubmit={this.handleSubmit}>
           <input 
             type="text" 
-            value={categoryName} 
-            onChange={this.handleCategoryNameChange} 
+            value={categoryTitle} 
+            onChange={this.handleCategoryTitleChange} 
           />
           <button type="submit">
             Add Category

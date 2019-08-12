@@ -5,8 +5,8 @@ class Category extends React.Component {
 
   handleRename = () => {
     const { router, category } = this.props
-    router.updatePathname(category)
-    router.updatePathSearch(category)
+    router.updatePathname(category.title)
+    router.updatePathSearch(category.title)
   }
 
   render() {
@@ -15,13 +15,13 @@ class Category extends React.Component {
     return (
       <li key={category} className="sidebar-category">
         <div>
-          <Link to={category} router={router}>
-            {category}
+          <Link to={category.title} router={router}>
+            {category.title}
           </Link>
           <button onClick={this.handleRename}>
             Rename
           </button>
-          <button onClick={() => state.deleteCategory(category)}>
+          <button onClick={() => state.deleteCategory(category.id)}>
             Delete
           </button>
         </div>

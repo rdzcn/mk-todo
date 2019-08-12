@@ -9,42 +9,61 @@ class State extends EventEmitter {
     this.editingTitle = null
     this.editingCategory = null
   }
-
+  
   persist() {
     this.writeData()
   }
-
-  deleteCategory(category) {
-    const index = this.data.categories.indexOf(category)
-    this.data.categories.splice(index, 1)
+  
+  addCategory(categoryTitle, id = null) {
+    if (categoryTitle) {
+      if (categoryTitle.trim().length === 0) {
+        return false
+      }
+      categoryTitle = categoryTitle.trim()
+    } else {
+      return false
+    }
+    const category = {
+      title: categoryTitle,
+      id: id || uuid()
+    }
+    this.data.categories = [...this.data.categories, category]
     this.emit('stateChanged')
     this.persist()
   }
-
-  deleteTodo(id) {
-    this.data.todos = this.data.todos.filter(todo => todo.id !== id)
-    this.emit('stateChanged')
-    this.persist();
-  }
-
-  editCategory(category) {
-    if (this.editingCategory !== "") {
-      return
+  
+  addTodo(params) {
+    let { title, category, dueDate = '', id = null } = params
+  
+    if (title) {
+      if (title.trim().length === 0) {
+        return false
+      }
+      title = title.trim()
     } else {
-      this.editingCategoryID = this.data.categories.indexOf(category)
-      this.editingCategory = category
-      this.emit('stateChanged')
+      return false
     }
-  }
-
-  updateEditingCategory(category) {
-    this.editingCategory = category
+  
+    const dueDateFormat = /\d{4}-\d{2}-\d{2}/
+    if (!isNaN(Date.parse(dueDate)) && dueDate.match(dueDateFormat)) {
+      dueDate = new Date(dueDate).toISOString().substr(0, 10);
+    } else {
+      dueDate = ""
+    }
+  
+    const todo = {
+      title,
+      category,
+      dueDate,
+      completed: false,
+      id: id || uuid(),
+      createdAt: Date.now(),
+      modifiedAt: Date.now()
+    }
+  
+    this.data.todos= [...this.data.todos, todo]
     this.emit('stateChanged')
-  }
-
-  updateEditingTitle(title) {
-    this.editingTitle = title
-    this.emit('stateChanged');
+    this.persist()
   }
 
   saveCategory(index) {
@@ -84,54 +103,29 @@ class State extends EventEmitter {
     this.editingTitle = null
     this.emit('stateChanged')
     this.persist()
-  };
+  }
 
-  addCategory(category) {
-    if (category) {
-      if (category.trim().length === 0) {
-        return false
-      }
-      category = category.trim()
-    } else {
-      return false
-    }
-    this.data.categories = [...this.data.categories, category]
+  deleteCategory(category) {
+    const index = this.data.categories.indexOf(category)
+    this.data.categories.splice(index, 1)
     this.emit('stateChanged')
     this.persist()
   }
 
-  addTodo(params) {
-    let { title, category, dueDate = "", id = null } = params
-
-    if (title) {
-      if (title.trim().length === 0) {
-        return false
-      }
-      title = title.trim()
-    } else {
-      return false
-    }
-
-    const dueDateFormat = /\d{4}-\d{2}-\d{2}/
-    if (!isNaN(Date.parse(dueDate)) && dueDate.match(dueDateFormat)) {
-      dueDate = new Date(dueDate).toISOString().substr(0, 10);
-    } else {
-      dueDate = ""
-    }
-
-    const todo = {
-      title,
-      category,
-      dueDate,
-      completed: false,
-      id: id || uuid(),
-      createdAt: Date.now(),
-      modifiedAt: Date.now()
-    }
-
-    this.data.todos= [...this.data.todos, todo]
+  deleteTodo(id) {
+    this.data.todos = this.data.todos.filter(todo => todo.id !== id)
     this.emit('stateChanged')
-    this.persist()
+    this.persist();
+  }
+
+  updateEditingCategory(category) {
+    this.editingCategory = category
+    this.emit('stateChanged')
+  }
+
+  updateEditingTitle(title) {
+    this.editingTitle = title
+    this.emit('stateChanged');
   }
 
   toggleCompletionForTodo(id) {
