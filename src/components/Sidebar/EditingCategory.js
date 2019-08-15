@@ -11,7 +11,7 @@ class EditingCategory extends React.Component {
   handleSave = event => {
     event.preventDefault()
     const { state, category } = this.props
-    state.editCategory(category.id)
+    state.editCategory(category)
   }
   
   render() {

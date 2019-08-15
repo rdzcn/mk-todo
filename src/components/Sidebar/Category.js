@@ -12,7 +12,7 @@ class Category extends React.Component {
           <Link to={category.title} router={router}>
             {category.title}
           </Link>
-          <button onClick={() => state.switchToEditingCategory(category.id)}>
+          <button onClick={() => state.switchToEditingCategory(category)}>
             Rename
           </button>
           <button onClick={() => state.deleteCategory(category.id)}>

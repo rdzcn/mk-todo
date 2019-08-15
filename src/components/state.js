@@ -68,10 +68,9 @@ class State extends EventEmitter {
     this.persist()
   }
 
-  switchToEditingCategory(id) {
-    const category = this.data.categories.find(category => category.id === id)
+  switchToEditingCategory(category) {
     this.editingCategoryTitle = category.title
-    this.editingItemID = id
+    this.editingItemID = category.id
     this.emit('stateChanged')
   }
 
@@ -80,24 +79,8 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
 
-  editCategory(id) {
-    let category = this.data.categories.find(category => category.id === id)
-    this.data.todos.map(todo => {
-      if (todo.category === category.title) {
-        todo.category = this.editingCategoryTitle
-      }
-      return todo
-    })
-    category.title = this.editingCategoryTitle
-    this.editingCategoryTitle = null
-    this.editingItemID = null
-    this.emit('stateChanged')
-    this.persist()
-  }
-
-  editTodo(params) {
-    let { title, category, dueDate, id } = params
-
+  editCategory(category) {
+    let title = this.editingCategoryTitle
     if (title) {
       if (title.trim().length === 0) {
         return false
@@ -106,14 +89,42 @@ class State extends EventEmitter {
     } else {
       return false
     }
-
-    const editedTodo = { id, title, dueDate, category }
     this.data.todos.map(todo => {
-      if (todo.id === id) {
-        Object.assign(todo, editedTodo)
-      } 
+      if (todo.category === category.title) {
+        todo.category = title
+      }
       return todo
     })
+    category.title = title
+    this.editingCategoryTitle = null
+    this.editingItemID = null
+    this.emit('stateChanged')
+    this.persist()
+  }
+
+  switchToEditingTodo(todo) {
+    this.editingTodoTitle = todo.title
+    this.editingItemID = todo.id
+    this.emit('stateChanged')
+  }
+
+  updateTodoTitle(title) {
+    this.editingTodoTitle = title
+    this.emit('stateChanged')
+  }
+
+  editTodo(todo) {
+    let title = this.editingTodoTitle
+    if (title) {
+      if (title.trim().length === 0) {
+        return false
+      }
+      title = title.trim()
+    } else {
+      return false
+    }
+    todo.title = title
+    todo.modifiedAt = Date.now()
     this.editingTodoTitle = null
     this.editingItemID = null
     this.emit('stateChanged')
@@ -132,17 +143,11 @@ class State extends EventEmitter {
     this.persist();
   }
 
-  updateTodo(todo) {
-    this.editingTodoTitle = todo.title
-    this.editingItemID = todo.id
-    this.emit('stateChanged');
-  }
-
   toggleCompletionForTodo(id) {
     this.data.todos.map(todo => {
       if (todo.id === id) {
-        todo.completed = !todo.completed;
-        todo.modifiedAt = Date.now();
+        todo.completed = !todo.completed
+        todo.modifiedAt = Date.now()
       }
       return todo
     })

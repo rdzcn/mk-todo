@@ -20,7 +20,7 @@ class Todo extends React.Component {
               onChange={() => state.toggleCompletionForTodo(id)}
             />
             {completed ? <del>{title}</del> : <span>{title}</span>}
-            <button type="button" hidden={completed} onClick={() => state.updateTodo(todo)}>
+            <button type="button" hidden={completed} onClick={() => state.switchToEditingTodo(todo)}>
               Edit
             </button>
             <button type="button" onClick={() => state.deleteTodo(id)}>
