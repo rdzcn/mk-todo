@@ -2,29 +2,21 @@ import React from "react"
 
 class EditingCategory extends React.Component {
   
-	handleCategoryChange = event => {
-    const category = event.target.value
-    const { state, router } = this.props
-    state.updateEditingCategory(category)
-    router.updatePathname(`/${category}`)
+	handleCategoryTitleChange = event => {
+    const title = event.target.value
+    const { state } = this.props
+    state.updateCategoryTitle(title)
   }
   
   handleSave = event => {
     event.preventDefault()
-    const { state, router, category } = this.props
-    const { editingCategory } = state
-    if (!editingCategory) {
-      router.resetPath()
-    } else {
-      const prevCategoryIndex = router.categories.indexOf(category)
-      state.saveCategory(prevCategoryIndex)
-      router.updateCategories(editingCategory)
-    }
+    const { state, category } = this.props
+    state.editCategory(category.id)
   }
   
   render() {
-    const { category, router, state } = this.props
-    const { editingCategory } = state
+    const { state } = this.props
+    const { editingCategoryTitle } = state
     
     return (
       <li>
@@ -33,13 +25,13 @@ class EditingCategory extends React.Component {
             <input
               type="text"
               name="category"
-              value={editingCategory || category}
-              onChange={this.handleCategoryChange}
+              value={editingCategoryTitle}
+              onChange={this.handleCategoryTitleChange}
             />
             <button type="submit">
               Save
             </button>
-            <button type="button" onClick={() => router.resetPath()} >
+            <button type="button" onClick={() => state.cancel()} >
               Cancel
             </button>
           </form>

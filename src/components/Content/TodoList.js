@@ -38,7 +38,7 @@ class TodoList extends React.Component {
         <ul>
           {
             todosByCategory.sort(sorterMethod).map(todo => {
-              if (todo.id === search) {
+              if (todo.id === state.editingItemID) {
                 return <EditingTodo key={todo.id} todo={todo} router={router} state={state} />
               } else {
                 return <Todo key={todo.id} todo={todo} router={router} state={state} />

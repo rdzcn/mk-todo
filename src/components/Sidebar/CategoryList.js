@@ -11,7 +11,7 @@ class CategoryList extends React.Component {
       <ul>
         {
           categories.map(category => {
-            if (category === router.search) {
+            if (category.id === state.editingItemID) {
               return <EditingCategory key={category.id} category={category} state={state} router={router} />
             } else {
               return <Category key={category.id} category={category} state={state} router={router} />
