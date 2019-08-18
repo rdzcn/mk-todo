@@ -4,14 +4,14 @@ import SearchResults from './SearchResults'
  
 const Content = ({ router, state }) => {
   
-  const renderSearch = router.route === 'search'
+  const renderSearch = state.route === 'search'
   let component, header
 
   if (renderSearch) {
-    header = `Searching for: ${router.search}`
+    header = `Searching for: ${state.search}`
     component = <SearchResults state={state} router={router} />
   } else {
-    header = router.route.charAt(0).toUpperCase() + router.route.slice(1)
+    header = state.route
     component = <MainSection state={state} router={router} />
   }
 
