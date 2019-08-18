@@ -6,17 +6,15 @@ class TodoList extends React.Component {
 
   handleSelect = event => {
     const sortBy = event.target.value
-    this.props.router.updatePathSearch(sortBy)
   }
 
   render() {
-    const { state, filters, header, router, sorters } = this.props
-    const { route, search } = router
-    const { data } = state
-    const sortBy = search || 'createdAt'
+    const { state, filters, header, sorters } = this.props
+    const category = state.route
+    const sortBy = 'createdAt'
     const sorterMethod = sorters[sortBy]
-    const todos = filters[0](data.todos)
-    const todosByCategory = filters[1](route)(todos)
+    const todosByCompletion = filters.completion(state.data.todos)
+    const todosByCategory = filters.category(category)(todosByCompletion)
 
     return (
       <div className="todos">
@@ -39,9 +37,9 @@ class TodoList extends React.Component {
           {
             todosByCategory.sort(sorterMethod).map(todo => {
               if (todo.id === state.editingItemID) {
-                return <EditingTodo key={todo.id} todo={todo} router={router} state={state} />
+                return <EditingTodo key={todo.id} todo={todo} state={state} />
               } else {
-                return <Todo key={todo.id} todo={todo} router={router} state={state} />
+                return <Todo key={todo.id} todo={todo} state={state} />
               }
             })
           }

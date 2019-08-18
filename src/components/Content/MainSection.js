@@ -3,21 +3,11 @@ import NewTodo from './NewTodo'
 import TodoList from './TodoList'
 import ShowCompletedToggler from './ShowCompletedToggler'
 
-const MainSection = ({ state, router }) => {
+const MainSection = ({ state }) => {
 
-  const filterUncompletedTodos = todos => {
-    return todos.filter(todo => !todo.completed)
-  }
-
-  const filterCompletedTodos = todos => {
-    return todos.filter(todo => todo.completed)
-  }
-
-  const filterByCategory = category => {
-    return todos => { 
-      return todos.filter(todo => todo.category === category) 
-    }
-  }
+  const filterUncompletedTodos = todos => todos.filter(todo => !todo.completed)
+  const filterCompletedTodos = todos => todos.filter(todo => todo.completed)
+  const filterByCategory = category => todos => todos.filter(todo => todo.category === category)
 
   const sorters = {
     title: (a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()),
@@ -28,10 +18,10 @@ const MainSection = ({ state, router }) => {
 
   return (
     <div>
-      <NewTodo state={state} router={router} />
-      <TodoList state={state} router={router} header="Todos" sorters={sorters} filters={[ filterUncompletedTodos, filterByCategory ]} />
+      <NewTodo state={state} />
+      <TodoList state={state} header="Todos" sorters={sorters} filters={{category: filterByCategory, completion: filterUncompletedTodos }} />
       <ShowCompletedToggler state={state}>
-        <TodoList state={state} router={router} header="Completed Todos" sorters={sorters} filters={[ filterCompletedTodos, filterByCategory ]} />
+        <TodoList state={state} header="Completed Todos" sorters={sorters} filters={{category: filterByCategory, completion: filterCompletedTodos }} />
       </ShowCompletedToggler>
     </div>
   )
