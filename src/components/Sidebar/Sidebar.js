@@ -7,9 +7,9 @@ const Sidebar = ({ state, router }) => {
 
   return (
     <ul>
-      <Search state={state} router={router} />
-      <CategoryList state={state} router={router} />
-      <NewCategory state={state} router={router} />
+      <Search state={state} />
+      <CategoryList state={state} />
+      <NewCategory state={state} />
     </ul>
   )
 }
