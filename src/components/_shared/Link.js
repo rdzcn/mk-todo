@@ -4,7 +4,8 @@ class Link extends React.Component {
   
   handleRoute = event => {
     event.preventDefault()
-    this.props.router.updatePathname(this.props.to)
+    const { state, to } = this.props
+    state.navigateTo(to)
   }
   
   render() {
