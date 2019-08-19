@@ -39,8 +39,7 @@ class EditingTodo extends React.Component {
   render() {
     const { todo, state } = this.props
 		const { editingTodoTitle, data } = state
-    const { id } = todo
-    const categories = data.categories
+    const { categories } = data
     
     return (
       <li>
@@ -51,7 +50,7 @@ class EditingTodo extends React.Component {
                 <input
                   type="text"
                   name="title"
-                  value={editingTodoTitle || todo.title}
+                  value={editingTodoTitle}
                   onChange={this.handleTodoTitleChange}
                 />
                 <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>

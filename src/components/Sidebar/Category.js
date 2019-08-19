@@ -4,12 +4,12 @@ import Link from '../_shared/Link'
 class Category extends React.Component {
 
   render() {
-    const { state, category, router } = this.props
+    const { state, category } = this.props
     
     return (
       <li key={category.id} className="sidebar-category">
         <div>
-          <Link to={category.title} router={router}>
+          <Link to={category.title} state={state}>
             {category.title}
           </Link>
           <button onClick={() => state.switchToEditingCategory(category)}>
