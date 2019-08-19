@@ -6,10 +6,13 @@ class State extends EventEmitter {
     super()
     this.data = persistentStorage.read()
     this.writeData = () => persistentStorage.write(this.data)
-    this.route = ''
+    this.pathname = window.location.pathname
+    this.routes = this.router.getRoutes(this.data.categories)
+    this.route = this.routes[this.pathname]
     this.editingTodoTitle = null
     this.editingCategoryTitle = null
     this.editingItemID = null
+    this.searchFor = ''
   }
   
   persist() {
@@ -165,6 +168,35 @@ class State extends EventEmitter {
     this.editingTodoTitle = null
     this.editingCategoryTitle = null
     this.editingItemID = null
+    this.emit('stateChanged')
+  }
+
+  router = {
+    getRoutes(categories) {
+      let defaultRoutes = {
+        '/': 'My Todos',
+        '/search': 'search'
+      }
+      return (
+        categories
+          .reduce(function(routes, category) {
+            routes[`/${category.title.replace(' ', '%20')}`] = category.title
+            return routes
+          }, defaultRoutes)
+      )
+    }
+  }
+
+  navigateTo(to) {
+    this.pathname = Object.keys(this.routes).find(pathname => this.routes[pathname] === to)
+    this.route = to
+    this.searchFor = ''
+    window.history.pushState(null, null, this.pathname)
+    this.emit('stateChanged')
+  }
+
+  updateSearchFor(text) {
+    this.searchFor = text
     this.emit('stateChanged')
   }
 }
