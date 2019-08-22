@@ -64,8 +64,8 @@
 
 1. Please convert categories to proper objects with an ID and a title. Instead of operating on strings, refactor the app to operate on ids.
 
-  - 
+  - Not using the `id`s but the `title`s. I will look into that. 
 
 2. Router is a great idea, I’m glad you came up with it. We need to refactor it so that it serves our app nicely. I would suggest that we encapsulate it in the State. State might have methods like `navigateToCategory(categoryID)` which would cause changes to the Router. Whenever something in the Router changes, State will get notified and change something in itself, cause stateChanged notification and the React layer will be updated. Please experiment with it and try
 
-  -
+  - Not using the `id`s but the `title`s. I will look into that. 
