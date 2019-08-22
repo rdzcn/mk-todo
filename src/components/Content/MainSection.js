@@ -10,10 +10,10 @@ const MainSection = ({ state }) => {
   const filterByCategory = category => todos => todos.filter(todo => todo.category === category)
 
   const sorters = {
-    title: (a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()),
-    modifiedAt: (a, b) => a.modifiedAt - b.modifiedAt,
-    createdAt: (a, b) => a.createdAt - b.createdAt,
-    dueDate: (a, b) => new Date(a.dueDate) - new Date(b.dueDate)
+    sortByTitle: todos => todos.sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase())),
+    sortByModifiedAt: todos => todos.sort((a, b) => a.modifiedAt - b.modifiedAt),
+    sortByCreatedAt: todos => todos.sort((a, b) => a.createdAt - b.createdAt),
+    sortByDueDate: todos => todos.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
   }
 
   return (

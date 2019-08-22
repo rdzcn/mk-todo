@@ -13,6 +13,7 @@ class State extends EventEmitter {
     this.editingCategoryTitle = null
     this.editingItemID = null
     this.searchFor = ''
+    this.sortBy = 'sortByCreatedAt'
   }
   
   persist() {
@@ -197,6 +198,11 @@ class State extends EventEmitter {
 
   updateSearchFor(text) {
     this.searchFor = text
+    this.emit('stateChanged')
+  }
+
+  updateSortBy(sortBy) {
+    this.sortBy = sortBy
     this.emit('stateChanged')
   }
 }
