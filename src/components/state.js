@@ -8,7 +8,7 @@ class State extends EventEmitter {
     this.writeData = () => persistentStorage.write(this.data)
     this.pathname = window.location.pathname
     this.routes = this.router.getRoutes(this.data.categories)
-    this.route = this.routes[this.pathname]
+    this.route = null || this.routes[this.pathname]
     this.editingTodoTitle = null
     this.editingCategoryTitle = null
     this.editingItemID = null
