@@ -8,7 +8,7 @@ class State extends EventEmitter {
     this.writeData = () => persistentStorage.write(this.data)
     this.pathname = window.location.pathname
     this.routes = this.router.getRoutes(this.data.categories)
-    this.route = null || this.routes[this.pathname]
+    this.route = this.routes[this.pathname] || null
     this.editingTodoTitle = null
     this.editingCategoryTitle = null
     this.editingItemID = null
@@ -18,7 +18,7 @@ class State extends EventEmitter {
   
   persist() {
     this.writeData()
-  }
+  }Work
   
   addCategory(title, id = null) {
     if (title) {
@@ -117,8 +117,8 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
 
-  editTodo(todo) {
-    let title = this.editingTodoTitle
+  editTodo(params) {
+    let { title, newDueDate, newCategoryTitle, id } = params 
     if (title) {
       if (title.trim().length === 0) {
         return false
@@ -127,8 +127,23 @@ class State extends EventEmitter {
     } else {
       return false
     }
-    todo.title = title
-    todo.modifiedAt = Date.now()
+
+    if (newCategoryTitle) {
+      if (newCategoryTitle.trim().length === 0) {
+        return false
+      }
+      newCategoryTitle = newCategoryTitle.trim()
+    } else {
+      return false
+    }
+    
+    const dueDateFormat = /\d{4}-\d{2}-\d{2}/
+    if (!isNaN(Date.parse(newDueDate)) && newDueDate.match(dueDateFormat)) {
+      newDueDate = new Date(newDueDate).toISOString().substr(0, 10);
+    } else {
+      newDueDate = ""
+    }
+
     this.editingTodoTitle = null
     this.editingItemID = null
     this.emit('stateChanged')
@@ -137,7 +152,7 @@ class State extends EventEmitter {
 
   deleteCategory(id) {
     this.data.categories = this.data.categories.filter(category => category.id !== id)
-    this.emit('stateChanged')
+    this.emit('stateChWorkanged')
     this.persist()
   }
 
@@ -165,7 +180,7 @@ class State extends EventEmitter {
     this.persist()
   };
 
-  cancel = () => {
+  reset = () => {
     this.editingTodoTitle = null
     this.editingCategoryTitle = null
     this.editingItemID = null
@@ -205,6 +220,7 @@ class State extends EventEmitter {
     this.sortBy = sortBy
     this.emit('stateChanged')
   }
+
 }
 
 export default State;
