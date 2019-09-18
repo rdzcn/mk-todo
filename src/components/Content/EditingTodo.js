@@ -5,8 +5,8 @@ class EditingTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dueDate: this.props.todo.dueDate,
-      category: this.props.todo.category
+      newDueDate: props.todo.dueDate,
+      newCategoryTitle: this.props.todo.category
     }
   }
 
@@ -17,23 +17,27 @@ class EditingTodo extends React.Component {
   }
 
   handleDueDateChange = event => {
-    const dueDate = event.target.value
-    this.setState({ dueDate })
+    const newDueDate = event.target.value
+    this.setState({ newDueDate })
   }
 
   handleTodoCategoryChange = event => {
-    const category = event.target.value
-    this.setState({ category })
+    const newCategoryTitle = event.target.value
+    this.setState({ newCategoryTitle })
   }
 
   handleSave = event => {
 		event.preventDefault()
-    const { dueDate, category } = this.state
-    const { state } = this.props
-    let { todo } = this.props
-    todo.dueDate = dueDate
-    todo.category = category
-    state.editTodo(todo)
+    const { newDueDate, newCategoryTitle } = this.state
+    const { state, todo } = this.props
+    const { editingTitle } = state
+    const params = {
+      id: todo.id,
+      title: editingTitle,
+      newDueDate,
+      newCategoryTitle
+    }
+    state.editTodo(params)
 	}
 
   render() {
@@ -71,7 +75,7 @@ class EditingTodo extends React.Component {
                 <button type="submit">
                   Save
                 </button>
-                <button type="reset" onClick={() => state.cancel()} >
+                <button type="reset" onClick={() => state.reset()} >
                   Cancel
                 </button>
               </div>
