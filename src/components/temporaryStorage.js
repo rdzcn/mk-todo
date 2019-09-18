@@ -4,8 +4,13 @@ class TemporaryStorage {
   constructor() {
     this.data = {
       showCompleted: false,
-      categories: ['My Todos', 'Home Related', 'Work Related', 'Groceries'],
-      todos: [] 
+      todos: [], 
+      categories: [
+        {id: 0, title: 'My Todos'},
+        {id: 1, title: 'Work'},
+        {id: 2, title: 'Home'},
+        {id: 3, title: 'Groceries'}
+      ]
     }
   }
   read() {
@@ -19,8 +24,13 @@ class TemporaryStorage {
   reset() {
     this.data = {
       showCompleted: false,
-      categories: ['My Todos', 'Home Related', 'Work Related', 'Groceries'],
-      todos: [] 
+      todos: [], 
+      categories: [
+        {id: 0, title: 'My Todos'},
+        {id: 1, title: 'Work'},
+        {id: 2, title: 'Home'},
+        {id: 3, title: 'Groceries'}
+      ]
     }
   }
 }
