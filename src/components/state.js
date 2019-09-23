@@ -221,6 +221,17 @@ class State extends EventEmitter {
     this.emit('stateChanged')
   }
 
+  handleMenuClick() {
+    const menuLines = document.querySelectorAll('.menu-icon-line')
+    let mappedLines = {}
+    menuLines.forEach((line, index) => {
+      mappedLines[index + 1] = line
+    })
+    mappedLines[1].classList.toggle('line-1')
+    mappedLines[2].classList.toggle('line-2')
+    mappedLines[3].classList.toggle('line-3')
+  }
+
 }
 
 export default State;
