@@ -6,17 +6,16 @@ class TodoList extends React.Component {
 
   handleSelect = event => {
     const sortBy = event.target.value
-    this.props.router.updatePathSearch(sortBy)
+    this.props.state.updateSortBy(sortBy)
   }
 
   render() {
-    const { state, filters, header, router, sorters } = this.props
-    const { route, search } = router
-    const { data } = state
-    const sortBy = search || 'createdAt'
-    const sorterMethod = sorters[sortBy]
-    const todos = filters[0](data.todos)
-    const todosByCategory = filters[1](route)(todos)
+    const { state, filters, header, sorters } = this.props
+    const { sortBy, data } = state
+    const category = state.route
+    const todosByCompletion = filters.completion(data.todos)
+    const todosByCategory = filters.category(category)(todosByCompletion)
+    const sortedTodos = sorters[sortBy](todosByCategory)
 
     return (
       <div className="todos">
@@ -29,19 +28,19 @@ class TodoList extends React.Component {
 						Sort todos by:
           </label>
           <select defaultValue={sortBy} onInput={this.handleSelect}>
-            <option value="title">Alphabetically</option>
-            <option value="createdAt">Creation Date</option>
-            <option value="dueDate">Due Date</option>
-            <option value="modifiedAt">Modification Date</option>
+            <option value="sortByTitle">Alphabetically</option>
+            <option value="sortByCreatedAt">Creation Date</option>
+            <option value="sortByDueDate">Due Date</option>
+            <option value="sortByModifiedAt">Modification Date</option>
           </select>
         </form>
         <ul>
           {
-            todosByCategory.sort(sorterMethod).map(todo => {
-              if (todo.id === search) {
-                return <EditingTodo key={todo.id} todo={todo} router={router} state={state} />
+            sortedTodos.map(todo => {
+              if (todo.id === state.editingItemID) {
+                return <EditingTodo key={todo.id} todo={todo} state={state} />
               } else {
-                return <Todo key={todo.id} todo={todo} router={router} state={state} />
+                return <Todo key={todo.id} todo={todo} state={state} />
               }
             })
           }

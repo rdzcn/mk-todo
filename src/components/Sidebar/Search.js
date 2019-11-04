@@ -4,25 +4,23 @@ import Link from '../_shared/Link'
 class Search extends React.Component {
   
   handleChange = event => {
-    const searchText = event.target.value
-    this.props.router.updatePathSearch(searchText)
+    const text = event.target.value
+    this.props.state.updateSearchFor(text)
   }
 
   render() {
-    const searchText  = window.location.search.replace('?', '')
-    const { router } = this.props
-    const { route } = router
-
+    const { state } = this.props
+    const { searchFor } = state
     return (
       <form>
-        <Link to='/search' router={router}>
+        <Link to='search' state={state}>
           <button type="button">Search</button>
         </Link>
         {
-          route === 'search' &&
+          state.route === 'search' &&
             <input 
               type="text"
-              value={searchText} 
+              value={searchFor} 
               onChange={this.handleChange} 
             /> 
         }

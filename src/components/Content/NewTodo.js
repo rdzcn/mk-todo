@@ -5,8 +5,8 @@ class NewTodo extends React.Component {
   constructor(props) {
     super(props);
       this.state = {
-        dueDate: "",
-        title: ""
+        dueDate: '',
+        title: ''
       }  
   }
 
@@ -20,13 +20,14 @@ class NewTodo extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    const { state, router } = this.props
+    const { state } = this.props
     const { dueDate, title } = this.state
     
-    state.addTodo({title: title, category: router.route, dueDate: dueDate})
+    state.addTodo({title: title, categoryTitle: state.route, dueDate: dueDate})
     
     this.setState({ 
-      title: ""
+      title: '',
+      dueDate: ''
     })
   }
 

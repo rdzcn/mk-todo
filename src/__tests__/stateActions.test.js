@@ -97,7 +97,7 @@ describe('testing saveTodo', () => {
       dueDate: null, 
       id: 99
     })
-    state.saveTodo({title: 'world', category: 'work', dueDate: '2019-10-10', id: 99})
+    state.editTodo({title: 'world', category: 'work', dueDate: '2019-10-10', id: 99})
     expect(temporaryStorage.read().todos[0].title).toBe('world')
     expect(temporaryStorage.read().todos[0].category).toBe('work')
     expect(temporaryStorage.read().todos[0].dueDate).toBe('2019-10-10')
@@ -110,7 +110,7 @@ describe('testing saveTodo', () => {
       dueDate: null, 
       id: 99
     })
-    state.saveTodo({title: '  ', category: 'work', dueDate: '2019-10-10', id: 99})
+    state.editTodo({title: '  ', category: 'work', dueDate: '2019-10-10', id: 99})
     expect(temporaryStorage.read().todos[0].title).toBe('hello')
   })
 })

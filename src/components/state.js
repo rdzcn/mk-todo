@@ -6,65 +6,21 @@ class State extends EventEmitter {
     super()
     this.data = persistentStorage.read()
     this.writeData = () => persistentStorage.write(this.data)
-    this.editingTitle = null
-    this.editingCategory = null
+    this.pathname = window.location.pathname
+    this.routes = this.router.getRoutes(this.data.categories)
+    this.route = this.routes[this.pathname] || null
+    this.editingTodoTitle = null
+    this.editingCategoryTitle = null
+    this.editingItemID = null
+    this.searchFor = ''
+    this.sortBy = 'sortByCreatedAt'
   }
-
+  
   persist() {
     this.writeData()
-  }
-
-  deleteCategory(category) {
-    const index = this.data.categories.indexOf(category)
-    this.data.categories.splice(index, 1)
-    this.emit('stateChanged')
-    this.persist()
-  }
-
-  deleteTodo(id) {
-    this.data.todos = this.data.todos.filter(todo => todo.id !== id)
-    this.emit('stateChanged')
-    this.persist();
-  }
-
-  editCategory(category) {
-    if (this.editingCategory !== "") {
-      return
-    } else {
-      this.editingCategoryID = this.data.categories.indexOf(category)
-      this.editingCategory = category
-      this.emit('stateChanged')
-    }
-  }
-
-  updateEditingCategory(category) {
-    this.editingCategory = category
-    this.emit('stateChanged')
-  }
-
-  updateEditingTitle(title) {
-    this.editingTitle = title
-    this.emit('stateChanged');
-  }
-
-  saveCategory(index) {
-    const { editingCategory, data } = this
-    const { categories } = data
-    data.todos.map(todo => {
-      if (todo.category === categories[index]) {
-        todo.category = editingCategory
-      }
-      return todo
-    })
-    this.data.categories[index] = editingCategory
-    this.editingCategory = null
-    this.emit('stateChanged')
-    this.persist()
-  }
-
-  saveTodo(params) {
-    let { title, category, dueDate, id } = params
-
+  }Work
+  
+  addCategory(title, id = null) {
     if (title) {
       if (title.trim().length === 0) {
         return false
@@ -73,35 +29,17 @@ class State extends EventEmitter {
     } else {
       return false
     }
-
-    const editedTodo = { id, title, dueDate, category }
-    this.data.todos.map(todo => {
-      if (todo.id === id) {
-        Object.assign(todo, editedTodo)
-      } 
-      return todo
-    })
-    this.editingTitle = null
-    this.emit('stateChanged')
-    this.persist()
-  };
-
-  addCategory(category) {
-    if (category) {
-      if (category.trim() === 0) {
-        return false
-      }
-      category = category.trim()
-    } else {
-      return false
+    const category = {
+      title: title,
+      id: id || uuid()
     }
     this.data.categories = [...this.data.categories, category]
     this.emit('stateChanged')
     this.persist()
   }
-
+  
   addTodo(params) {
-    let { title, category, dueDate = "", id = null } = params
+    let { title, categoryTitle, dueDate = '', id = null } = params
 
     if (title) {
       if (title.trim().length === 0) {
@@ -111,7 +49,7 @@ class State extends EventEmitter {
     } else {
       return false
     }
-
+  
     const dueDateFormat = /\d{4}-\d{2}-\d{2}/
     if (!isNaN(Date.parse(dueDate)) && dueDate.match(dueDateFormat)) {
       dueDate = new Date(dueDate).toISOString().substr(0, 10);
@@ -121,24 +59,114 @@ class State extends EventEmitter {
 
     const todo = {
       title,
-      category,
       dueDate,
+      category: categoryTitle,
       completed: false,
       id: id || uuid(),
       createdAt: Date.now(),
       modifiedAt: Date.now()
     }
-
+  
     this.data.todos= [...this.data.todos, todo]
     this.emit('stateChanged')
     this.persist()
   }
 
+  switchToEditingCategory(category) {
+    this.editingCategoryTitle = category.title
+    this.editingItemID = category.id
+    this.emit('stateChanged')
+  }
+
+  updateCategoryTitle(title) {
+    this.editingCategoryTitle = title
+    this.emit('stateChanged')
+  }
+
+  editCategory(category) {
+    let title = this.editingCategoryTitle
+    if (title) {
+      if (title.trim().length === 0) {
+        return false
+      }
+      title = title.trim()
+    } else {
+      return false
+    }
+    this.data.todos.map(todo => {
+      if (todo.category === category.title) {
+        todo.category = title
+      }
+      return todo
+    })
+    category.title = title
+    this.editingCategoryTitle = null
+    this.editingItemID = null
+    this.emit('stateChanged')
+    this.persist()
+  }
+
+  switchToEditingTodo(todo) {
+    this.editingTodoTitle = todo.title
+    this.editingItemID = todo.id
+    this.emit('stateChanged')
+  }
+
+  updateTodoTitle(title) {
+    this.editingTodoTitle = title
+    this.emit('stateChanged')
+  }
+
+  editTodo(params) {
+    let { title, newDueDate, newCategoryTitle, id } = params 
+    if (title) {
+      if (title.trim().length === 0) {
+        return false
+      }
+      title = title.trim()
+    } else {
+      return false
+    }
+
+    if (newCategoryTitle) {
+      if (newCategoryTitle.trim().length === 0) {
+        return false
+      }
+      newCategoryTitle = newCategoryTitle.trim()
+    } else {
+      return false
+    }
+    
+    const dueDateFormat = /\d{4}-\d{2}-\d{2}/
+    if (!isNaN(Date.parse(newDueDate)) && newDueDate.match(dueDateFormat)) {
+      newDueDate = new Date(newDueDate).toISOString().substr(0, 10);
+    } else {
+      newDueDate = ""
+    }
+
+    this.editingTodoTitle = null
+    this.editingItemID = null
+    this.emit('stateChanged')
+    this.persist()
+  }
+
+  deleteCategory(id) {
+    this.data.categories = this.data.categories.filter(category => category.id !== id)
+    this.emit('stateChWorkanged')
+    this.persist()
+  }
+
+  deleteTodo(id) {
+    this.data.todos = this.data.todos.filter(todo => todo.id !== id)
+    this.emit('stateChanged')
+    this.persist();
+  }
+
   toggleCompletionForTodo(id) {
     this.data.todos.map(todo => {
       if (todo.id === id) {
-        todo.completed = !todo.completed;
-        todo.modifiedAt = Date.now();
+        todo.completed = !todo.completed
+        todo.modifiedAt = Date.now()
       }
       return todo
     })
@@ -152,12 +180,47 @@ class State extends EventEmitter {
     this.persist()
   };
 
-  cancel = () => {
-    this.editingTitle = null
-    this.editingCategoryID = null
-    this.editingCategory = ""
+  reset = () => {
+    this.editingTodoTitle = null
+    this.editingCategoryTitle = null
+    this.editingItemID = null
     this.emit('stateChanged')
   }
+
+  router = {
+    getRoutes(categories) {
+      let defaultRoutes = {
+        '/': 'My Todos',
+        '/search': 'search'
+      }
+      return (
+        categories
+          .reduce(function(routes, category) {
+            routes[`/${category.title.replace(' ', '%20')}`] = category.title
+            return routes
+          }, defaultRoutes)
+      )
+    }
+  }
+
+  navigateTo(to) {
+    this.pathname = Object.keys(this.routes).find(pathname => this.routes[pathname] === to)
+    this.route = to
+    this.searchFor = ''
+    window.history.pushState(null, null, this.pathname)
+    this.emit('stateChanged')
+  }
+
+  updateSearchFor(text) {
+    this.searchFor = text
+    this.emit('stateChanged')
+  }
+
+  updateSortBy(sortBy) {
+    this.sortBy = sortBy
+    this.emit('stateChanged')
+  }
+
 }
 
 export default State;

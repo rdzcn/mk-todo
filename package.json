@@ -2,13 +2,13 @@
   "name": "mk-todo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://week-27--angry-goldstine-203e71.netlify.com/",
+  "homepage": "https://angry-goldstine-203e71.netlify.com/",
   "dependencies": {
-    "babel-loader": "8.0.5",
+    "babel-loader": "8.0.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "uuid": "^3.3.2"
+    "react-scripts": "3.1.1",
+    "uuid": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -30,13 +30,13 @@
     ]
   },
   "devDependencies": {
-    "eslint": "5.16.0",
-    "babel-eslint": "10.0.1",
-    "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-jsx-a11y": "6.1.1",
+    "babel-eslint": "10.0.2",
+    "eslint": "6.3.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "^7.14.2",
-    "husky": "^2.4.1",
-    "lint-staged": "^8.2.1",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.1"
   }

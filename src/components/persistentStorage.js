@@ -1,13 +1,18 @@
+const initialState = { 
+  showCompleted: false,
+  todos: [], 
+  categories: [
+    {id: 0, title: 'My Todos'},
+    {id: 1, title: 'Work'},
+    {id: 2, title: 'Home'},
+    {id: 3, title: 'Groceries'}
+  ]
+}
+
 class PersistentStorage {
 
   read() {
-    const data = JSON.parse(localStorage.getItem('data')) || 
-      { 
-        showCompleted: false,
-        categories: ['My Todos', 'Home Related', 'Work Related', 'Groceries'],
-        todos: [] 
-      }
-    return data
+    return JSON.parse(localStorage.getItem('data')) || initialState
   }
 
   write(data) {

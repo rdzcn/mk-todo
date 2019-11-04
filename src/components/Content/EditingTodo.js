@@ -5,52 +5,57 @@ class EditingTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dueDate: this.props.todo.dueDate,
-      category: this.props.todo.category
+      newDueDate: props.todo.dueDate,
+      newCategoryTitle: this.props.todo.category
     }
   }
 
-	handleTitleChange = event => {
+	handleTodoTitleChange = event => {
     const title = event.target.value
-    this.props.state.updateEditingTitle(title)
+    const { state } = this.props
+    state.updateTodoTitle(title)
   }
 
   handleDueDateChange = event => {
-    const dueDate = event.target.value
-    this.setState({ dueDate })
+    const newDueDate = event.target.value
+    this.setState({ newDueDate })
   }
 
-  handleCategoryChange = event => {
-    const category = event.target.value
-    this.setState({ category })
+  handleTodoCategoryChange = event => {
+    const newCategoryTitle = event.target.value
+    this.setState({ newCategoryTitle })
   }
 
-  handleSave = (event) => {
+  handleSave = event => {
 		event.preventDefault()
-    const { dueDate, category } = this.state
-    const { state, todo, router } = this.props
+    const { newDueDate, newCategoryTitle } = this.state
+    const { state, todo } = this.props
     const { editingTitle } = state
-    state.saveTodo({title: editingTitle || todo.title, category: category, dueDate: dueDate, id: todo.id })
-    router.resetPath()
+    const params = {
+      id: todo.id,
+      title: editingTitle,
+      newDueDate,
+      newCategoryTitle
+    }
+    state.editTodo(params)
 	}
 
   render() {
-    const { todo, state, router } = this.props
-		const { editingTitle, data } = state
-    const { id } = todo
-    const categories = data.categories
+    const { todo, state } = this.props
+		const { editingTodoTitle, data } = state
+    const { categories } = data
     
     return (
       <li>
         <div className="todo editing">
           <div>
-            <form name={id} onSubmit={this.handleSave}>
+            <form onSubmit={this.handleSave}>
               <div>
                 <input
                   type="text"
                   name="title"
-                  value={editingTitle || todo.title}
-                  onChange={this.handleTitleChange}
+                  value={editingTodoTitle}
+                  onChange={this.handleTodoTitleChange}
                 />
                 <DueDate value={this.state.dueDate} handleDueDateChange={this.handleDueDateChange}/>
               </div>
@@ -58,10 +63,10 @@ class EditingTodo extends React.Component {
                 <label>
                   Move to another category
                 </label>
-                <select defaultValue={todo.category} onInput={this.handleCategoryChange}>
+                <select defaultValue={todo.category} onInput={this.handleTodoCategoryChange}>
                   {
                     categories.map(category => (
-                      <option key={category} value={category}>{category}</option>
+                      <option key={category.id} value={category.title}>{category.title}</option>
                     ))
                   }
                 </select>
@@ -70,7 +75,7 @@ class EditingTodo extends React.Component {
                 <button type="submit">
                   Save
                 </button>
-                <button type="reset" onClick={() => router.resetPath()} >
+                <button type="reset" onClick={() => state.reset()} >
                   Cancel
                 </button>
               </div>

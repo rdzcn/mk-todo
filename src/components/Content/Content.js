@@ -2,17 +2,21 @@ import React from 'react'
 import MainSection from './MainSection'
 import SearchResults from './SearchResults'
  
-const Content = ({ router, state }) => {
+const Content = ({ state }) => {
   
-  const renderSearch = router.route === 'search'
+  const renderContent = state.route
+  const renderSearch = state.route === 'search'
   let component, header
 
   if (renderSearch) {
-    header = `Searching for: ${router.search}`
-    component = <SearchResults state={state} router={router} />
+    header = `Searching for: ${state.searchFor}`
+    component = <SearchResults state={state} />
+  } else if (renderContent) {
+    header = state.route
+    component = <MainSection state={state} />
   } else {
-    header = router.route.charAt(0).toUpperCase() + router.route.slice(1)
-    component = <MainSection state={state} router={router} />
+    header = 'Not Found! You seem to be lost!'
+    component = <h1>404</h1>
   }
 
   return (
